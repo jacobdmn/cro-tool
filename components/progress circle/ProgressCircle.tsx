@@ -7,7 +7,7 @@ interface ProgressCircleProps {
 
 const ProgressCircle: React.FC<ProgressCircleProps> = ({ percent }) => {
   return (
-    <div className="relative -top-24 rounded-full bg-quizpage_bg p-2">
+    <div className="absolute -top-24 rounded-full bg-quizpage_bg p-2">
       <Progress
         className="mb-3"
         type="circle"

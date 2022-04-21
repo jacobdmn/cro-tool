@@ -23,7 +23,7 @@ const Home: NextPage = () => {
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center text-white">
         <div className={styles.auditWrapper}>
-          <h1 className="mb-8">Choose What You Want To Audit</h1>
+          <h1 className="mb-8 text-xl">Choose What You Want To Audit</h1>
           {auditButtons.map((btn) => (
             <Link href={`/${btn.slug}`} passHref>
               <a>

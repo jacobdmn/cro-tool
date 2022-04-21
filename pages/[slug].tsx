@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router'
 import Image from 'next/image'
+import QuizForm from '../components/quiz/QuizForm'
+import ProgressCircle from '../components/progress circle/ProgressCircle'
 
 import rc_logo from '../assets/images/rc_logo.png'
-import ProgressCircle from '../components/progress circle/ProgressCircle'
 
 const styles = {
   quizpage_header:
@@ -24,8 +25,12 @@ const QuizPage: React.FC<QuizPageProps> = ({}) => {
           Is your page structured to address the following 7 key elements?
         </h1>
       </header>
-      <div className="flex justify-center items-center flex-col">
+      <div className="relative flex flex-col items-center justify-center">
         <ProgressCircle percent={50} />
+        <div className="py-10 w-[70%] flex flex-col items-center justify-center gap-8">
+            <QuizForm />
+            <QuizForm />
+        </div>
       </div>
     </div>
   )

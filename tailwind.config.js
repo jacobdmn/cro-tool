@@ -9,6 +9,7 @@ module.exports = {
         main_color: '#3D035D',
         btn_color: '#CD1C6C',
         quizpage_bg: '#E9F5F7',
+        rc_green: '#32CCA7',
       },
     },
   },
