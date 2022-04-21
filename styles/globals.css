@@ -38,6 +38,6 @@
 .quizpage_header{
     background-image: url("../assets/images/header_bg.png");
     background-size:cover;
-    background-position-x: left;
+    background-position-x: center;
     background-repeat: no-repeat;
 }
