@@ -37,7 +37,21 @@
 
 .quizpage_header{
     background-image: url("../assets/images/header_bg.png");
-    background-size:cover;
+    background-size:100% 100%;
+    background-position-x: center;
+    background-repeat: no-repeat;
+}
+
+.quizpage_footer1{
+    background-image: url("../assets/images/footer_bg_1.png");
+    background-size:100% 100%;
+    background-position-x: center;
+    background-repeat: no-repeat;
+}
+
+.quizpage_footer2{
+    background-image: url("../assets/images/footer_bg_2.png");
+    background-size:100% 100%;
     background-position-x: center;
     background-repeat: no-repeat;
 }
