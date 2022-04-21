@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200&family=Poppins:wght@100&display=swap');
+
+*{
+    font-family:"Poppins",
+    sans-serif;
+}
+
+@layer base {
+  h1 {
+    @apply text-5xl;
+  }
+
+  h2 {
+    @apply text-4xl;
+  }
+
+  h3 {
+    @apply text-3xl;
+  }
+
+  h4 {
+    @apply text-2xl;
+  }
+
+  h5 {
+    @apply text-xl;
+  }
+
+  h6 {
+    @apply text-lg;
+  }
+}
+
+.quizpage_header{
+    background-image: url("../assets/images/header_bg.png");
+    background-size:cover;
+    background-position-x: left;
+    background-repeat: no-repeat;
+}
