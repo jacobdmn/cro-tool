@@ -25,7 +25,7 @@ const Home: NextPage = () => {
         <div className={styles.auditWrapper}>
           <h1 className="mb-8 text-xl">Choose What You Want To Audit</h1>
           {auditButtons.map((btn) => (
-            <Link href={`/${btn.slug}`} passHref>
+            <Link key={btn.id} href={`/${btn.slug}`} passHref>
               <a>
                 <Button key={btn.id} className="w-full" text={btn.text} />
               </a>

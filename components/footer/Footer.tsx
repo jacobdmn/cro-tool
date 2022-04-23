@@ -16,8 +16,6 @@ const styles = {
 interface FooterProps {}
 
 const Footer: React.FC<FooterProps> = ({}) => {
-  const router = useRouter()
-  console.log(router)
   return (
     <footer className={styles.quizpage_footer}>
       <div className={styles.quizpage_footer1}>

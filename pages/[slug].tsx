@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import QuizForm from '../components/quiz/QuizForm'
@@ -6,6 +7,7 @@ import Button from '../components/button/Button'
 import Footer from '../components/footer/Footer'
 
 import rc_logo from '../assets/images/rc_logo.png'
+import CroData from '../utils/croData'
 
 const styles = {
   quizpage_header: 'quizpage_header pb-20 pt-8 flex flex-col items-center h-72',
@@ -16,6 +18,22 @@ interface QuizPageProps {}
 
 const QuizPage: React.FC<QuizPageProps> = ({}) => {
   const router = useRouter()
+  // filtering data for each page
+  const data = CroData.filter((pageData) => router.query.slug === pageData.id)
+  const length = data[0]?.questions.length
+
+  const [questionIndex, setQuestionIndex] = useState<number>(1)
+
+  const handleNextBtn = () => {
+    if (questionIndex >= length) {
+      setQuestionIndex(length)
+    } else {
+      setQuestionIndex((prevIndex) => (prevIndex += 1))
+    }
+  }
+
+  console.log(length)
+  console.log(questionIndex)
 
   return (
     <div className="min-h-screen bg-quizpage_bg text-white">
@@ -32,7 +50,14 @@ const QuizPage: React.FC<QuizPageProps> = ({}) => {
           <QuizForm />
           <QuizForm />
         </div>
-        <Button text="1/15 - Next" />
+        <Button
+          text={
+            !(questionIndex >= length)
+              ? `${questionIndex + '/' + length} - Next`
+              : 'Submit'
+          }
+          onClick={handleNextBtn}
+        />
       </div>
       <Footer />
     </div>
