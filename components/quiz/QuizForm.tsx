@@ -2,14 +2,14 @@ import React from 'react'
 
 const styles = {
   formContainer:
-    'bg-white rounded-lg shadow-lg shadow-black/10 flex items-center py-5 px-12 text-black justify-between',
+    'bg-white rounded-lg shadow-lg shadow-black/10 w-full flex items-center py-5 px-12 text-black justify-between',
   formNumber:
     'w-8 h-8 grid place-content-center rounded-full border border-btn_color text-rc_green text-lg p-2',
   formText: 'font-medium w-[60%] flex-none mb-0',
   radio_label: 'text-xs text-gray-500',
 }
 
-const QuizForm: React.FC<{option:string}> = ({ option}) => {
+const QuizForm: React.FC<{ option: string }> = ({ option }) => {
   return (
     <div className={styles.formContainer}>
       <span className={styles.formNumber}>1</span>

@@ -11,17 +11,7 @@ import CroData from '../utils/croData'
 
 const styles = {
   quizpage_header: 'quizpage_header pb-20 pt-8 flex flex-col items-center h-72',
-  header_title:
-    'min-w-[30rem] text-center text-2xl font-semibold text-white mb-0',
-}
-
-interface QuizPageProps {
-  id: string
-  title: string
-  questions: {
-    questionTitle: string
-    options: string[]
-  }[]
+  header_title: 'w-[80%] text-center text-2xl font-semibold text-white mb-0',
 }
 
 const QuizPage: React.FC<any> = ({ data }) => {
@@ -61,7 +51,7 @@ const QuizPage: React.FC<any> = ({ data }) => {
         </h1>
       </header>
       <div className="relative flex flex-col items-center justify-center pb-20">
-        <ProgressCircle percent={(100 * questionIndex) / length} />
+        <ProgressCircle percent={Math.floor((100 * questionIndex) / length)} />
         <div className="flex w-[70%] flex-col items-center justify-center gap-4 py-10">
           {eachPageQuestions.options.map((option: string, index: number) => (
             <QuizForm key={index} option={option} />
