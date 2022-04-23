@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
+import * as yup from 'yup'
 import Image from 'next/image'
 import QuizForm from '../components/quiz/QuizForm'
 import ProgressCircle from '../components/progress circle/ProgressCircle'
@@ -39,6 +39,13 @@ const QuizPage: React.FC<any> = ({ data }) => {
     }
   }
 
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+    console.log('khra')
+  }
+
+  const [answers, setAnswers] = useState<any>([])
+
   return (
     <div className="min-h-screen bg-quizpage_bg text-white">
       <header className={styles.quizpage_header}>
@@ -50,19 +57,30 @@ const QuizPage: React.FC<any> = ({ data }) => {
       </header>
       <div className="relative flex flex-col items-center justify-center pb-20">
         <ProgressCircle percent={Math.floor((100 * questionIndex) / length)} />
-        <div className="flex w-[70%] flex-col items-center justify-center gap-4 py-10">
+        <form
+          className="flex w-[70%] flex-col items-center justify-center gap-4 py-10"
+          onSubmit={handleSubmit}
+        >
           {eachPageQuestions.options.map((option: string, index: number) => (
-            <QuizForm key={index} option={option} index={index} />
+            <QuizForm
+              key={index}
+              option={option}
+              index={index}
+              answers={answers}
+              setAnswers={setAnswers}
+              questionIndex={questionIndex}
+            />
           ))}
-        </div>
-        <Button
-          text={
-            !(questionIndex >= length)
-              ? `${questionIndex + '/' + length} - Next`
-              : 'Submit'
-          }
-          onClick={handleNextBtn}
-        />
+          <Button
+            type="submit"
+            text={
+              !(questionIndex >= length)
+                ? `${questionIndex + '/' + length} - Next`
+                : 'Submit'
+            }
+            onClick={handleNextBtn}
+          />
+        </form>
       </div>
       <Footer />
     </div>
