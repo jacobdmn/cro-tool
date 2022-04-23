@@ -9,16 +9,11 @@ const styles = {
   radio_label: 'text-xs text-gray-500',
 }
 
-interface QuizFormProps {}
-
-const QuizForm: React.FC<QuizFormProps> = ({}) => {
+const QuizForm: React.FC<{option:string}> = ({ option}) => {
   return (
     <div className={styles.formContainer}>
       <span className={styles.formNumber}>1</span>
-      <p className={styles.formText}>
-        Awareness - immediately & clearly show what problem you solve, or what
-        your offer is.
-      </p>
+      <p className={styles.formText}>{option}</p>
       <div className="flex items-center gap-6">
         <div className="grid place-content-center">
           <label htmlFor="yes" className={styles.radio_label}>

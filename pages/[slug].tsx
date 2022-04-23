@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import QuizForm from '../components/quiz/QuizForm'
@@ -11,18 +11,36 @@ import CroData from '../utils/croData'
 
 const styles = {
   quizpage_header: 'quizpage_header pb-20 pt-8 flex flex-col items-center h-72',
-  header_title: 'w-[30rem] text-center text-2xl font-semibold text-white mb-0',
+  header_title:
+    'min-w-[30rem] text-center text-2xl font-semibold text-white mb-0',
 }
 
-interface QuizPageProps {}
+interface QuizPageProps {
+  id: string
+  title: string
+  questions: {
+    questionTitle: string
+    options: string[]
+  }[]
+}
 
-const QuizPage: React.FC<QuizPageProps> = ({}) => {
-  const router = useRouter()
-  // filtering data for each page
-  const data = CroData.filter((pageData) => router.query.slug === pageData.id)
+const QuizPage: React.FC<any> = ({ data }) => {
+  console.log(data)
   const length = data[0]?.questions.length
 
   const [questionIndex, setQuestionIndex] = useState<number>(1)
+  const [eachPageQuestions, setEachPageQuestions] = useState<any>({
+    questionTitle: data[0].questions[0].questionTitle,
+    options: data[0].questions[0].options,
+  })
+
+  useEffect(() => {
+    const singlePageData = data[0]?.questions.filter(
+      (data: any, index: any) => index + 1 === questionIndex
+    )
+    const [desData] = singlePageData
+    setEachPageQuestions(desData)
+  }, [questionIndex])
 
   const handleNextBtn = () => {
     if (questionIndex >= length) {
@@ -31,9 +49,7 @@ const QuizPage: React.FC<QuizPageProps> = ({}) => {
       setQuestionIndex((prevIndex) => (prevIndex += 1))
     }
   }
-
-  console.log(length)
-  console.log(questionIndex)
+  console.log(eachPageQuestions)
 
   return (
     <div className="min-h-screen bg-quizpage_bg text-white">
@@ -41,14 +57,15 @@ const QuizPage: React.FC<QuizPageProps> = ({}) => {
         <Image height={30} width={102} src={rc_logo} className="object-cover" />
         <p className="mb-2 mt-6 font-medium">Audit your landing page</p>
         <h1 className={styles.header_title}>
-          Is your page structured to address the following 7 key elements?
+          {eachPageQuestions.questionTitle}
         </h1>
       </header>
       <div className="relative flex flex-col items-center justify-center pb-20">
         <ProgressCircle percent={50} />
         <div className="flex w-[70%] flex-col items-center justify-center gap-4 py-10">
-          <QuizForm />
-          <QuizForm />
+          {eachPageQuestions.options.map((option: string, index: number) => (
+            <QuizForm key={index} option={option} />
+          ))}
         </div>
         <Button
           text={
@@ -64,3 +81,25 @@ const QuizPage: React.FC<QuizPageProps> = ({}) => {
   )
 }
 export default QuizPage
+
+// Fetch guide at build time
+export async function getStaticProps({ params }: any) {
+  const data = CroData.filter((pageData) => params.slug === pageData.id)
+  return {
+    props: { data },
+    revalidate: 10,
+  }
+}
+
+// Specify dynamic routes to pre-render pages based on data.
+// The HTML is generated at build time and will be reused on each request.
+export async function getStaticPaths() {
+  return {
+    paths: CroData.map((pageData) => ({
+      params: {
+        slug: pageData.id,
+      },
+    })),
+    fallback: true,
+  }
+}
