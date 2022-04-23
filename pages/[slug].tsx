@@ -15,7 +15,6 @@ const styles = {
 }
 
 const QuizPage: React.FC<any> = ({ data }) => {
-  console.log(data)
   const length = data[0]?.questions.length
 
   const [questionIndex, setQuestionIndex] = useState<number>(1)
@@ -28,7 +27,7 @@ const QuizPage: React.FC<any> = ({ data }) => {
     const singlePageData = data[0]?.questions.filter(
       (data: any, index: any) => index + 1 === questionIndex
     )
-    const [desData] = singlePageData
+    const [desData] = singlePageData //destructuring
     setEachPageQuestions(desData)
   }, [questionIndex])
 
@@ -39,7 +38,6 @@ const QuizPage: React.FC<any> = ({ data }) => {
       setQuestionIndex((prevIndex) => (prevIndex += 1))
     }
   }
-  console.log(eachPageQuestions)
 
   return (
     <div className="min-h-screen bg-quizpage_bg text-white">
@@ -54,7 +52,7 @@ const QuizPage: React.FC<any> = ({ data }) => {
         <ProgressCircle percent={Math.floor((100 * questionIndex) / length)} />
         <div className="flex w-[70%] flex-col items-center justify-center gap-4 py-10">
           {eachPageQuestions.options.map((option: string, index: number) => (
-            <QuizForm key={index} option={option} />
+            <QuizForm key={index} option={option} index={index} />
           ))}
         </div>
         <Button
