@@ -61,7 +61,7 @@ const QuizPage: React.FC<any> = ({ data }) => {
         </h1>
       </header>
       <div className="relative flex flex-col items-center justify-center pb-20">
-        <ProgressCircle percent={50} />
+        <ProgressCircle percent={(100 * questionIndex) / length} />
         <div className="flex w-[70%] flex-col items-center justify-center gap-4 py-10">
           {eachPageQuestions.options.map((option: string, index: number) => (
             <QuizForm key={index} option={option} />
