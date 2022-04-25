@@ -25,36 +25,42 @@ const QuizForm: React.FC<QuizFormProps> = ({
 }) => {
   return (
     <div className={styles.formContainer}>
-      <span className={styles.formNumber}>{index }</span>
+      <span className={styles.formNumber}>{index}</span>
       <p className={styles.formText}>{option}</p>
       <div className="flex items-center gap-6">
         <div className="grid place-content-center">
-          <label htmlFor="yes" className={styles.radio_label}>
+          <label htmlFor={`yes${index}`} className={styles.radio_label}>
             YES
           </label>
           <input
             id={`yes${index}`}
             name={`radio_btn_${index}`}
             type="radio"
+            value={answers['answer' + index + questionIndex]}
             onChange={(e) => {
-              setAnswers({ ...answers, ['answer' + index]: e.target.value })
+              setAnswers({
+                ...answers,
+                ['answer' + index + questionIndex]: 'yes',
+              })
             }}
-            value={answers['answer' + index]}
             required
           />
         </div>
         <div className="grid place-content-center">
-          <label htmlFor="no" className={styles.radio_label}>
+          <label htmlFor={`no${index}`} className={styles.radio_label}>
             NO
           </label>
           <input
             id={`no${index}`}
             name={`radio_btn_${index}`}
             type="radio"
+            value={answers['answer' + index + questionIndex]}
             onChange={(e) => {
-              setAnswers({ ...answers, ['answer' + index]: e.target.value })
+              setAnswers({
+                ...answers,
+                ['answer' + index + questionIndex]: 'no',
+              })
             }}
-            value={answers['answer' + index]}
             required
           />
         </div>

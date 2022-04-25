@@ -47,15 +47,7 @@ const QuizPage: React.FC<any> = ({ data }) => {
     console.log('khra')
   }
 
-  const [answers, setAnswers] = useState<any>({
-    answer1: '',
-    answer2: '',
-    answer3: '',
-    answer4: '',
-    answer5: '',
-    answer6: '',
-    answer7: '',
-  })
+  const [answers, setAnswers] = useState<any>({})
 
   console.log(answers)
   // console.log("You're on the question number :" + questionIndex)
