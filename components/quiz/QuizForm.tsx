@@ -21,15 +21,13 @@ const QuizForm: React.FC<QuizFormProps> = ({
   index,
   questionIndex,
   setAnswers,
+  answers,
 }) => {
-  const onChangeValue = (event: any) => {
-    console.log(event.target.value)
-  }
   return (
     <div className={styles.formContainer}>
-      <span className={styles.formNumber}>{index + 1}</span>
+      <span className={styles.formNumber}>{index }</span>
       <p className={styles.formText}>{option}</p>
-      <div className="flex items-center gap-6" onChange={onChangeValue}>
+      <div className="flex items-center gap-6">
         <div className="grid place-content-center">
           <label htmlFor="yes" className={styles.radio_label}>
             YES
@@ -38,7 +36,10 @@ const QuizForm: React.FC<QuizFormProps> = ({
             id={`yes${index}`}
             name={`radio_btn_${index}`}
             type="radio"
-            value={`yes_${questionIndex}_${index + 1}`}
+            onChange={(e) => {
+              setAnswers({ ...answers, ['answer' + index]: e.target.value })
+            }}
+            value={answers['answer' + index]}
             required
           />
         </div>
@@ -50,7 +51,10 @@ const QuizForm: React.FC<QuizFormProps> = ({
             id={`no${index}`}
             name={`radio_btn_${index}`}
             type="radio"
-            value={`no_${questionIndex}_${index + 1}`}
+            onChange={(e) => {
+              setAnswers({ ...answers, ['answer' + index]: e.target.value })
+            }}
+            value={answers['answer' + index]}
             required
           />
         </div>

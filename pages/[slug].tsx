@@ -5,6 +5,7 @@ import QuizForm from '../components/quiz/QuizForm'
 import ProgressCircle from '../components/progress circle/ProgressCircle'
 import Button from '../components/button/Button'
 import Footer from '../components/footer/Footer'
+import ResultForm from '../components/result/ResultForm'
 
 import rc_logo from '../assets/images/rc_logo.png'
 import CroData from '../utils/croData'
@@ -22,6 +23,7 @@ const QuizPage: React.FC<any> = ({ data }) => {
     questionTitle: data[0].questions[0].questionTitle,
     options: data[0].questions[0].options,
   })
+  const [showResult, setShowResult] = useState<boolean>(false)
 
   useEffect(() => {
     const singlePageData = data[0]?.questions.filter(
@@ -34,6 +36,7 @@ const QuizPage: React.FC<any> = ({ data }) => {
   const handleNextBtn = () => {
     if (questionIndex >= length) {
       setQuestionIndex(length)
+      setShowResult(true)
     } else {
       setQuestionIndex((prevIndex) => (prevIndex += 1))
     }
@@ -44,8 +47,19 @@ const QuizPage: React.FC<any> = ({ data }) => {
     console.log('khra')
   }
 
-  const [answers, setAnswers] = useState<any>([])
+  const [answers, setAnswers] = useState<any>({
+    answer1: '',
+    answer2: '',
+    answer3: '',
+    answer4: '',
+    answer5: '',
+    answer6: '',
+    answer7: '',
+  })
 
+  console.log(answers)
+  // console.log("You're on the question number :" + questionIndex)
+  // console.log('Answers for question' + questionIndex + ' are:' + answers)
   return (
     <div className="min-h-screen bg-quizpage_bg text-white">
       <header className={styles.quizpage_header}>
@@ -55,33 +69,47 @@ const QuizPage: React.FC<any> = ({ data }) => {
           {eachPageQuestions.questionTitle}
         </h1>
       </header>
-      <div className="relative flex flex-col items-center justify-center pb-20">
-        <ProgressCircle percent={Math.floor((100 * questionIndex) / length)} />
-        <form
-          className="flex w-[70%] flex-col items-center justify-center gap-4 py-10"
-          onSubmit={handleSubmit}
-        >
-          {eachPageQuestions.options.map((option: string, index: number) => (
-            <QuizForm
-              key={index}
-              option={option}
-              index={index}
-              answers={answers}
-              setAnswers={setAnswers}
-              questionIndex={questionIndex}
-            />
-          ))}
-          <Button
-            type="submit"
-            text={
-              !(questionIndex >= length)
-                ? `${questionIndex + '/' + length} - Next`
-                : 'Submit'
-            }
-            onClick={handleNextBtn}
+      {showResult ? (
+        <div className="relative flex flex-col items-center justify-center pb-20">
+          <ProgressCircle
+            percent={Math.floor((100 * questionIndex) / length)}
           />
-        </form>
-      </div>
+          <form className="mx-auto w-max py-10">
+            <ResultForm />
+          </form>
+        </div>
+      ) : (
+        <div className="relative flex flex-col items-center justify-center pb-20">
+          <ProgressCircle
+            percent={Math.floor((100 * questionIndex) / length)}
+          />
+          <form
+            className="flex w-[70%] flex-col items-center justify-center gap-4 py-10"
+            onSubmit={handleSubmit}
+          >
+            {eachPageQuestions.options.map((option: string, index: number) => (
+              <QuizForm
+                key={index}
+                option={option}
+                index={index + 1}
+                answers={answers}
+                setAnswers={setAnswers}
+                questionIndex={questionIndex}
+              />
+            ))}
+            <Button
+              className="mt-8"
+              type="submit"
+              text={
+                !(questionIndex >= length)
+                  ? `${questionIndex + '/' + length} - Next`
+                  : 'Submit'
+              }
+              onClick={handleNextBtn}
+            />
+          </form>
+        </div>
+      )}
       <Footer />
     </div>
   )
