@@ -16,7 +16,7 @@ const styles = {
 }
 
 const QuizPage: React.FC<any> = ({ data }) => {
-  const length = data[0]?.questions.length
+  const questionsLength = data[0]?.questions.length
 
   const [questionIndex, setQuestionIndex] = useState<number>(1)
   const [eachPageQuestions, setEachPageQuestions] = useState<any>({
@@ -24,7 +24,20 @@ const QuizPage: React.FC<any> = ({ data }) => {
     options: data[0].questions[0].options,
   })
   const [showResult, setShowResult] = useState<boolean>(false)
+  const [options, setOptions] = useState([]) //this state is for options of each question (needed for input validation)
 
+  //for initializing options state
+  useEffect(() => {
+    setOptions(
+      eachPageQuestions.options.map((option: string, index: number) => ({
+        optionNumber: index + 1,
+        isChecked: false,
+        error: false,
+      }))
+    )
+  }, [eachPageQuestions])
+
+  //for setting each page question
   useEffect(() => {
     const singlePageData = data[0]?.questions.filter(
       (data: any, index: any) => index + 1 === questionIndex
@@ -34,17 +47,15 @@ const QuizPage: React.FC<any> = ({ data }) => {
   }, [questionIndex])
 
   const handleNextBtn = () => {
-    if (questionIndex >= length) {
+    const optionsCheckedStatus = options.map((option: any) => option.isChecked)
+    if (optionsCheckedStatus.includes(false)) {
+      return ''
+    } else if (questionIndex >= questionsLength) {
       setShowResult(true)
       console.log(answers)
     } else {
       setQuestionIndex((prevIndex) => (prevIndex += 1))
     }
-  }
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-    console.log('khra')
   }
 
   const [answers, setAnswers] = useState<any>({})
@@ -55,6 +66,14 @@ const QuizPage: React.FC<any> = ({ data }) => {
     const result = (100 * correctAnswers.length) / answersArr.length
     return result
   }
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
+    // console.log('')
+  }
+
+  console.log(options)
+  // console.log(eachPageQuestions.options)
 
   return (
     <div className="min-h-screen bg-quizpage_bg text-white">
@@ -70,14 +89,14 @@ const QuizPage: React.FC<any> = ({ data }) => {
       {showResult ? (
         <div className="relative flex flex-col items-center justify-center pb-20">
           <ProgressCircle percent={Math.floor(calculateScore())} />
-          <form className="mx-auto w-max py-10">
+          <div className="mx-auto w-max py-10">
             <ResultForm />
-          </form>
+          </div>
         </div>
       ) : (
         <div className="relative flex flex-col items-center justify-center pb-20">
           <ProgressCircle
-            percent={Math.floor((100 * questionIndex) / length)}
+            percent={Math.floor((100 * questionIndex) / questionsLength)}
           />
           <form
             className="flex w-[70%] flex-col items-center justify-center gap-4 py-10"
@@ -91,14 +110,16 @@ const QuizPage: React.FC<any> = ({ data }) => {
                 answers={answers}
                 setAnswers={setAnswers}
                 questionIndex={questionIndex}
+                options={options}
+                setOptions={setOptions}
               />
             ))}
             <Button
               className="mt-8"
               type="submit"
               text={
-                !(questionIndex >= length)
-                  ? `${questionIndex + '/' + length} - Next`
+                !(questionIndex >= questionsLength)
+                  ? `${questionIndex + '/' + questionsLength} - Next`
                   : 'Submit'
               }
               onClick={handleNextBtn}

@@ -3,7 +3,7 @@ import * as yup from 'yup'
 
 const styles = {
   formContainer:
-    'bg-white rounded-lg shadow-lg shadow-black/10 w-full flex items-center py-5 px-12 text-black justify-between',
+    ' rounded-lg shadow-lg shadow-black/10 w-full flex items-center py-5 px-12 text-black justify-between',
   formNumber:
     'w-8 h-8 grid place-content-center rounded-full border border-btn_color text-rc_green text-lg p-2',
   formText: 'font-medium w-[60%] flex-none mb-0',
@@ -15,20 +15,49 @@ interface QuizFormProps {
   questionIndex: number
   answers: any
   setAnswers: React.Dispatch<React.SetStateAction<any>>
+  options: any
+  setOptions: React.Dispatch<React.SetStateAction<any>>
 }
 const QuizForm: React.FC<QuizFormProps> = ({
   option,
   index,
   questionIndex,
+  options,
+  setOptions,
   setAnswers,
   answers,
 }) => {
-  const [state, setState] = useState('')
+  const [checkedState, setCheckedState] = useState('')
+  const [error, setError] = useState(false)
   useEffect(() => {
-    setState('')
+    setCheckedState('')
   }, [questionIndex])
+
+  const handleOnChange = (inputType: string) => {
+    setAnswers({
+      ...answers,
+      ['answer' + index + questionIndex]: inputType,
+    })
+    setCheckedState(inputType)
+    // logic for validation
+    // 1. Make a shallow copy of the options
+    let items = [...options]
+    // 2. Make a shallow copy of the item to mutate
+    let item = { ...options[index - 1] }
+    // 3. Replace the property
+    item.isChecked = true
+    // 4. Put it back into our array. N.B. we are mutating the array here, but that's why we made a copy first
+    items[index - 1] = item
+    // 5. Set the state to our new copy
+    setOptions(items)
+  }
+
   return (
-    <div className={styles.formContainer}>
+    <div
+      className={`${error ? 'bg-red-200' : 'bg-white'}  ${
+        styles.formContainer
+      }`}
+    >
       <span className={styles.formNumber}>{index}</span>
       <p className={styles.formText}>{option}</p>
       <div className="flex items-center gap-6">
@@ -41,14 +70,8 @@ const QuizForm: React.FC<QuizFormProps> = ({
             name={`radio_btn_${index}`}
             type="radio"
             value={answers['answer' + index + questionIndex]}
-            onChange={(e) => {
-              setAnswers({
-                ...answers,
-                ['answer' + index + questionIndex]: 'yes',
-              })
-              setState('yes')
-            }}
-            checked={state === 'yes'}
+            onChange={() => handleOnChange('yes')}
+            checked={checkedState === 'yes'}
           />
         </div>
         <div className="grid place-content-center">
@@ -60,14 +83,8 @@ const QuizForm: React.FC<QuizFormProps> = ({
             name={`radio_btn_${index}`}
             type="radio"
             value={answers['answer' + index + questionIndex]}
-            onChange={(e) => {
-              setAnswers({
-                ...answers,
-                ['answer' + index + questionIndex]: 'no',
-              })
-              setState('no')
-            }}
-            checked={state === 'no'}
+            onChange={() => handleOnChange('no')}
+            checked={checkedState === 'no'}
           />
         </div>
       </div>
