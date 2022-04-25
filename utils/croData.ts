@@ -1,11 +1,6 @@
-const CroData: {
-  id: string
-  title: string
-  questions: {
-    questionTitle: string
-    options: string[]
-  }[]
-}[] = [
+import { QuizType } from '../types/QuizType'
+
+const CroData: QuizType[] = [
   {
     id: 'landing-page-audit',
     title: 'Landing Page',

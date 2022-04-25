@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import * as yup from 'yup'
+import { Setter } from '../../types/Setter'
 
 const styles = {
   formContainer:
@@ -9,14 +9,15 @@ const styles = {
   formText: 'font-medium w-[60%] flex-none mb-0',
   radio_label: 'text-xs text-gray-500',
 }
+
 interface QuizFormProps {
   option: string
   index: number
   questionIndex: number
   answers: any
-  setAnswers: React.Dispatch<React.SetStateAction<any>>
+  setAnswers: Setter<any>
   options: any
-  setOptions: React.Dispatch<React.SetStateAction<any>>
+  setOptions: Setter<{ isChecked: boolean }[]>
 }
 const QuizForm: React.FC<QuizFormProps> = ({
   option,

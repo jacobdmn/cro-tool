@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
 import * as yup from 'yup'
 import Image from 'next/image'
-import QuizForm from '../components/quiz/QuizForm'
 import ProgressCircle from '../components/progress circle/ProgressCircle'
-import Button from '../components/button/Button'
 import Footer from '../components/footer/Footer'
 import ResultForm from '../components/result/ResultForm'
+import Quiz from '../components/quiz/Quiz'
+import { GetStaticPaths } from 'next'
+import { GetStaticProps } from 'next'
+import { InferGetStaticPropsType } from 'next'
+import { QuizType } from '../types/QuizType'
 
 import rc_logo from '../assets/images/rc_logo.png'
 import CroData from '../utils/croData'
@@ -15,28 +18,18 @@ const styles = {
   header_title: 'w-[80%] text-center text-2xl font-semibold text-white mb-0',
 }
 
-const QuizPage: React.FC<any> = ({ data }) => {
+const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  data,
+}) => {
   const questionsLength = data[0]?.questions.length
 
-  const [isDisabled, setIsDisabled] = useState(true) // state for Next Button (active or disabled)
   const [questionIndex, setQuestionIndex] = useState<number>(1)
   const [eachPageQuestions, setEachPageQuestions] = useState<any>({
     questionTitle: data[0].questions[0].questionTitle,
     options: data[0].questions[0].options,
   })
   const [showResult, setShowResult] = useState<boolean>(false)
-  const [options, setOptions] = useState<any>([]) //this state is for options of each question (needed for input validation)
   const [answers, setAnswers] = useState<any>({})
-   const optionsCheckedStatus = options.map((option: any) => option.isChecked) //getting input isChecked values
-
-  //for initializing options state
-  useEffect(() => {
-    setOptions(
-      eachPageQuestions.options.map((option: string, index: number) => ({
-        isChecked: false,
-      }))
-    )
-  }, [eachPageQuestions])
 
   //for setting each page question
   useEffect(() => {
@@ -47,39 +40,12 @@ const QuizPage: React.FC<any> = ({ data }) => {
     setEachPageQuestions(desData)
   }, [questionIndex])
 
-  // for disabling next button
-  useEffect(() => {
-    if (optionsCheckedStatus.includes(false)) {
-      setIsDisabled(true)
-    } else{ setIsDisabled(false)}
-  }, [options])
-
-  const handleNextBtn = () => {
-   
-
-    if (optionsCheckedStatus.includes(false)) {
-      return ''
-    } else if (questionIndex >= questionsLength) {
-      setShowResult(true)
-      console.log(answers)
-    } else {
-      setQuestionIndex((prevIndex) => (prevIndex += 1))
-    }
-  }
-
   const calculateScore = () => {
     const answersArr = Object.values(answers)
     const correctAnswers = answersArr.filter((answer) => answer === 'yes')
     const result = (100 * correctAnswers.length) / answersArr.length
     return result
   }
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-    // console.log('')
-  }
-
-  console.log(options)
 
   return (
     <div className="min-h-screen bg-quizpage_bg text-white">
@@ -100,39 +66,15 @@ const QuizPage: React.FC<any> = ({ data }) => {
           </div>
         </div>
       ) : (
-        <div className="relative flex flex-col items-center justify-center pb-20">
-          <ProgressCircle
-            percent={Math.floor((100 * questionIndex) / questionsLength)}
-          />
-          <form
-            className="flex w-[70%] flex-col items-center justify-center gap-4 py-10"
-            onSubmit={handleSubmit}
-          >
-            {eachPageQuestions.options.map((option: string, index: number) => (
-              <QuizForm
-                key={index}
-                option={option}
-                index={index + 1}
-                answers={answers}
-                setAnswers={setAnswers}
-                questionIndex={questionIndex}
-                options={options}
-                setOptions={setOptions}
-              />
-            ))}
-            <Button
-              className="mt-8"
-              type="submit"
-              text={
-                !(questionIndex >= questionsLength)
-                  ? `${questionIndex + '/' + questionsLength} - Next`
-                  : 'Submit'
-              }
-              onClick={handleNextBtn}
-              disabled={isDisabled ? true : false}
-            />
-          </form>
-        </div>
+        <Quiz
+          questionsLength={questionsLength}
+          answers={answers}
+          setAnswers={setAnswers}
+          questionIndex={questionIndex}
+          setQuestionIndex={setQuestionIndex}
+          setShowResult={setShowResult}
+          eachPageQuestions={eachPageQuestions}
+        />
       )}
       <Footer />
     </div>
@@ -141,8 +83,10 @@ const QuizPage: React.FC<any> = ({ data }) => {
 export default QuizPage
 
 // Fetch guide at build time
-export async function getStaticProps({ params }: any) {
-  const data = CroData.filter((pageData) => params.slug === pageData.id)
+export const getStaticProps: GetStaticProps = async ({ params }: any) => {
+  const data: QuizType[] = CroData.filter(
+    (pageData) => params.slug === pageData.id
+  )
   return {
     props: { data },
     revalidate: 10,
@@ -151,7 +95,7 @@ export async function getStaticProps({ params }: any) {
 
 // Specify dynamic routes to pre-render pages based on data.
 // The HTML is generated at build time and will be reused on each request.
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: CroData.map((pageData) => ({
       params: {
