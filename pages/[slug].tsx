@@ -18,21 +18,22 @@ const styles = {
 const QuizPage: React.FC<any> = ({ data }) => {
   const questionsLength = data[0]?.questions.length
 
+  const [isDisabled, setIsDisabled] = useState(true) // state for Next Button (active or disabled)
   const [questionIndex, setQuestionIndex] = useState<number>(1)
   const [eachPageQuestions, setEachPageQuestions] = useState<any>({
     questionTitle: data[0].questions[0].questionTitle,
     options: data[0].questions[0].options,
   })
   const [showResult, setShowResult] = useState<boolean>(false)
-  const [options, setOptions] = useState([]) //this state is for options of each question (needed for input validation)
+  const [options, setOptions] = useState<any>([]) //this state is for options of each question (needed for input validation)
+  const [answers, setAnswers] = useState<any>({})
+   const optionsCheckedStatus = options.map((option: any) => option.isChecked) //getting input isChecked values
 
   //for initializing options state
   useEffect(() => {
     setOptions(
       eachPageQuestions.options.map((option: string, index: number) => ({
-        optionNumber: index + 1,
         isChecked: false,
-        error: false,
       }))
     )
   }, [eachPageQuestions])
@@ -46,8 +47,16 @@ const QuizPage: React.FC<any> = ({ data }) => {
     setEachPageQuestions(desData)
   }, [questionIndex])
 
+  // for disabling next button
+  useEffect(() => {
+    if (optionsCheckedStatus.includes(false)) {
+      setIsDisabled(true)
+    } else{ setIsDisabled(false)}
+  }, [options])
+
   const handleNextBtn = () => {
-    const optionsCheckedStatus = options.map((option: any) => option.isChecked)
+   
+
     if (optionsCheckedStatus.includes(false)) {
       return ''
     } else if (questionIndex >= questionsLength) {
@@ -57,8 +66,6 @@ const QuizPage: React.FC<any> = ({ data }) => {
       setQuestionIndex((prevIndex) => (prevIndex += 1))
     }
   }
-
-  const [answers, setAnswers] = useState<any>({})
 
   const calculateScore = () => {
     const answersArr = Object.values(answers)
@@ -73,7 +80,6 @@ const QuizPage: React.FC<any> = ({ data }) => {
   }
 
   console.log(options)
-  // console.log(eachPageQuestions.options)
 
   return (
     <div className="min-h-screen bg-quizpage_bg text-white">
@@ -123,6 +129,7 @@ const QuizPage: React.FC<any> = ({ data }) => {
                   : 'Submit'
               }
               onClick={handleNextBtn}
+              disabled={isDisabled ? true : false}
             />
           </form>
         </div>

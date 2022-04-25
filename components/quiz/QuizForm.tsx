@@ -31,6 +31,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
   const [error, setError] = useState(false)
   useEffect(() => {
     setCheckedState('')
+    setError(options[index - 1]?.error)
   }, [questionIndex])
 
   const handleOnChange = (inputType: string) => {
@@ -51,7 +52,6 @@ const QuizForm: React.FC<QuizFormProps> = ({
     // 5. Set the state to our new copy
     setOptions(items)
   }
-
   return (
     <div
       className={`${error ? 'bg-red-200' : 'bg-white'}  ${
