@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
-import * as yup from 'yup'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import ProgressCircle from '../components/progress circle/ProgressCircle'
 import Footer from '../components/footer/Footer'
-import ResultForm from '../components/result/ResultForm'
+import ResultPage from '../components/result/ResultPage'
 import Quiz from '../components/quiz/Quiz'
 import { GetStaticPaths } from 'next'
 import { GetStaticProps } from 'next'
 import { InferGetStaticPropsType } from 'next'
 import { QuizType } from '../types/QuizType'
+import Loader from "../components/Loader"
 
 import rc_logo from '../assets/images/rc_logo.png'
 import CroData from '../utils/croData'
@@ -21,6 +22,10 @@ const styles = {
 const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   data,
 }) => {
+  const router = useRouter()
+  if (router.isFallback) {
+    return <Loader />
+  }
   const questionsLength = data[0]?.questions.length
 
   const [questionIndex, setQuestionIndex] = useState<number>(1)
@@ -62,7 +67,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
         <div className="relative flex flex-col items-center justify-center pb-20">
           <ProgressCircle percent={Math.floor(calculateScore())} />
           <div className="mx-auto w-max py-10">
-            <ResultForm />
+            <ResultPage />
           </div>
         </div>
       ) : (

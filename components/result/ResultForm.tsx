@@ -1,5 +1,9 @@
 import Button from '../button/Button'
-interface ResultFormProps {}
+import { Setter } from '../../types/Setter'
+
+interface ResultFormProps {
+  setShowResultPage: Setter<boolean>
+}
 
 const styles = {
   formContainer:
@@ -7,7 +11,7 @@ const styles = {
   form_input: 'bg-quizpage_bg px-2 py-2 rounded w-80',
 }
 
-const ResultForm: React.FC<ResultFormProps> = ({}) => {
+const ResultForm: React.FC<ResultFormProps> = ({ setShowResultPage }) => {
   return (
     <div className={styles.formContainer}>
       <h1 className="text-2xl font-semibold">Enter Your Email Below To Get</h1>
@@ -36,7 +40,11 @@ const ResultForm: React.FC<ResultFormProps> = ({}) => {
       </div>
       <form className="mt-8 flex items-center gap-4">
         <input type="text" className={styles.form_input} />
-        <Button text="Get my free audit" className="py-2 py-2 text-white" />
+        <Button
+          text="Get my free audit"
+          className="py-2 py-2 text-white"
+          onClick={() => setShowResultPage(true)}
+        />
       </form>
     </div>
   )
