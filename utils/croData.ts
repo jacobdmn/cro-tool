@@ -8,7 +8,7 @@ const CroData: {
 }[] = [
   {
     id: 'landing-page-audit',
-    title: 'Landing Pages',
+    title: 'Landing Page',
     questions: [
       {
         questionTitle:
@@ -133,7 +133,7 @@ Another great element to think about, is using this page to incentivize referral
   },
   {
     id: 'home-page-audit',
-    title: 'Home Pages',
+    title: 'Home Page',
     questions: [
       {
         questionTitle:
@@ -216,7 +216,7 @@ If customers can’t discern that in seconds, they’ll leave your store. For th
   },
   {
     id: 'product-page-audit',
-    title: 'Product Pages',
+    title: 'Product Page',
     questions: [
       {
         questionTitle: 'Do you have descriptive product titles?',
@@ -479,7 +479,7 @@ Human psychology is such that we are prone to purchase something when we know th
   },
   {
     id: 'cart-page-audit',
-    title: 'Cart Pages',
+    title: 'Cart Page',
     questions: [
       {
         questionTitle:

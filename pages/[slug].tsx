@@ -50,22 +50,28 @@ const QuizPage: React.FC<any> = ({ data }) => {
   const [answers, setAnswers] = useState<any>({})
 
   console.log(answers)
-  // console.log("You're on the question number :" + questionIndex)
-  // console.log('Answers for question' + questionIndex + ' are:' + answers)
+
+  const calculateScore = () => {
+    const answersArr = Object.values(answers)
+    const correctAnswers = answersArr.filter((answer) => answer === 'yes')
+    const result = (100 * correctAnswers.length) / answersArr.length
+    return result
+  }
+
   return (
     <div className="min-h-screen bg-quizpage_bg text-white">
       <header className={styles.quizpage_header}>
         <Image height={30} width={102} src={rc_logo} className="object-cover" />
-        <p className="mb-2 mt-6 font-medium">Audit your landing page</p>
+        <p className="mb-2 mt-6 font-medium">Audit your {data[0]?.title}</p>
         <h1 className={styles.header_title}>
-          {eachPageQuestions.questionTitle}
+          {showResult
+            ? 'Your ' + data[0]?.title + ' Audit Results '
+            : eachPageQuestions.questionTitle}
         </h1>
       </header>
       {showResult ? (
         <div className="relative flex flex-col items-center justify-center pb-20">
-          <ProgressCircle
-            percent={Math.floor((100 * questionIndex) / length)}
-          />
+          <ProgressCircle percent={Math.floor(calculateScore())} />
           <form className="mx-auto w-max py-10">
             <ResultForm />
           </form>
