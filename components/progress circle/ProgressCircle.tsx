@@ -3,17 +3,21 @@ import 'antd/dist/antd.css'
 
 interface ProgressCircleProps {
   percent: number
+  className: string
 }
 
-const ProgressCircle: React.FC<ProgressCircleProps> = ({ percent }) => {
+const ProgressCircle: React.FC<ProgressCircleProps> = ({
+  percent,
+  className,
+}) => {
   return (
-    <div className="absolute -top-24 rounded-full bg-quizpage_bg p-2">
+    <div className={`rounded-full ${className}`}>
       <Progress
         className="mb-3"
         type="circle"
         strokeWidth={10}
         // trailColor="#151515"
-        width={100}
+        // width={100}
         //   strokeLinecap="square"
         strokeColor="#32CCA7"
         percent={percent}

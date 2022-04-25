@@ -62,7 +62,7 @@ const Quiz: React.FC<QuizProps> = ({
   return (
     <div className="relative flex flex-col items-center justify-center pb-20">
       <ProgressCircle
-        percent={Math.floor((100 * questionIndex) / questionsLength)}
+        className="absolute -top-24 bg-quizpage_bg p-2 " percent={Math.floor((100 * questionIndex) / questionsLength)}
       />
       <div className="flex w-[70%] flex-col items-center justify-center gap-4 py-10">
         {eachPageQuestions.options.map((option: string, index: number) => (

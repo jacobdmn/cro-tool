@@ -9,7 +9,7 @@ import { GetStaticPaths } from 'next'
 import { GetStaticProps } from 'next'
 import { InferGetStaticPropsType } from 'next'
 import { QuizType } from '../types/QuizType'
-import Loader from "../components/Loader"
+import Loader from '../components/Loader'
 
 import rc_logo from '../assets/images/rc_logo.png'
 import CroData from '../utils/croData'
@@ -33,7 +33,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
     questionTitle: data[0].questions[0].questionTitle,
     options: data[0].questions[0].options,
   })
-  const [showResult, setShowResult] = useState<boolean>(false)
+  const [showResult, setShowResult] = useState<boolean>(true)
   const [answers, setAnswers] = useState<any>({})
 
   //for setting each page question
@@ -65,9 +65,9 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
       </header>
       {showResult ? (
         <div className="relative flex flex-col items-center justify-center pb-20">
-          <ProgressCircle percent={Math.floor(calculateScore())} />
+          <ProgressCircle className="absolute -top-24 bg-quizpage_bg p-2" percent={Math.floor(calculateScore())} />
           <div className="mx-auto w-max py-10">
-            <ResultPage />
+            <ResultPage score={calculateScore()} data={data} />
           </div>
         </div>
       ) : (

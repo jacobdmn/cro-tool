@@ -55,3 +55,7 @@
     background-position-x: center;
     background-repeat: no-repeat;
 }
+
+.cardContainer .ant-progress-text{
+  color: white!important;
+}
