@@ -33,7 +33,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
     questionTitle: data[0].questions[0].questionTitle,
     options: data[0].questions[0].options,
   })
-  const [showResult, setShowResult] = useState<boolean>(true)
+  const [showResult, setShowResult] = useState<boolean>(false)
   const [answers, setAnswers] = useState<any>({})
 
   //for setting each page question
@@ -65,7 +65,10 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
       </header>
       {showResult ? (
         <div className="relative flex flex-col items-center justify-center pb-20">
-          <ProgressCircle className="absolute -top-24 bg-quizpage_bg p-2" percent={Math.floor(calculateScore())} />
+          <ProgressCircle
+            className="absolute -top-24 bg-quizpage_bg p-2"
+            percent={Math.floor(calculateScore())}
+          />
           <div className="mx-auto w-max py-10">
             <ResultPage score={calculateScore()} data={data} />
           </div>
