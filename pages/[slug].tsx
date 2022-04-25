@@ -35,8 +35,8 @@ const QuizPage: React.FC<any> = ({ data }) => {
 
   const handleNextBtn = () => {
     if (questionIndex >= length) {
-      setQuestionIndex(length)
       setShowResult(true)
+      console.log(answers)
     } else {
       setQuestionIndex((prevIndex) => (prevIndex += 1))
     }
@@ -48,8 +48,6 @@ const QuizPage: React.FC<any> = ({ data }) => {
   }
 
   const [answers, setAnswers] = useState<any>({})
-
-  console.log(answers)
 
   const calculateScore = () => {
     const answersArr = Object.values(answers)

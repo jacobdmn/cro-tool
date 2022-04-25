@@ -25,8 +25,8 @@ const ResultForm: React.FC<ResultFormProps> = ({}) => {
                 <path
                   d="M43 1.44922L15.9145 28.4492L2 14.5786"
                   stroke="#32CCA7"
-                  stroke-width="4"
-                  stroke-miterlimit="10"
+                  strokeWidth="4"
+                  strokeMiterlimit="10"
                 />
               </svg>
               {item}
@@ -36,7 +36,7 @@ const ResultForm: React.FC<ResultFormProps> = ({}) => {
       </div>
       <form className="mt-8 flex items-center gap-4">
         <input type="text" className={styles.form_input} />
-        <Button text="Get my free audit" className="py-2 text-white py-2" />
+        <Button text="Get my free audit" className="py-2 py-2 text-white" />
       </form>
     </div>
   )

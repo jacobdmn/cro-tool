@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 import * as yup from 'yup'
 
 const styles = {
@@ -23,6 +23,10 @@ const QuizForm: React.FC<QuizFormProps> = ({
   setAnswers,
   answers,
 }) => {
+  const [state, setState] = useState('')
+  useEffect(() => {
+    setState('')
+  }, [questionIndex])
   return (
     <div className={styles.formContainer}>
       <span className={styles.formNumber}>{index}</span>
@@ -42,8 +46,9 @@ const QuizForm: React.FC<QuizFormProps> = ({
                 ...answers,
                 ['answer' + index + questionIndex]: 'yes',
               })
+              setState('yes')
             }}
-            required
+            checked={state === 'yes'}
           />
         </div>
         <div className="grid place-content-center">
@@ -60,8 +65,9 @@ const QuizForm: React.FC<QuizFormProps> = ({
                 ...answers,
                 ['answer' + index + questionIndex]: 'no',
               })
+              setState('no')
             }}
-            required
+            checked={state === 'no'}
           />
         </div>
       </div>
