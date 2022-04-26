@@ -59,3 +59,13 @@
 .cardContainer .ant-progress-text{
   color: white!important;
 }
+
+input[type="radio"] {
+	appearance: none;
+	width: 1.25rem;
+	height: 1.25rem;
+	border-radius: 50%;
+	background-clip: content-box;
+	padding: 2px !important;
+  cursor:pointer;
+}

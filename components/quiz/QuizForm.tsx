@@ -8,6 +8,7 @@ const styles = {
     'w-8 h-8 grid place-content-center rounded-full border border-btn_color text-rc_green text-lg p-2',
   formText: 'font-medium w-[60%] flex-none mb-0',
   radio_label: 'text-xs text-gray-500',
+  // radioBtn: 'w-5 h-5 cursor-pointer ',
 }
 
 interface QuizFormProps {
@@ -69,6 +70,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
           <input
             id={`yes${index}`}
             name={`radio_btn_${index}`}
+            className="checked:bg-rc_green/20 border border-rc_green"
             type="radio"
             value={answers['answer' + index + questionIndex]}
             onChange={() => handleOnChange('yes')}
@@ -82,6 +84,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
           <input
             id={`no${index}`}
             name={`radio_btn_${index}`}
+            className="checked:bg-btn_color border border-btn_color"
             type="radio"
             value={answers['answer' + index + questionIndex]}
             onChange={() => handleOnChange('no')}
