@@ -3,7 +3,7 @@ import { Setter } from '../../types/Setter'
 
 const styles = {
   formContainer:
-    ' rounded-lg shadow-lg shadow-black/10 w-full flex items-center py-5 px-12 text-black justify-between',
+    ' rounded-lg shadow-lg bg-white shadow-black/10 w-full flex items-center py-5 px-12 text-black justify-between',
   formNumber:
     'w-8 h-8 grid place-content-center rounded-full border border-btn_color text-rc_green text-lg p-2',
   formText: 'font-medium w-[60%] flex-none mb-0',
@@ -30,10 +30,9 @@ const QuizForm: React.FC<QuizFormProps> = ({
   answers,
 }) => {
   const [checkedState, setCheckedState] = useState('')
-  const [error, setError] = useState(false)
+
   useEffect(() => {
     setCheckedState('')
-    setError(options[index - 1]?.error)
   }, [questionIndex])
 
   const handleOnChange = (inputType: string) => {
@@ -65,9 +64,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
   }
   return (
     <div
-      className={`${error ? 'bg-red-200' : 'bg-white'}  ${
-        styles.formContainer
-      }`}
+      className={styles.formContainer}
     >
       <span className={styles.formNumber}>{index}</span>
       <p className={styles.formText}>{option}</p>

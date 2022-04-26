@@ -3,6 +3,7 @@ import ResultForm from './ResultForm'
 import Button from './../button/Button'
 import ProgressCircle from './../progress circle/ProgressCircle'
 import { QuizType } from '../../types/QuizType'
+import ResultContainer from './ResultContainer'
 
 const AnswerTypeHeader: React.FC<{ answerType: string }> = ({ answerType }) => {
   return (
@@ -61,9 +62,11 @@ const AnswerTypeHeader: React.FC<{ answerType: string }> = ({ answerType }) => {
 }
 
 interface ResultPageProps {
-  data: QuizType[]
   score: number
-  answers: any
+  answers: {
+    options: { answer: string; option: string }[]
+    questionTitle: string
+  }[]
 }
 
 const styles = {
@@ -75,15 +78,9 @@ const styles = {
   cardTitle: 'text-xl font-semibold text-white mb-0',
 }
 
-const ResultPage: React.FC<ResultPageProps> = ({ data, score, answers }) => {
-  // console.log(data)
-  console.log(answers )
+const ResultPage: React.FC<ResultPageProps> = ({  score, answers }) => {
   const [showResultPage, setShowResultPage] = useState<boolean>(false)
 
-  // gettin the new array that contains question with user answers
-  let questions= data[0].questions.map((question)=>({questionTitle:question.questionTitle,yes:[],no:[]}))
-  const answersArr = Object.values(answers)
-  console.log(answersArr)
 
   return showResultPage ? (
     <div className={styles.pageContainer}>
@@ -116,12 +113,39 @@ const ResultPage: React.FC<ResultPageProps> = ({ data, score, answers }) => {
         </div>
       </div>
       <div className="flex flex-col gap-12">
-        {data[0].questions.map((question, i) => (
+        {answers.map((answer, i) => (
           <div key={i}>
             <h1 className="mx-auto mb-0 w-[70%] text-center text-xl font-semibold">
-              {question.questionTitle}
+              {answer.questionTitle}
             </h1>
-            <AnswerTypeHeader answerType="yes" />
+            <div className="flex w-full justify-between gap-6">
+              {answer.options.filter((option) => option.answer === 'yes')
+                .length > 0 && (
+                <div>
+                  <AnswerTypeHeader answerType="yes" />
+                  <div className="flex w-full flex-col items-center gap-4">
+                    {answer.options
+                      .filter((option) => option.answer === 'yes')
+                      .map((answer, index) => (
+                       <ResultContainer key={index} answer={answer} type="yes"/>
+                      ))}
+                  </div>
+                </div>
+              )}
+              {answer.options.filter((option) => option.answer === 'no')
+                .length > 0 && (
+                <div>
+                  <AnswerTypeHeader answerType="no" />
+                  <div className="flex w-full flex-col items-center gap-4">
+                    {answer.options
+                      .filter((option) => option.answer === 'no')
+                      .map((answer, index) => (
+                        <ResultContainer key={index} answer={answer} type="no" />
+                      ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>

@@ -35,14 +35,17 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   })
   const [showResult, setShowResult] = useState<boolean>(false)
   const [answers, setAnswers] = useState<
-    { options: { answer: string }[]; questionTitle: string }[]
+    { options: { answer: string; option: string }[]; questionTitle: string }[]
   >([])
 
   useEffect(() => {
     setAnswers(
       data[0].questions.map((question: any, index: number) => ({
         questionTitle: question.questionTitle,
-        options: question.options.map((option: any) => ({ answer: '' })),
+        options: question.options.map((option: any) => ({
+          option: option,
+          answer: '',
+        })),
       }))
     )
   }, [])
@@ -85,7 +88,6 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
           <div className="mx-auto w-max py-10">
             <ResultPage
               score={calculateScore()}
-              data={data}
               answers={answers}
             />
           </div>
