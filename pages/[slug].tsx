@@ -85,7 +85,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
             className="absolute -top-24 bg-quizpage_bg p-2"
             percent={Math.floor(calculateScore())}
           />
-          <div className="mx-auto w-max py-10">
+          <div className="mx-auto py-10">
             <ResultPage
               score={calculateScore()}
               answers={answers}

@@ -10,14 +10,15 @@ interface ResultContainerProps {
 
 const styles = {
   resultFormContainer:
-    'rounded-lg w-full flex items-center bg-white py-5 px-12 text-black justify-between',
+    'rounded-lg min-w-full flex items-center bg-white py-5 px-12 text-black justify-between',
 }
 
 const ResultContainer: React.FC<ResultContainerProps> = ({answer}) => {
         return (
           <div className={styles.resultFormContainer}>
-            <p className="w-[60%]">{answer.option}</p>
+            <p className="font-semibold whitespace-wrap w-[90%] flex-none mb-0">{answer.option}</p>
             <svg
+            className="cursor-pointer"
               width="19"
               height="19"
               viewBox="0 0 19 19"
