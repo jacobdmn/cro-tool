@@ -34,7 +34,18 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
     options: data[0].questions[0].options,
   })
   const [showResult, setShowResult] = useState<boolean>(false)
-  const [answers, setAnswers] = useState<any>({})
+  const [answers, setAnswers] = useState<
+    { options: { answer: string }[]; questionTitle: string }[]
+  >([])
+
+  useEffect(() => {
+    setAnswers(
+      data[0].questions.map((question: any, index: number) => ({
+        questionTitle: question.questionTitle,
+        options: question.options.map((option: any) => ({ answer: '' })),
+      }))
+    )
+  }, [])
 
   //for setting each page question
   useEffect(() => {
@@ -45,6 +56,10 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
     setEachPageQuestions(desData)
   }, [questionIndex])
 
+  const justUserAnswers = answers.map((answer)=>{
+    return answer.options.map((optionAnswer)=>optionAnswer.answer)
+  })
+  console.log(justUserAnswers)
   const calculateScore = () => {
     const answersArr = Object.values(answers)
     const correctAnswers = answersArr.filter((answer) => answer === 'yes')
@@ -70,7 +85,11 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
             percent={Math.floor(calculateScore())}
           />
           <div className="mx-auto w-max py-10">
-            <ResultPage score={calculateScore()} data={data} />
+            <ResultPage
+              score={calculateScore()}
+              data={data}
+              answers={answers}
+            />
           </div>
         </div>
       ) : (

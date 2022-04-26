@@ -24,8 +24,8 @@ const AnswerTypeHeader: React.FC<{ answerType: string }> = ({ answerType }) => {
             <path
               d="M52.5901 28.2007L32.9532 48.0173L22.8652 37.837"
               stroke="#32CCA7"
-              stroke-width="4"
-              stroke-miterlimit="10"
+              strokeWidth="4"
+              strokeMiterlimit="10"
             />
           </svg>
           <p>HERE ARE THE THINGS YOU ARE DOING WELL</p>
@@ -48,8 +48,8 @@ const AnswerTypeHeader: React.FC<{ answerType: string }> = ({ answerType }) => {
             <path
               d="M47.193 28.2007L27.5561 48.0173M27.4668 28.2905L47.2834 47.9274"
               stroke="#EC4B4B"
-              stroke-width="4"
-              stroke-miterlimit="10"
+              strokeWidth="4"
+              strokeMiterlimit="10"
             />
           </svg>
           <p>HERE ARE THE THINGS YOU ARE NOT DOING WELL</p>
@@ -63,6 +63,7 @@ const AnswerTypeHeader: React.FC<{ answerType: string }> = ({ answerType }) => {
 interface ResultPageProps {
   data: QuizType[]
   score: number
+  answers: any
 }
 
 const styles = {
@@ -74,9 +75,16 @@ const styles = {
   cardTitle: 'text-xl font-semibold text-white mb-0',
 }
 
-const ResultPage: React.FC<ResultPageProps> = ({ data, score }) => {
-  console.log(data)
+const ResultPage: React.FC<ResultPageProps> = ({ data, score, answers }) => {
+  // console.log(data)
+  console.log(answers )
   const [showResultPage, setShowResultPage] = useState<boolean>(false)
+
+  // gettin the new array that contains question with user answers
+  let questions= data[0].questions.map((question)=>({questionTitle:question.questionTitle,yes:[],no:[]}))
+  const answersArr = Object.values(answers)
+  console.log(answersArr)
+
   return showResultPage ? (
     <div className={styles.pageContainer}>
       <div className={styles.resultCardsContainer}>
@@ -89,7 +97,10 @@ const ResultPage: React.FC<ResultPageProps> = ({ data, score }) => {
             <Button text="Download PDF" />
           </div>
           <div className="flex items-center justify-center">
-            <ProgressCircle className="text-white" percent={score} />
+            <ProgressCircle
+              className="text-white"
+              percent={Math.floor(score)}
+            />
           </div>
         </div>
         <div className={styles.cardContainer}>

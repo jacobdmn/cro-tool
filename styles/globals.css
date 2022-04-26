@@ -66,6 +66,6 @@ input[type="radio"] {
 	height: 1.25rem;
 	border-radius: 50%;
 	background-clip: content-box;
-	padding: 2px !important;
+	padding: 2.5px !important;
   cursor:pointer;
 }

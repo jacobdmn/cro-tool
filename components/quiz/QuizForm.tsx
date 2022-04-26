@@ -37,11 +37,20 @@ const QuizForm: React.FC<QuizFormProps> = ({
   }, [questionIndex])
 
   const handleOnChange = (inputType: string) => {
-    setAnswers({
-      ...answers,
-      ['answer' + index + questionIndex]: inputType,
-    })
     setCheckedState(inputType)
+
+    // logic for asnwers array
+    // 1. Make a shallow copy of the options
+    let questionsWithAnswers = [...answers]
+    // 2. Make a shallow copy of the item to mutate
+    let questionWithAnswer = { ...answers[questionIndex-1] }
+    // 3. Replace the property
+    questionWithAnswer.options[index - 1].answer = inputType
+    // 4. Put it back into our array. N.B. we are mutating the array here, but that's why we made a copy first
+    questionsWithAnswers[questionIndex - 1] = questionWithAnswer
+    // 5. Set the state to our new copy
+    setAnswers(questionsWithAnswers)
+
     // logic for validation
     // 1. Make a shallow copy of the options
     let items = [...options]
@@ -70,7 +79,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
           <input
             id={`yes${index}`}
             name={`radio_btn_${index}`}
-            className="checked:bg-rc_green/20 border border-rc_green"
+            className="border border-rc_green checked:bg-rc_green/50"
             type="radio"
             value={answers['answer' + index + questionIndex]}
             onChange={() => handleOnChange('yes')}
@@ -84,7 +93,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
           <input
             id={`no${index}`}
             name={`radio_btn_${index}`}
-            className="checked:bg-btn_color border border-btn_color"
+            className="border border-btn_color checked:bg-btn_color"
             type="radio"
             value={answers['answer' + index + questionIndex]}
             onChange={() => handleOnChange('no')}

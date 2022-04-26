@@ -54,7 +54,6 @@ const Quiz: React.FC<QuizProps> = ({
       return ''
     } else if (questionIndex >= questionsLength) {
       setShowResult(true)
-      console.log(answers)
     } else {
       setQuestionIndex((prevIndex: any) => (prevIndex += 1))
     }
