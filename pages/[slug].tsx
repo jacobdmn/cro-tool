@@ -56,14 +56,12 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
     setEachPageQuestions(desData)
   }, [questionIndex])
 
-  const justUserAnswers = answers.map((answer)=>{
-    return answer.options.map((optionAnswer)=>optionAnswer.answer)
-  })
-  console.log(justUserAnswers)
   const calculateScore = () => {
-    const answersArr = Object.values(answers)
-    const correctAnswers = answersArr.filter((answer) => answer === 'yes')
-    const result = (100 * correctAnswers.length) / answersArr.length
+    const justUserAnswers = answers.flatMap((answer) => {
+      return answer.options.map((optionAnswer) => optionAnswer.answer)
+    })
+    const correctAnswers = justUserAnswers.filter((answer) => answer === 'yes')
+    const result = (100 * correctAnswers.length) / justUserAnswers.length
     return result
   }
 
