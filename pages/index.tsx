@@ -1,7 +1,12 @@
+import { PDFDownloadLink } from '@react-pdf/renderer'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import Button from '../components/button/Button'
+import PdfDocument from './../components/document/PdfDocument'
+import NoSsrWrapper from '../components/NoSsrWrapper'
+import NoSSR from 'react-no-ssr'
+
 
 const styles = {
   auditWrapper:
@@ -17,7 +22,7 @@ const Home: NextPage = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-black/80 py-2 ">
       <Head>
-        <title>Create Next App</title>
+        <title>CRO Tool | Rocket Conversions</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -33,6 +38,18 @@ const Home: NextPage = () => {
           ))}
         </div>
       </main>
+      
+      {/* <NoSSR>
+        <PDFDownloadLink document={<PdfDocument />} fileName="CRO Results">
+          {({ loading }) =>
+            loading ? (
+              <button>Loading Document ...</button>
+            ) : (
+              <button>Download</button>
+            )
+          }
+        </PDFDownloadLink>
+      </NoSSR> */}
     </div>
   )
 }

@@ -81,7 +81,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
       <div className="flex w-full flex-col gap-4">
         {answers.map((answer, i) => (
           <div key={i}>
-            <h1 className="mx-auto mb-4 w-[70%] text-center text-xl text-black font-semibold">
+            <h1 className="mx-auto mb-4 w-[70%] text-center text-xl font-semibold text-black">
               {answer.questionTitle}
             </h1>
             <div className="flex w-full justify-between gap-6">

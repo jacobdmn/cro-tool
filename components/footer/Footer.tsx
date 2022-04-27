@@ -76,8 +76,8 @@ const Footer: React.FC<FooterProps> = ({ showResult }) => {
         >
           <input
             type="email"
-            id="share_input"
-            name="share_input"
+            id="to_email"
+            name="to_email"
             className={styles.share_input}
             required
           />
