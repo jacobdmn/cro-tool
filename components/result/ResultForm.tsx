@@ -39,7 +39,7 @@ const ResultForm: React.FC<ResultFormProps> = ({ setShowResultPage }) => {
   }
   return (
     <div className={styles.formContainer}>
-      <h1 className="text-2xl font-semibold">Enter Your Email Below To Get</h1>
+      <h1 className="text-2xl font-semibold mb-3">Enter Your Email Below To Get</h1>
       <div className="flex items-center justify-center gap-12">
         {['Your Audit', 'List Of Action Items', 'Breakdown Of Results'].map(
           (item, index) => (

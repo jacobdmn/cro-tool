@@ -53,8 +53,8 @@ const Footer: React.FC<FooterProps> = ({ showResult }) => {
     <footer className={styles.quizpage_footer}>
       <div className={styles.quizpage_footer1}>
         <svg
-          width="30"
-          height="25"
+          width="40"
+          height="35"
           viewBox="0 0 40 37"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@ const Footer: React.FC<FooterProps> = ({ showResult }) => {
             fill="#CD1C6C"
           />
         </svg>
-        <p className="text-center">
+        <p className="text-center font-semibold mb-3">
           Know someone who could do with a free CRO audit? <br /> Enter their
           email below to share this tool with them
         </p>

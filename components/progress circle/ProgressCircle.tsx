@@ -22,7 +22,7 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
       className={`rounded-full ${className}`}
     >
       <CircularProgressbarWithChildren
-        value={percent}
+        value={score?100:percent}
         styles={buildStyles({
           pathColor: '#32CCA7',
           trailColor: 'white',

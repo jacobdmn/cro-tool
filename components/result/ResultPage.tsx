@@ -69,7 +69,7 @@ interface ResultPageProps {
 
 const styles = {
   pageContainer:
-    'flex w-[80%] flex-col items-center justify-center gap-20 pt-10 mx-auto',
+    'flex w-[90%] 2xl:w-[100%] flex-col items-center justify-center gap-20 pt-10 mx-auto max-w-[1000px]',
 }
 
 const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
@@ -81,7 +81,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
       <div className="flex w-full flex-col gap-4">
         {answers.map((answer, i) => (
           <div key={i}>
-            <h1 className="mx-auto mb-4 w-[70%] text-center text-xl font-semibold">
+            <h1 className="mx-auto mb-4 w-[70%] text-center text-xl text-black font-semibold">
               {answer.questionTitle}
             </h1>
             <div className="flex w-full justify-between gap-6">
@@ -125,7 +125,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
           </div>
         ))}
       </div>
-      <h1 className="text-3xl font-semibold">
+      <h1 className="text-3xl font-semibold text-black">
         Thanks for using the Rocket CRO tool
       </h1>
       <ShareResultCards score={score} />

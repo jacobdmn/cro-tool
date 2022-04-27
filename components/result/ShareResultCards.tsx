@@ -6,9 +6,9 @@ interface ShareResultCardsProps {
     score:number
 }
 const styles = {
-  resultCardsContainer: 'grid grid-cols-2 gap-6 w-full',
+  resultCardsContainer: 'grid grid-cols-2 gap-6 w-full mb-6 mt-4',
   cardContainer:
-    'cardContainer py-8 px-6 flex justify-between rounded bg-main_color h-56',
+    'cardContainer py-8 px-6 flex justify-between rounded-xl bg-main_color h-56',
   cardTitle: 'text-xl font-semibold text-white mb-0',
 }
 
@@ -32,7 +32,7 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({score}) => {
               </div>
             </div>
             <div className={styles.cardContainer}>
-              <div className="flex flex-col justify-between">
+              <div className="flex flex-col w-full justify-between">
                 <div>
                   <h2 className={styles.cardTitle}>Share Your Results</h2>
                   <a href="">
