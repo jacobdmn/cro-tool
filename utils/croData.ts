@@ -136,6 +136,11 @@ Another great element to think about, is using this page to incentivize referral
         options: [
           'The more complex the design of a home page, the more effort it requires for your visitors to process all the information on it. Bombard your shoppers with overloaded designs and they will bounce from your website. So keep your home page design as minimal as possible. Get rid of unnecessary images, texts, elements. Use a lot of white-space.',
         ],
+        example: {
+          title: 'example title',
+          content:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        },
       },
       {
         questionTitle:

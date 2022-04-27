@@ -3,6 +3,7 @@ import QuizForm from './QuizForm'
 import Button from '../button/Button'
 import ProgressCircle from '../progress circle/ProgressCircle'
 import { Setter } from '../../types/Setter'
+import Example from '../Example'
 
 interface QuizProps {
   questionsLength: number
@@ -14,6 +15,7 @@ interface QuizProps {
   eachPageQuestions: {
     questionTitle: string
     options: string[]
+    example?: { title: string; content: string }
   }
 }
 
@@ -61,9 +63,11 @@ const Quiz: React.FC<QuizProps> = ({
   return (
     <div className="relative flex flex-col items-center justify-center pb-20">
       <ProgressCircle
-        className="absolute -top-24 bg-quizpage_bg p-2 " percent={Math.floor((100 * questionIndex) / questionsLength)}
+        className="absolute -top-24 bg-quizpage_bg p-2 "
+        percent={Math.floor((100 * questionIndex) / questionsLength)}
       />
-      <div className="flex w-[70%] flex-col items-center justify-center gap-4 py-10">
+      <div className="flex w-[70%] flex-col items-center justify-center gap-4 py-16">
+        <span></span>
         {eachPageQuestions.options.map((option: string, index: number) => (
           <QuizForm
             key={index}
@@ -76,6 +80,9 @@ const Quiz: React.FC<QuizProps> = ({
             setOptions={setOptions}
           />
         ))}
+        {eachPageQuestions.example && (
+          <Example example={eachPageQuestions.example} />
+        )}
         <Button
           className="mt-8"
           type="submit"
