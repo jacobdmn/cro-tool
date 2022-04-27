@@ -103,7 +103,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
           eachPageQuestions={eachPageQuestions}
         />
       )}
-      <Footer />
+      <Footer showResult={showResult} />
     </div>
   )
 }

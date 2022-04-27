@@ -7,13 +7,13 @@ const styles = {
   auditWrapper:
     'bg-main_color px-7 py-10 flex flex-col gap-4 rounded w-[28rem]',
 }
+export const auditButtons: { id: number; text: string; slug: string }[] = [
+  { id: 1, text: 'Home Page Audit', slug: 'home-page-audit' },
+  { id: 2, text: 'Landing Page Audit', slug: 'landing-page-audit' },
+  { id: 3, text: 'Product Page Audit', slug: 'product-page-audit' },
+  { id: 4, text: 'Cart Page Audit', slug: 'cart-page-audit' },
+]
 const Home: NextPage = () => {
-  const auditButtons: { id: number; text: string; slug: string }[] = [
-    { id: 1, text: 'Home Page Audit', slug: 'home-page-audit' },
-    { id: 2, text: 'Landing Page Audit', slug: 'landing-page-audit' },
-    { id: 3, text: 'Product Page Audit', slug: 'product-page-audit' },
-    { id: 4, text: 'Cart Page Audit', slug: 'cart-page-audit' },
-  ]
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-black/80 py-2 ">
       <Head>

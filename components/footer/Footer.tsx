@@ -1,21 +1,24 @@
-import { useRouter } from 'next/router'
 import Image from 'next/image'
+import Link from 'next/link'
 import Button from '../button/Button'
 
 import rc_logo from '../../assets/images/rc_logo.png'
+import { auditButtons } from './../../pages/index';
 
-const styles = {
-  quizpage_footer: 'flex flex-col items-center justify-center',
-  quizpage_footer1:
-    'quizpage_footer1 h-72 grid place-content-center container max-w-full mx-auto relative -bottom-8 z-30',
-  quizpage_footer2:
-    'quizpage_footer2 py_24 h-48 grid place-content-center container max-w-full mx-auto z-40',
-  share_input: 'bg-white/50 px-2 py-1 rounded w-80',
-}
 
-interface FooterProps {}
+interface FooterProps {showResult:boolean}
 
-const Footer: React.FC<FooterProps> = ({}) => {
+const Footer: React.FC<FooterProps> = ({showResult}) => {
+  const styles = {
+    quizpage_footer: 'flex flex-col items-center justify-center',
+    quizpage_footer1:
+      `quizpage_footer1 h-96 grid place-content-center container max-w-full mx-auto relative ${showResult?"-bottom-12":"-bottom-8"}  z-30`,
+    quizpage_footer2: `quizpage_footer2 py_24 flex flex-col justify-center gap-12 container max-w-full mx-auto z-40 ${
+      showResult ? 'h-96' : 'h-48'
+    }`,
+    share_input: 'bg-white/50 px-2 py-1 rounded w-80',
+  }
+
   return (
     <footer className={styles.quizpage_footer}>
       <div className={styles.quizpage_footer1}>
@@ -46,7 +49,24 @@ const Footer: React.FC<FooterProps> = ({}) => {
         </div>
       </div>
       <div className={styles.quizpage_footer2}>
-        <Image height={30} width={102} src={rc_logo} className="object-cover" />
+        {showResult && (
+        <div className="text-center mt-12">
+            <h1 className="text-2xl text-white"> Choose Your Next Free Rocket CRO Audit</h1>
+          <div className="mx-auto grid w-[80%] place-content-center grid-cols-2 gap-4 pt-10">
+            {auditButtons.map((btn)=>(
+              <Link key={btn.id} href={`/${btn.slug}`}>
+                <a>
+                  <button className='w-full whitespace-nowrap px-auto py-2 text-white bg-rc_green rounded'>{btn.text}</button>
+                </a>
+              </Link>
+            ))}
+          </div>
+
+        </div>
+        )}
+        <div className="text-center">
+          <Image height={30} width={102} src={rc_logo} className="object-cover" />
+        </div>
       </div>
     </footer>
   )
