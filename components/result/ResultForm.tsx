@@ -1,5 +1,7 @@
+import { useState,useRef } from 'react'
 import Button from '../button/Button'
 import { Setter } from '../../types/Setter'
+import emailjs from '@emailjs/browser'
 
 interface ResultFormProps {
   setShowResultPage: Setter<boolean>
@@ -12,6 +14,29 @@ const styles = {
 }
 
 const ResultForm: React.FC<ResultFormProps> = ({ setShowResultPage }) => {
+  const form: any = useRef()
+  const [load, setLoad] = useState(false)
+
+  const sendEmail = (e: any) => {
+    e.preventDefault()
+    setLoad(true)
+    emailjs
+      .sendForm(
+        'gmail_service',
+        'gmail_template',
+        form.current,
+        'TAsmOiXnRKlUTL18a'
+      )
+      .then(
+        (result) => {
+          console.log(result.text)
+        },
+        (error) => {
+          console.log(error.text)
+        }
+      )
+      .then(() => setShowResultPage(true))
+  }
   return (
     <div className={styles.formContainer}>
       <h1 className="text-2xl font-semibold">Enter Your Email Below To Get</h1>
@@ -38,12 +63,17 @@ const ResultForm: React.FC<ResultFormProps> = ({ setShowResultPage }) => {
           )
         )}
       </div>
-      <form className="mt-8 flex items-center gap-4">
-        <input type="text" className={styles.form_input} />
+      <form
+        className="mt-8 flex items-center gap-4"
+        ref={form}
+        onSubmit={sendEmail}
+      >
+        <input type="email" name="email" className={styles.form_input} required/>
         <Button
-          text="Get my free audit"
+          type="submit"
+          text={load ? ' Processing...' : 'Get my free audit'}
           className="py-2 py-2 text-white"
-          onClick={() => setShowResultPage(true)}
+          disabled={load?true:false}
         />
       </form>
     </div>

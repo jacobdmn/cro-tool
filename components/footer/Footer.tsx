@@ -44,6 +44,7 @@ const Footer: React.FC<FooterProps> = ({ showResult }) => {
         </p>
         <div className="flex items-center justify-center gap-2">
           <input
+            type="email"
             id="share_input"
             name="share_input"
             className={styles.share_input}

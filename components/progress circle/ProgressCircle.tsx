@@ -21,7 +21,9 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
         //   strokeLinecap="square"
         strokeColor="#32CCA7"
         percent={percent}
-      />
+      >
+        khara
+      </Progress>
     </div>
   )
 }
