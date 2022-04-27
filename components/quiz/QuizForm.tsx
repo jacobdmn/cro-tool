@@ -3,11 +3,11 @@ import { Setter } from '../../types/Setter'
 
 const styles = {
   formContainer:
-    ' rounded-lg shadow-lg bg-white shadow-black/10 w-full flex items-center py-5 px-12 text-black justify-between',
+    ' rounded-lg shadow-lg bg-white shadow-black/10 w-full flex items-center py-7 px-12 text-black justify-between',
   formNumber:
     'w-8 h-8 grid place-content-center rounded-full border border-btn_color text-rc_green text-lg p-2',
-  formText: 'font-medium w-[70%] flex-none mb-0',
-  radio_label: 'text-xs text-gray-500',
+  formText: 'font-semibold w-[80%] flex-none mb-0',
+  radio_label: 'text-xs text-gray-500 mb-1',
   // radioBtn: 'w-5 h-5 cursor-pointer ',
 }
 
@@ -76,7 +76,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
           <input
             id={`yes${index}`}
             name={`radio_btn_${index}`}
-            className="border border-rc_green checked:bg-rc_green/50"
+            className="hover:scale-110 transition duration-900 ease border border-rc_green checked:bg-rc_green/50"
             type="radio"
             value={answers['answer' + index + questionIndex]}
             onChange={() => handleOnChange('yes')}
@@ -90,7 +90,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
           <input
             id={`no${index}`}
             name={`radio_btn_${index}`}
-            className="border border-btn_color checked:bg-btn_color"
+            className="hover:scale-110 transition duration-900 ease border border-btn_color checked:bg-btn_color"
             type="radio"
             value={answers['answer' + index + questionIndex]}
             onChange={() => handleOnChange('no')}

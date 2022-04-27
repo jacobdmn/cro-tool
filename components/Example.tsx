@@ -17,7 +17,7 @@ const Example: React.FC<ExampleProps> = ({ title,content ,isResult,type}) => {
         'relative rounded-lg shadow-lg bg-white shadow-black/10 w-full py-5 px-12 text-black transition duration-1000 ease-in-out',
       formNumber:
         'w-8 h-8 grid place-content-center rounded-full border border-btn_color text-rc_green text-lg p-2',
-      formText: `font-semibold whitespace-wrap ${isResult ?"w-[90%]":"w-[70%]"} flex-none mb-0`,
+      formText: `font-semibold whitespace-wrap ${isResult ?"w-[90%]":"w-[80%] text-btn_color"} flex-none mb-0`,
     }
 
   return (

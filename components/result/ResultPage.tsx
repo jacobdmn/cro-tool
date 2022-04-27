@@ -3,8 +3,8 @@ import ResultForm from './ResultForm'
 import Button from './../button/Button'
 import ProgressCircle from './../progress circle/ProgressCircle'
 import { QuizType } from '../../types/QuizType'
-import ResultContainer from './ResultContainer'
 import Example from '../Example'
+import ShareResultCards from './ShareResultCards'
 
 const AnswerTypeHeader: React.FC<{ answerType: string }> = ({ answerType }) => {
   return (
@@ -73,10 +73,6 @@ interface ResultPageProps {
 const styles = {
   pageContainer:
     'flex w-[80%] flex-col items-center justify-center gap-20 pt-10 mx-auto',
-  resultCardsContainer: 'grid grid-cols-2 gap-6 w-full',
-  cardContainer:
-    'cardContainer py-8 px-6 flex justify-between rounded bg-main_color h-56',
-  cardTitle: 'text-xl font-semibold text-white mb-0',
 }
 
 const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
@@ -84,34 +80,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
 
   return showResultPage ? (
     <div className={styles.pageContainer}>
-      <div className={styles.resultCardsContainer}>
-        <div className={styles.cardContainer}>
-          <div className="flex flex-col justify-between">
-            <h2 className={styles.cardTitle}>
-              Download Your <br />
-              Results as PDF
-            </h2>
-            <Button text="Download PDF" />
-          </div>
-          <div className="flex items-center justify-center">
-            <ProgressCircle
-              className="text-white"
-              percent={Math.floor(score)}
-            />
-          </div>
-        </div>
-        <div className={styles.cardContainer}>
-          <div className="flex flex-col justify-between">
-            <div>
-              <h2 className={styles.cardTitle}>Share Your Results</h2>
-              <a href="">
-                https://rocket-conversions.com/conversion-rate-optimization-checklist/
-              </a>
-            </div>
-            <Button text="Copy Link" />
-          </div>
-        </div>
-      </div>
+      <ShareResultCards score={score} />
       <div className="flex w-full flex-col gap-4">
         {answers.map((answer, i) => (
           <div key={i}>
@@ -127,7 +96,11 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
                     {answer.options
                       .filter((option) => option.answer === 'yes')
                       .map((answer, index) => (
-                        <Example title={answer.option} content={answer.option} isResult={true} type="yes" />
+                        <Example
+                          title={answer.option}
+                          isResult={true}
+                          type="yes"
+                        />
                       ))}
                   </div>
                 </div>
@@ -140,7 +113,12 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
                     {answer.options
                       .filter((option) => option.answer === 'no')
                       .map((answer, index) => (
-                        <Example title={answer.option} isResult={true} type="no" />
+                        <Example
+                          title={answer.option}
+                          content={answer.option}
+                          isResult={true}
+                          type="no"
+                        />
                       ))}
                   </div>
                 </div>
@@ -153,6 +131,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
       <h1 className="text-3xl font-semibold">
         Thanks for using the Rocket CRO tool
       </h1>
+      <ShareResultCards score={score} />
     </div>
   ) : (
     <ResultForm setShowResultPage={setShowResultPage} />
