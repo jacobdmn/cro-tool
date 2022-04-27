@@ -1,10 +1,7 @@
 import React from 'react'
 
 interface ResultContainerProps {
-  answer: {
-    answer: string
-    option: string
-  }
+  answer: string
   type:"yes"|"no"
 }
 
@@ -16,7 +13,7 @@ const styles = {
 const ResultContainer: React.FC<ResultContainerProps> = ({answer}) => {
         return (
           <div className={styles.resultFormContainer}>
-            <p className="font-semibold whitespace-wrap w-[90%] flex-none mb-0">{answer.option}</p>
+            <p className="font-semibold whitespace-wrap w-[90%] flex-none mb-0">{answer}</p>
             <svg
             className="cursor-pointer"
               width="19"

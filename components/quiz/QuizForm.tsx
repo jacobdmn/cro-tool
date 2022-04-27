@@ -6,7 +6,7 @@ const styles = {
     ' rounded-lg shadow-lg bg-white shadow-black/10 w-full flex items-center py-5 px-12 text-black justify-between',
   formNumber:
     'w-8 h-8 grid place-content-center rounded-full border border-btn_color text-rc_green text-lg p-2',
-  formText: 'font-medium w-[60%] flex-none mb-0',
+  formText: 'font-medium w-[70%] flex-none mb-0',
   radio_label: 'text-xs text-gray-500',
   // radioBtn: 'w-5 h-5 cursor-pointer ',
 }

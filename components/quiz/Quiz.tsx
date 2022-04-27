@@ -81,7 +81,7 @@ const Quiz: React.FC<QuizProps> = ({
           />
         ))}
         {eachPageQuestions.example && (
-          <Example example={eachPageQuestions.example} />
+          <Example title={eachPageQuestions.example.title} content={eachPageQuestions.example.content} isResult={false} type="no" />
         )}
         <Button
           className="mt-8"

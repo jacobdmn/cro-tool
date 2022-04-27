@@ -4,6 +4,7 @@ import Button from './../button/Button'
 import ProgressCircle from './../progress circle/ProgressCircle'
 import { QuizType } from '../../types/QuizType'
 import ResultContainer from './ResultContainer'
+import Example from '../Example'
 
 const AnswerTypeHeader: React.FC<{ answerType: string }> = ({ answerType }) => {
   return (
@@ -126,11 +127,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
                     {answer.options
                       .filter((option) => option.answer === 'yes')
                       .map((answer, index) => (
-                        <ResultContainer
-                          key={index}
-                          answer={answer}
-                          type="yes"
-                        />
+                        <Example title={answer.option} content={answer.option} isResult={true} type="yes" />
                       ))}
                   </div>
                 </div>
@@ -143,11 +140,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
                     {answer.options
                       .filter((option) => option.answer === 'no')
                       .map((answer, index) => (
-                        <ResultContainer
-                          key={index}
-                          answer={answer}
-                          type="no"
-                        />
+                        <Example title={answer.option} isResult={true} type="no" />
                       ))}
                   </div>
                 </div>
