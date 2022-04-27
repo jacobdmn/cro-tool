@@ -63,8 +63,10 @@ const Quiz: React.FC<QuizProps> = ({
   return (
     <div className="relative flex flex-col items-center justify-center pb-20">
       <ProgressCircle
-        className="absolute -top-24 bg-quizpage_bg p-2 "
+        className="absolute -top-24 bg-quizpage_bg p-2 text-black "
         percent={Math.floor((100 * questionIndex) / questionsLength)}
+        questionIndex={questionIndex}
+        questionsLength={questionsLength}
       />
       <div className="flex w-[60%] flex-col items-center justify-center gap-4 py-16">
         <span></span>
@@ -81,7 +83,12 @@ const Quiz: React.FC<QuizProps> = ({
           />
         ))}
         {eachPageQuestions.example && (
-          <Example title={eachPageQuestions.example.title} content={eachPageQuestions.example.content} isResult={false} type="no" />
+          <Example
+            title={eachPageQuestions.example.title}
+            content={eachPageQuestions.example.content}
+            isResult={false}
+            type="no"
+          />
         )}
         <Button
           className="mt-8"

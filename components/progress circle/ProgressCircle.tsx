@@ -1,29 +1,41 @@
-import { Progress } from 'antd'
-import 'antd/dist/antd.css'
+import { CircularProgressbarWithChildren,buildStyles } from 'react-circular-progressbar'
+import 'react-circular-progressbar/dist/styles.css'
 
 interface ProgressCircleProps {
   percent: number
   className: string
+  questionIndex?:number
+  questionsLength?:number
+  score?:number
 }
 
 const ProgressCircle: React.FC<ProgressCircleProps> = ({
   percent,
   className,
+  questionIndex ,
+  questionsLength,
+  score
 }) => {
   return (
-    <div className={`rounded-full ${className}`}>
-      <Progress
-        className="mb-3"
-        type="circle"
-        strokeWidth={10}
-        trailColor="#fff"
-        // width={100}
-        //   strokeLinecap="square"
-        strokeColor="#32CCA7"
-        percent={percent}
+    <div
+      style={{ width: 150, height: 150 }}
+      className={`rounded-full ${className}`}
+    >
+      <CircularProgressbarWithChildren
+        value={percent}
+        styles={buildStyles({
+          pathColor: '#32CCA7',
+          trailColor: 'white',
+        })}
       >
-        khara
-      </Progress>
+        {score&& <p className="text-xs mb-0"> YOUR SCORE </p>}
+        <span className="text-4xl font-semibold">{percent}%</span>
+        {questionsLength&&
+        <>
+          <span className="h-1 w-[50%] bg-gray-800 mb-1 mt-0.5" />
+          <span className="text-gray-600 ">{questionIndex}/{questionsLength}</span>
+        </>}
+      </CircularProgressbarWithChildren>
     </div>
   )
 }

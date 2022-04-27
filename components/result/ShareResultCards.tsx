@@ -27,6 +27,7 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({score}) => {
                 <ProgressCircle
                   className="text-white"
                   percent={Math.floor(score)}
+                  score={score}
                 />
               </div>
             </div>

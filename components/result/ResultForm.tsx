@@ -9,7 +9,7 @@ interface ResultFormProps {
 
 const styles = {
   formContainer:
-    'bg-white rounded-lg shadow-lg shadow-black/10 w-full flex flex-col items-center py-10 px-16 text-black justify-between',
+    'bg-white rounded-lg shadow-lg shadow-black/10 w-full flex flex-col items-center py-10 px-16 mt-8 text-black justify-between',
   form_input: 'bg-quizpage_bg px-2 py-2 rounded w-80',
 }
 
