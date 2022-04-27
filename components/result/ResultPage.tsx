@@ -1,8 +1,5 @@
 import { useState } from 'react'
 import ResultForm from './ResultForm'
-import Button from './../button/Button'
-import ProgressCircle from './../progress circle/ProgressCircle'
-import { QuizType } from '../../types/QuizType'
 import Example from '../Example'
 import ShareResultCards from './ShareResultCards'
 

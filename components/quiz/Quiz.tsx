@@ -66,7 +66,7 @@ const Quiz: React.FC<QuizProps> = ({
         className="absolute -top-24 bg-quizpage_bg p-2 "
         percent={Math.floor((100 * questionIndex) / questionsLength)}
       />
-      <div className="flex w-[70%] flex-col items-center justify-center gap-4 py-16">
+      <div className="flex w-[60%] flex-col items-center justify-center gap-4 py-16">
         <span></span>
         {eachPageQuestions.options.map((option: string, index: number) => (
           <QuizForm

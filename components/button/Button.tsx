@@ -1,4 +1,6 @@
 import React from 'react'
+import Button   from '@mui/material/Button'
+
 type ButtonType = 'button' | 'submit' | 'reset' | undefined
 
 interface ButtonProps {
@@ -9,7 +11,7 @@ interface ButtonProps {
   onClick?: () => void
 }
 
-const Button: React.FC<ButtonProps> = ({
+const CroButton: React.FC<ButtonProps> = ({
   className,
   text,
   type,
@@ -17,14 +19,15 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
 }) => {
   return (
-    <button
+    <Button
+      variant="contained"
       onClick={onClick}
       type={type}
-      className={`rounded bg-btn_color py-2 px-8 disabled:bg-btn_color/30 ${className}`}
+      className={`rounded bg-btn_color py-2 px-8 hover:bg-btn_color shadow-none hover:shadow-none disabled:bg-btn_color/30 disabled:text-white ${className}`}
       disabled={disabled}
     >
       {text}
-    </button>
+    </Button>
   )
 }
-export default Button
+export default CroButton

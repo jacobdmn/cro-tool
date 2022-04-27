@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import Radio from "@mui/material/Radio";
+
 import { Setter } from '../../types/Setter'
 
 const styles = {
@@ -62,39 +64,45 @@ const QuizForm: React.FC<QuizFormProps> = ({
     // 5. Set the state to our new copy
     setOptions(items)
   }
+
+  console.log(checkedState)
   return (
-    <div
-      className={styles.formContainer}
-    >
+    <div className={styles.formContainer}>
       <span className={styles.formNumber}>{index}</span>
       <p className={styles.formText}>{option}</p>
       <div className="flex items-center gap-6">
         <div className="grid place-content-center">
-          <label htmlFor={`yes${index}`} className={styles.radio_label}>
-            YES
-          </label>
-          <input
+          <p className={styles.radio_label}>YES</p>
+          <Radio
             id={`yes${index}`}
             name={`radio_btn_${index}`}
-            className="hover:scale-110 transition duration-900 ease border border-rc_green checked:bg-rc_green/50"
-            type="radio"
             value={answers['answer' + index + questionIndex]}
-            onChange={() => handleOnChange('yes')}
+            // onChange={() => handleOnChange('yes')}
+            onClick={() => handleOnChange('yes')}
             checked={checkedState === 'yes'}
+            sx={{
+              color: '#32CCA7',
+              '&.Mui-checked': {
+                color: '#32CCA7',
+              },
+            }}
           />
         </div>
         <div className="grid place-content-center">
-          <label htmlFor={`no${index}`} className={styles.radio_label}>
-            NO
-          </label>
-          <input
+          <p className={styles.radio_label}>NO</p>
+          <Radio
             id={`no${index}`}
             name={`radio_btn_${index}`}
-            className="hover:scale-110 transition duration-900 ease border border-btn_color checked:bg-btn_color"
-            type="radio"
             value={answers['answer' + index + questionIndex]}
-            onChange={() => handleOnChange('no')}
+            // onChange={() => handleOnChange('no')}
+            onClick={() => handleOnChange('no')}
             checked={checkedState === 'no'}
+            sx={{
+              color: '#CD1C6C',
+              '&.Mui-checked': {
+                color: '#CD1C6C',
+              },
+            }}
           />
         </div>
       </div>
