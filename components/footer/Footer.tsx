@@ -1,16 +1,43 @@
+import { useState, useRef } from 'react'
 import Image from 'next/image'
-import Link from 'next/link'
 import Button from '../button/Button'
+import emailjs from '@emailjs/browser'
 
 import rc_logo from '../../assets/images/rc_logo.png'
 import { auditButtons } from './../../pages/index'
-import { Setter } from '../../types/Setter'
 
 interface FooterProps {
   showResult: boolean
 }
 
 const Footer: React.FC<FooterProps> = ({ showResult }) => {
+   const form: any = useRef()
+   const [load, setLoad] = useState(false)
+
+   const sendEmail = (e: any) => {
+     e.preventDefault()
+     setLoad(true)
+     emailjs
+       .sendForm(
+         'gmail_service',
+         'gmail_template',
+         form.current,
+         'TAsmOiXnRKlUTL18a'
+       )
+       .then(
+         (result) => {
+           console.log(result.text)
+           alert('Thank you for sharing!')
+           setLoad(false)
+         },
+         (error) => {
+           console.log(error.text)
+           alert('Error: '+error.text)
+           setLoad(false)
+         }
+       )
+   }
+
   const styles = {
     quizpage_footer: 'flex flex-col items-center justify-center',
     quizpage_footer1: `quizpage_footer1 h-96 grid place-content-center container max-w-full mx-auto relative ${
@@ -42,15 +69,25 @@ const Footer: React.FC<FooterProps> = ({ showResult }) => {
           Know someone who could do with a free CRO audit? <br /> Enter their
           email below to share this tool with them
         </p>
-        <div className="flex items-center justify-center gap-2">
+        <form
+          className="flex items-center justify-center gap-2"
+          ref={form}
+          onSubmit={sendEmail}
+        >
           <input
             type="email"
             id="share_input"
             name="share_input"
             className={styles.share_input}
+            required
           />
-          <Button text="Share" className="py-1" />
-        </div>
+          <Button
+            type="submit"
+            text={load ? ' Processing...' : 'Share'}
+            className="py-1"
+            disabled={load ? true : false}
+          />
+        </form>
       </div>
       <div className={styles.quizpage_footer2}>
         {showResult && (
@@ -60,11 +97,11 @@ const Footer: React.FC<FooterProps> = ({ showResult }) => {
             </h1>
             <div className="mx-auto grid w-[80%] grid-cols-2 place-content-center gap-4 pt-10">
               {auditButtons.map((btn) => (
-                  <a key={btn.id} href={`/${btn.slug}`}>
-                    <button className="px-auto w-full whitespace-nowrap rounded bg-rc_green py-2 text-white">
-                      {btn.text}
-                    </button>
-                  </a>
+                <a key={btn.id} href={`/${btn.slug}`}>
+                  <button className="px-auto w-full whitespace-nowrap rounded bg-rc_green py-2 text-white">
+                    {btn.text}
+                  </button>
+                </a>
               ))}
             </div>
           </div>
