@@ -62,7 +62,7 @@ const useStyles = makeStyles({
     fontSize: '16px !important',
   },
   accordionText: {
-    textAlign: 'Start',
+    textAlign: 'left',
     color: '#CD1C6C',
     fontSize: '16px',
     fontWeight: 'bold !important',
@@ -127,24 +127,29 @@ const Example: React.FC<ExampleProps> = ({
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <span className={classes.index}>
-                  <QuestionMarkIcon className={classes.questionIcon} />
-                </span>
-                <Typography className={classes.accordionText}>
-                  Click Here To See An Example
-                </Typography>
-              </div>
+              {isResult ? (
+                <div className="mr-6 text-left font-semibold">{title}</div>
+              ) : (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    textAlign: 'left',
+                  }}
+                >
+                  <span className={classes.index}>
+                    <QuestionMarkIcon className={classes.questionIcon} />
+                  </span>
+                  <Typography className={classes.accordionText}>
+                    Click Here To See An Example
+                  </Typography>
+                </div>
+              )}
             </AccordionSummary>
             <AccordionDetails>
               {content}
               <img
-                src="./../assets/images/example-img.png"
+                src="/example-img.png"
                 className={classes.exampleImg}
                 alt="example"
               />
