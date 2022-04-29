@@ -469,8 +469,7 @@ A very effective way of persuading users to make a purchase right now is by crea
         questionTitle:
           'Do you use scarcity elements? (relevant for stores with limited stock or limited offers)',
         options: [
-          `
-              When a product or service is limited in availability, then it becomes more attractive to shoppers. When they understand that it's limited and others also desire it, it creates fear of missing out, which persuades shoppers to act fast.
+          ` When a product or service is limited in availability, then it becomes more attractive to shoppers. When they understand that it's limited and others also desire it, it creates fear of missing out, which persuades shoppers to act fast.
 Human psychology is such that we are prone to purchase something when we know that it's the very last one, or limited, or that a special offer will expire soon.
 `,
         ],
@@ -536,8 +535,7 @@ Human psychology is such that we are prone to purchase something when we know th
         questionTitle:
           'Do you show alternative payment options below the main CTA-button?',
         options: [
-          `
-              In recent years, it has become popular to add express checkout buttons (Paypal, Amazon, Google Pay, etc.) on the Cart page of e-commerce stores, and there are many obvious reasons for that.
+          `In recent years, it has become popular to add express checkout buttons (Paypal, Amazon, Google Pay, etc.) on the Cart page of e-commerce stores, and there are many obvious reasons for that.
 Firstly, it greatly simplifies the checkout process for those shoppers already used to paying with these payment options (usually, contact forms on the store are auto-populated based on the data that is already saved in the account in a payment system).
 `,
         ],
@@ -545,8 +543,7 @@ Firstly, it greatly simplifies the checkout process for those shoppers already u
       {
         questionTitle: 'Do you show images of all available payment methods?',
         options: [
-          `
-            When shoppers are already on the cart page, they think about proceeding with the checkout process. Showing them that they can pay with different payment methods can nudge them to the next step and reassure them that they can pay for the goods with these payment options.
+          `When shoppers are already on the cart page, they think about proceeding with the checkout process. Showing them that they can pay with different payment methods can nudge them to the next step and reassure them that they can pay for the goods with these payment options.
 `,
         ],
       },

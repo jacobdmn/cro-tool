@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/styles'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
@@ -78,7 +78,7 @@ const useStyles = makeStyles({
   },
 })
 
-const CustomExpandIcon = () => {
+const CustomExpandIcon:any = () => {
   return (
     <Box
       sx={{
