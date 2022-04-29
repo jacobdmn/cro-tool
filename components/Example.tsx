@@ -133,7 +133,7 @@ const Example: React.FC<ExampleProps> = ({
                     marginRight: '1.5rem',
                     fontWeight: '400',
                     fontSize: '1.2rem',
-                    lineHeight: '1.6',
+                    lineHeight: '1.8',
                     textAlign: 'left',
                   }}
                 >
@@ -157,7 +157,19 @@ const Example: React.FC<ExampleProps> = ({
               )}
             </AccordionSummary>
             <AccordionDetails>
-              {content}
+              <div
+                style={{
+                  textAlign: 'left',
+                  marginBottom: '1rem',
+                  fontSize: '1.2rem',
+                  lineHeight: '1.8',
+                  fontWeight: '400',
+                  borderTop: '1px solid rgb(131, 11, 11)',
+                  paddingTop: '1rem ',
+                }}
+              >
+                🟢 {content}
+              </div>
               <img
                 src="/example-img.png"
                 className={classes.exampleImg}

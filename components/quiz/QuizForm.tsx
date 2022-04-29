@@ -58,10 +58,11 @@ const useStyles = makeStyles({
   labelText: {
     display: 'inline-block',
     width: 'fit-content',
-    textAlign: 'Start',
+    textAlign: 'left',
     color: '#333',
-    fontSize: '16px',
-    fontWeight: 'bold',
+    fontSize: '1.1rem',
+    fontWeight: '400',
+    lineHeight: '1.8',
   },
   radioGroup: {
     display: 'flex !important',
