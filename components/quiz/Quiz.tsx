@@ -59,6 +59,7 @@ const Quiz: React.FC<QuizProps> = ({
     } else {
       setQuestionIndex((prevIndex: any) => (prevIndex += 1))
     }
+    window.scrollTo(0, 0)
   }
   return (
     <div className="relative flex flex-col items-center justify-center pb-20">
@@ -68,8 +69,7 @@ const Quiz: React.FC<QuizProps> = ({
         questionIndex={questionIndex}
         questionsLength={questionsLength}
       />
-      <div className="flex w-[60%] flex-col items-center justify-center gap-4 py-16">
-        <span></span>
+      <div className="flex w-[880px] flex-col items-center justify-center gap-4 py-16">
         {eachPageQuestions.options.map((option: string, index: number) => (
           <QuizForm
             key={index}
@@ -90,17 +90,24 @@ const Quiz: React.FC<QuizProps> = ({
             type="no"
           />
         )}
-        <Button
-          className="mt-8"
-          type="submit"
-          text={
-            !(questionIndex >= questionsLength)
-              ? `${questionIndex + '/' + questionsLength} - Next`
-              : 'Submit'
-          }
-          onClick={handleNextBtn}
-          disabled={isDisabled ? true : false}
-        />
+        <div className="mt-8 text-center">
+          <Button
+            variant="contained"
+            sx={{
+              backgroundColor: '#CD1C6C !important',
+              boxShadow: 'none !important',
+              height: '2.8em',
+            }}
+            type="submit"
+            text={
+              !(questionIndex >= questionsLength)
+                ? `${questionIndex + '/' + questionsLength} - Next`
+                : 'Submit'
+            }
+            onClick={handleNextBtn}
+            disabled={isDisabled ? true : false}
+          />
+        </div>
       </div>
     </div>
   )

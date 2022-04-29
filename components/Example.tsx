@@ -1,50 +1,157 @@
 import { useState } from 'react'
-import { VscAdd, VscClose } from 'react-icons/vsc'
+import { makeStyles } from '@material-ui/core/styles'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import Typography from '@mui/material/Typography'
+import Accordion from '@mui/material/Accordion'
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
+
+import Box from '@mui/material/Box'
+import AddIcon from '@mui/icons-material/Add'
+import CloseIcon from '@mui/icons-material/Close'
 
 interface ExampleProps {
-  title: string; 
-  content?: string 
+  title: string
+  content?: string
   isResult: boolean
   type?: 'yes' | 'no'
 }
+const useStyles = makeStyles({
+  index: {
+    width: '15px !important',
+    height: '15px !important',
+    padding: '15px',
+    border: '1px solid #CD1C6C',
+    borderRadius: '50%',
+    textAlign: 'center',
+    marginInlineEnd: '30px',
+    lineHeight: '1em !important',
+    display: 'grid',
+    placeContent: 'center',
+  },
+  exampleWrapper: {
+    marginTop: '20px',
+    width: '100%',
+    '&, & *': {
+      cursor: 'pointer',
+    },
+  },
+  addIcon: {
+    transform: 'none !important',
+  },
+  example: {
+    width: '100%',
+    position: 'relative',
+    margin: 'auto',
+    display: 'flex !important',
+    justifyContent: 'space-around',
+    textAlign: 'center',
+    boxShadow: '0px 0px 8px 8px rgba(0,0,0,0.04)',
+    borderRadius: '10px',
+  },
+  accordionWrapper: {
+    width: '100%',
+    display: 'flex',
+    margin: 'auto',
+  },
+  accordion: {
+    boxShadow: 'none !important',
+  },
+  questionIcon: {
+    color: '#32CCA7',
+    fontSize: '16px !important',
+  },
+  accordionText: {
+    textAlign: 'Start',
+    color: '#CD1C6C',
+    fontSize: '16px',
+    fontWeight: 'bold !important',
+    lineHeight: '3em !important',
+  },
+  exampleImg: {
+    width: '100%',
+  },
+  nextBtn: {
+    backgroundColor: '#CD1C6C !important',
+    boxShadow: 'none !important',
+    height: '2.8em',
+  },
+})
 
+const CustomExpandIcon = () => {
+  return (
+    <Box
+      sx={{
+        '.Mui-expanded & > .collapseIconWrapper': {
+          display: 'none',
+          color: '#CD1C6C !important',
+        },
+        '.expandIconWrapper': {
+          display: 'none',
+          color: '#CD1C6C !important',
+        },
+        '.Mui-expanded & > .expandIconWrapper': {
+          display: 'block',
+          color: '#CD1C6C !important',
+        },
+      }}
+    >
+      <CloseIcon className="expandIconWrapper" />
+      <AddIcon className="collapseIconWrapper" />
+    </Box>
+  )
+}
 
-const Example: React.FC<ExampleProps> = ({ title,content ,isResult,type}) => {
-    const [showExample, setShowExample] = useState(false)
-
-    const styles = {
-      formContainer:
-        'relative rounded-lg shadow-lg bg-white shadow-black/10 w-full py-5 px-12 text-black transition duration-1000 ease-in-out',
-      formNumber:
-        'w-8 h-8 grid place-content-center rounded-full border border-btn_color text-rc_green text-lg p-2',
-      formText: `font-semibold whitespace-wrap ${isResult ?"w-[90%]":"w-[80%] text-btn_color"} flex-none mb-0`,
-    }
+const Example: React.FC<ExampleProps> = ({
+  title,
+  content,
+  isResult,
+  type,
+}) => {
+  const [showExample, setShowExample] = useState(false)
+  const classes = useStyles()
 
   return (
-    <div className={`${styles.formContainer}`}>
-      <div className="flex items-center justify-between">
-        {!isResult&&
-        <span className={styles.formNumber}>?</span>}
-        <p className={styles.formText}>{title}</p>
-        {type==="no"&&
-            <button onClick={() => setShowExample((p) => !p)}>
-            {!showExample ? (
-                <VscAdd className="text-btn_color" size={24} />
-            ) : (
-                <VscClose className="text-btn_color" size={24} />
-            )}
-            </button>
-        }
-      </div>
-      {type==="no"&&
-        <div
-            className={` px-10 translate-0 overflow-hidden transition duration-1000 ease-in-out  ${
-            showExample ? ' max-h-full my-6' : ' max-h-0'
-            }`}
-        >
-            {content}
+    <div className={classes.exampleWrapper}>
+      <div className={classes.example}>
+        <div className={classes.accordionWrapper}>
+          <Accordion
+            className={classes.accordion}
+            sx={{
+              background: 'none',
+              width: '100%',
+            }}
+          >
+            <AccordionSummary
+              expandIcon={<CustomExpandIcon className={classes.addIcon} />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}
+              >
+                <span className={classes.index}>
+                  <QuestionMarkIcon className={classes.questionIcon} />
+                </span>
+                <Typography className={classes.accordionText}>
+                  Click Here To See An Example
+                </Typography>
+              </div>
+            </AccordionSummary>
+            <AccordionDetails>
+              {content}
+              <img
+                src="./../assets/images/example-img.png"
+                className={classes.exampleImg}
+                alt="example"
+              />
+            </AccordionDetails>
+          </Accordion>
         </div>
-        }
+      </div>
     </div>
   )
 }

@@ -1,7 +1,127 @@
 import { useState, useEffect } from 'react'
-import Radio from "@mui/material/Radio";
+import Radio from '@mui/material/Radio'
 
 import { Setter } from '../../types/Setter'
+
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import FormControl from '@mui/material/FormControl'
+import FormLabel from '@mui/material/FormLabel'
+import RadioGroup from '@mui/material/RadioGroup'
+
+import { Button } from '@mui/material'
+
+const useStyles = makeStyles({
+  container: {
+    width: '100%',
+  },
+  questionWrapper: {
+    width: '100%',
+    position: 'relative',
+    margin: 'auto',
+    justifyContent: 'center',
+    textAlign: 'center',
+    boxShadow: '0px 0px 8px 8px rgba(0,0,0,0.04)',
+    padding: '30px 15px',
+    borderRadius: '10px',
+  },
+  questionBody: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    width: '100%',
+  },
+  formControl: {
+    width: '100%',
+    display: 'flex !important',
+    flexDirection: 'row !important',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  formLabel: {
+    display: 'inline-flex',
+    textAlign: 'start',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  index: {
+    width: '15px !important',
+    height: '15px !important',
+    padding: '15px',
+    border: '1px solid #CD1C6C',
+    borderRadius: '50%',
+    textAlign: 'center',
+    marginInlineEnd: '30px',
+    lineHeight: '1em !important',
+    display: 'grid',
+    placeContent: 'center',
+  },
+  labelText: {
+    display: 'inline-block',
+    width: 'fit-content',
+    textAlign: 'Start',
+    color: '#333',
+    fontSize: '16px',
+    fontWeight: 'bold',
+  },
+  radioGroup: {
+    display: 'flex !important',
+    flexDirection: 'row !important',
+    flexWrap: 'nowrap !important',
+    width: 'fit-content',
+  },
+  controlWrapper: {
+    display: 'inline-block',
+    marginInlineStart: '15px',
+  },
+  label: {
+    display: 'block',
+    width: 'fit-content',
+    margin: '0',
+    paddingInlineStart: '.5em',
+    color: '#333',
+  },
+  radio: {
+    // color: '#CD1C6C !important',
+  },
+  exampleWrapper: {
+    marginTop: '20px',
+  },
+  addIcon: {
+    transform: 'none !important',
+  },
+  example: {
+    position: 'relative',
+    margin: 'auto',
+    display: 'flex !important',
+    justifyContent: 'space-around',
+    textAlign: 'center',
+    boxShadow: '0px 0px 8px 8px rgba(0,0,0,0.04)',
+    padding: '10px 15px',
+    borderRadius: '10px',
+  },
+  accordionWrapper: {
+    display: 'flex',
+    margin: 'auto',
+    width: '91%',
+  },
+  accordion: {
+    boxShadow: 'none !important',
+  },
+  questionIcon: {
+    color: '#32CCA7',
+    fontSize: '16px !important',
+  },
+  accordionText: {
+    textAlign: 'Start',
+    color: '#CD1C6C',
+    fontSize: '16px',
+    fontWeight: 'bold !important',
+    lineHeight: '3em !important',
+  },
+  exampleImg: {
+    width: '100%',
+  },
+})
 
 const styles = {
   formContainer:
@@ -44,7 +164,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
     // 1. Make a shallow copy of the options
     let questionsWithAnswers = [...answers]
     // 2. Make a shallow copy of the item to mutate
-    let questionWithAnswer = { ...answers[questionIndex-1] }
+    let questionWithAnswer = { ...answers[questionIndex - 1] }
     // 3. Replace the property
     questionWithAnswer.options[index - 1].answer = inputType
     // 4. Put it back into our array. N.B. we are mutating the array here, but that's why we made a copy first
@@ -65,45 +185,58 @@ const QuizForm: React.FC<QuizFormProps> = ({
     setOptions(items)
   }
 
+  const classes = useStyles()
+
   console.log(checkedState)
   return (
-    <div className={styles.formContainer}>
-      <span className={styles.formNumber}>{index}</span>
-      <p className={styles.formText}>{option}</p>
-      <div className="flex items-center gap-2">
-        <div className="grid place-content-center">
-          <p className={styles.radio_label}>YES</p>
-          <Radio
-            id={`yes${index}`}
-            name={`radio_btn_${index}`}
-            value={answers['answer' + index + questionIndex]}
-            // onChange={() => handleOnChange('yes')}
-            onClick={() => handleOnChange('yes')}
-            checked={checkedState === 'yes'}
-            sx={{
-              color: '#32CCA7',
-              '&.Mui-checked': {
-                color: '#32CCA7',
-              },
-            }}
-          />
-        </div>
-        <div className="grid place-content-center">
-          <p className={styles.radio_label}>NO</p>
-          <Radio
-            id={`no${index}`}
-            name={`radio_btn_${index}`}
-            value={answers['answer' + index + questionIndex]}
-            // onChange={() => handleOnChange('no')}
-            onClick={() => handleOnChange('no')}
-            checked={checkedState === 'no'}
-            sx={{
-              color: '#CD1C6C',
-              '&.Mui-checked': {
-                color: '#CD1C6C',
-              },
-            }}
-          />
+    <div className={classes.container}>
+      <div className={classes.questionWrapper}>
+        <div className={classes.questionBody}>
+          <FormControl className={classes.formControl}>
+            <FormLabel className={classes.formLabel}>
+              <span className={classes.index}>{index}</span>
+              <p className={classes.labelText}>{option}</p>
+            </FormLabel>
+            <RadioGroup className={classes.radioGroup}>
+              <div className={classes.controlWrapper}>
+                <p className={classes.label}>Yes</p>
+                <Radio
+                  className={classes.radio}
+                  control={<Radio />}
+                  id={`yes${index}`}
+                  name={`radio_btn_${index}`}
+                  value={answers['answer' + index + questionIndex]}
+                  // onChange={() => handleOnChange('yes')}
+                  onClick={() => handleOnChange('yes')}
+                  checked={checkedState === 'yes'}
+                  sx={{
+                    color: '#32CCA7',
+                    '&.Mui-checked': {
+                      color: '#32CCA7',
+                    },
+                  }}
+                />
+              </div>
+              <div className={classes.controlWrapper}>
+                <p className={classes.label}>No</p>
+                <Radio
+                  className={classes.radio}
+                  id={`no${index}`}
+                  name={`radio_btn_${index}`}
+                  value={answers['answer' + index + questionIndex]}
+                  // onChange={() => handleOnChange('no')}
+                  onClick={() => handleOnChange('no')}
+                  checked={checkedState === 'no'}
+                  sx={{
+                    color: '#CD1C6C',
+                    '&.Mui-checked': {
+                      color: '#CD1C6C',
+                    },
+                  }}
+                />
+              </div>
+            </RadioGroup>
+          </FormControl>
         </div>
       </div>
     </div>
