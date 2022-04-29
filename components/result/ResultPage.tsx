@@ -84,7 +84,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
             <h1 className="mx-auto mb-4 w-[70%] text-center text-xl font-semibold text-black">
               {answer.questionTitle}
             </h1>
-            <div className="grid w-full grid-flow-row justify-between gap-6">
+            <div className="flex w-full justify-between gap-6">
               {answer.options.filter((option) => option.answer === 'yes')
                 .length > 0 && (
                 <div>
@@ -105,7 +105,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
               )}
               {answer.options.filter((option) => option.answer === 'no')
                 .length > 0 && (
-                <div className="grow">
+                <div className="flex-grow">
                   <AnswerTypeHeader answerType="no" />
                   <div className="flex flex-col items-center gap-4">
                     {answer.options
