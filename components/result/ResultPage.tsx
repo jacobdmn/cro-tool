@@ -28,7 +28,7 @@ const AnswerTypeHeader: React.FC<{ answerType: string }> = ({ answerType }) => {
             />
           </svg>
           <p>HERE ARE THE THINGS YOU ARE DOING WELL</p>
-          <span className="bg-rc_green-opacity-05 mt-2 h-0.5 w-full" />
+          <span className="mt-2 h-0.5 w-full bg-rc_green-opacity-05" />
         </>
       ) : (
         <>
@@ -84,7 +84,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
             <h1 className="mx-auto mb-4 w-[70%] text-center text-xl font-semibold text-black">
               {answer.questionTitle}
             </h1>
-            <div className="flex w-full w-full justify-between gap-6">
+            <div className="grid w-full grid-flow-row justify-between gap-6">
               {answer.options.filter((option) => option.answer === 'yes')
                 .length > 0 && (
                 <div className="w-full  grow">
@@ -95,6 +95,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
                       .map((answer, index) => (
                         <Example
                           title={answer.option}
+                          content={answer.option}
                           isResult={true}
                           type="yes"
                         />

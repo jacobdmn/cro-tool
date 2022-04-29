@@ -128,7 +128,17 @@ const Example: React.FC<ExampleProps> = ({
               id="panel1a-header"
             >
               {isResult ? (
-                <div className="mr-6 text-left font-semibold">{title}</div>
+                <div
+                  style={{
+                    marginRight: '1.5rem',
+                    fontWeight: '400',
+                    fontSize: '1.2rem',
+                    lineHeight: '1.6',
+                    textAlign: 'left',
+                  }}
+                >
+                  {title}
+                </div>
               ) : (
                 <div
                   style={{
