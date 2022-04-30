@@ -61,7 +61,6 @@ const useStyles:any = makeStyles({
     textAlign: 'left',
     color: '#333',
     fontSize: '1.1rem',
-    fontWeight: '400',
     lineHeight: '1.8',
   },
   radioGroup: {
@@ -196,7 +195,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
           <FormControl className={classes.formControl}>
             <FormLabel className={classes.formLabel}>
               <span className={classes.index}>{index}</span>
-              <p className={classes.labelText}>{option}</p>
+              <p className={classes.labelText} style={{fontWeight:"400"}}>{option}</p>
             </FormLabel>
             <RadioGroup className={classes.radioGroup}>
               <div className={classes.controlWrapper}>
