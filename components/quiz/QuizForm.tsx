@@ -33,6 +33,7 @@ const useStyles:any = makeStyles({
   formControl: {
     width: '100%',
     display: 'flex !important',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -65,6 +66,8 @@ const useStyles:any = makeStyles({
   },
   radioGroup: {
     display: 'flex !important',
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
     width: 'fit-content',
   },
   controlWrapper: {
@@ -190,19 +193,21 @@ const QuizForm: React.FC<QuizFormProps> = ({
     <div className={classes.container}>
       <div className={classes.questionWrapper}>
         <div className={classes.questionBody}>
-          <FormControl className={classes.formControl} sx={{flexDirection:"row"}}>
+          <FormControl className={classes.formControl}>
             <FormLabel className={classes.formLabel}>
               <span className={classes.index}>{index}</span>
               <p className={classes.labelText}>{option}</p>
             </FormLabel>
-            <RadioGroup className={classes.radioGroup} sx={{flexDirection:'row',flexWrap:"nowrap"}}>
+            <RadioGroup className={classes.radioGroup}>
               <div className={classes.controlWrapper}>
                 <p className={classes.label}>Yes</p>
                 <Radio
                   className={classes.radio}
+                  // control={<Radio />}
                   id={`yes${index}`}
                   name={`radio_btn_${index}`}
                   value={answers['answer' + index + questionIndex]}
+                  // onChange={() => handleOnChange('yes')}
                   onClick={() => handleOnChange('yes')}
                   checked={checkedState === 'yes'}
                   sx={{
@@ -220,6 +225,7 @@ const QuizForm: React.FC<QuizFormProps> = ({
                   id={`no${index}`}
                   name={`radio_btn_${index}`}
                   value={answers['answer' + index + questionIndex]}
+                  // onChange={() => handleOnChange('no')}
                   onClick={() => handleOnChange('no')}
                   checked={checkedState === 'no'}
                   sx={{
