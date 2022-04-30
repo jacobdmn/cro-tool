@@ -16,7 +16,7 @@ interface ExampleProps {
   isResult: boolean
   type?: 'yes' | 'no'
 }
-const useStyles = makeStyles({
+const useStyles:any = makeStyles({
   index: {
     width: '15px !important',
     height: '15px !important',
@@ -65,7 +65,7 @@ const useStyles = makeStyles({
     textAlign: 'left',
     color: '#CD1C6C',
     fontSize: '16px',
-    fontWeight: 'bold !important',
+    fontWeight: 'bold',
     lineHeight: '3em !important',
   },
   exampleImg: {
