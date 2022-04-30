@@ -11,11 +11,23 @@ export const getQuizDetails = async (slug: string) => {
         quizId
         questions {
             questionTitle
-            option
+            options
         }
       }
     }
   `
   const result = await request(GraphCMS_API, query, { slug })
   return result.quiz
+}
+
+export const getQuizzes = async () => {
+  const query = gql`
+    query MyQuery {
+      quizzes {
+        quizId
+      }
+    }
+  `
+  const result = await request(GraphCMS_API, query)
+  return result.quizzes
 }

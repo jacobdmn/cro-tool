@@ -10,6 +10,7 @@ import { GetStaticProps } from 'next'
 import { InferGetStaticPropsType } from 'next'
 import { QuizType } from '../types/QuizType'
 import Loader from '../components/Loader'
+import { getQuizDetails, getQuizzes } from './../services/quiz';
 
 import rc_logo from '../assets/images/rc_logo.png'
 import CroData from '../utils/croData'
@@ -21,18 +22,20 @@ const styles = {
 }
 
 const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
-  data,
+  data,quiz
 }) => {
+  console.log(quiz)
+  console.log(data)
   const router = useRouter()
   if (router.isFallback) {
     return <Loader />
   }
-  const questionsLength = data[0]?.questions.length
+  const questionsLength = quiz?.questions.length
 
   const [questionIndex, setQuestionIndex] = useState<number>(1)
   const [eachPageQuestions, setEachPageQuestions] = useState<any>({
-    questionTitle: data[0].questions[0].questionTitle,
-    options: data[0].questions[0].options,
+    questionTitle: quiz.questions[0].questionTitle,
+    options: quiz.questions[0].options,
   })
   const [showResult, setShowResult] = useState<boolean>(false)
   const [answers, setAnswers] = useState<
@@ -41,7 +44,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
   useEffect(() => {
     setAnswers(
-      data[0].questions.map((question: any, index: number) => ({
+      quiz.questions.map((question: any, index: number) => ({
         questionTitle: question.questionTitle,
         options: question.options.map((option: any) => ({
           option: option,
@@ -53,7 +56,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
   //for setting each page question
   useEffect(() => {
-    const singlePageData = data[0]?.questions.filter(
+    const singlePageData = quiz?.questions.filter(
       (data: any, index: any) => index + 1 === questionIndex
     )
     const [desData] = singlePageData //destructuring
@@ -74,11 +77,11 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
       <header className={styles.quizpage_header}>
         <Image height={50} width={172} src={rc_logo} className="object-cover" />
         <p className="mb-2 mt-6 text-xl font-medium">
-          Audit your {data[0]?.title}
+          Audit your {quiz?.title}
         </p>
         <h1 className={styles.header_title}>
           {showResult
-            ? 'Your ' + data[0]?.title + ' Audit Results '
+            ? 'Your ' + quiz?.title + ' Audit Results '
             : eachPageQuestions.questionTitle}
         </h1>
       </header>
@@ -115,21 +118,21 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
   const data: QuizType[] = CroData.filter(
     (pageData) => params.slug === pageData.id
   )
+  const quiz = await getQuizDetails(params.slug)
   return {
-    props: { data },
+    props: { data,quiz },
     revalidate: 10,
   }
 }
 
-// Specify dynamic routes to pre-render pages based on data.
-// The HTML is generated at build time and will be reused on each request.
 export const getStaticPaths: GetStaticPaths = async () => {
+  const quizzes: any = await getQuizzes() || [] 
   return {
-    paths: CroData.map((pageData) => ({
+    paths: quizzes.map((quiz:any) => ({
       params: {
-        slug: pageData.id,
+        slug: quiz.quizId,
       },
     })),
     fallback: true,
-  }
+  };
 }
