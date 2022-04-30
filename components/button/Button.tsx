@@ -20,10 +20,15 @@ const CroButton: React.FC<ButtonProps> = ({
 }) => {
   return (
     <Button
+      sx={{
+        backgroundColor: '#CD1C6C !important',
+        boxShadow: 'none !important',
+        height: '2.8em',
+      }}
       variant="contained"
       onClick={onClick}
       type={type}
-      className={`rounded bg-btn_color py-2 px-8 hover:bg-btn_color shadow-none hover:shadow-none disabled:bg-btn_color/30 disabled:text-white ${className}`}
+      className={`rounded bg-btn_color py-2 px-8 shadow-none hover:bg-btn_color hover:shadow-none disabled:bg-btn_color/30 disabled:text-white ${className}`}
       disabled={disabled}
     >
       {text}

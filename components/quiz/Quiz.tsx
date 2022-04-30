@@ -92,12 +92,6 @@ const Quiz: React.FC<QuizProps> = ({
         )}
         <div className="mt-8 text-center">
           <Button
-            variant="contained"
-            sx={{
-              backgroundColor: '#CD1C6C !important',
-              boxShadow: 'none !important',
-              height: '2.8em',
-            }}
             type="submit"
             text={
               !(questionIndex >= questionsLength)

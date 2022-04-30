@@ -5,7 +5,7 @@ const GraphCMS_API = process.env.REACT_APP_GRAPHCMS_CONTENT_API as string
 export const getQuizDetails = async (slug: string) => {
   const query = gql`
     query getQuizDetails($slug: String!) {
-      quiz(where: { slug: $slug }) {
+      quiz(where: { quizId: $slug }) {
         id
         title
         quizId
