@@ -80,47 +80,6 @@ const useStyles:any = makeStyles({
     paddingInlineStart: '.5em',
     color: '#333',
   },
-  radio: {
-    // color: '#CD1C6C !important',
-  },
-  exampleWrapper: {
-    marginTop: '20px',
-  },
-  addIcon: {
-    transform: 'none !important',
-  },
-  example: {
-    position: 'relative',
-    margin: 'auto',
-    display: 'flex !important',
-    justifyContent: 'space-around',
-    textAlign: 'center',
-    boxShadow: '0px 0px 8px 8px rgba(0,0,0,0.04)',
-    padding: '10px 15px',
-    borderRadius: '10px',
-  },
-  accordionWrapper: {
-    display: 'flex',
-    margin: 'auto',
-    width: '91%',
-  },
-  accordion: {
-    boxShadow: 'none !important',
-  },
-  questionIcon: {
-    color: '#32CCA7',
-    fontSize: '16px !important',
-  },
-  accordionText: {
-    textAlign: 'start',
-    color: '#CD1C6C',
-    fontSize: '16px',
-    fontWeight: 'bold !important',
-    lineHeight: '3em !important',
-  },
-  exampleImg: {
-    width: '100%',
-  },
 })
 
 const styles = {
