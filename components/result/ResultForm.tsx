@@ -5,6 +5,7 @@ import emailjs from '@emailjs/browser'
 
 interface ResultFormProps {
   setShowResultPage: Setter<boolean>
+  setUserEmail: Setter<string>
 }
 
 const styles = {
@@ -13,9 +14,11 @@ const styles = {
   form_input: 'bg-quizpage_bg px-2 py-2 rounded w-80',
 }
 
-const ResultForm: React.FC<ResultFormProps> = ({ setShowResultPage }) => {
+const ResultForm: React.FC<ResultFormProps> = ({ setShowResultPage,  setUserEmail }) => {
   const form: any = useRef()
   const [load, setLoad] = useState(false)
+  const [email, setEmail] = useState('')
+  setUserEmail(email)
 
   const sendEmail = (e: any) => {
     e.preventDefault()
@@ -39,7 +42,9 @@ const ResultForm: React.FC<ResultFormProps> = ({ setShowResultPage }) => {
   }
   return (
     <div className={styles.formContainer}>
-      <h1 className="text-2xl font-semibold mb-3">Enter Your Email Below To Get</h1>
+      <h1 className="mb-3 text-2xl font-semibold">
+        Enter Your Email Below To Get
+      </h1>
       <div className="flex items-center justify-center gap-12">
         {['Your Audit', 'List Of Action Items', 'Breakdown Of Results'].map(
           (item, index) => (
@@ -68,12 +73,19 @@ const ResultForm: React.FC<ResultFormProps> = ({ setShowResultPage }) => {
         ref={form}
         onSubmit={sendEmail}
       >
-        <input type="email" name="email" className={styles.form_input} required/>
+        <input
+          type="email"
+          name="email"
+          className={styles.form_input}
+          value={email}
+          onChange={(e)=>{setEmail(e.target.value)}}
+          required
+        />
         <Button
           type="submit"
           text={load ? ' Processing...' : 'Get my free audit'}
           className="py-2 py-2 text-white"
-          disabled={load?true:false}
+          disabled={load ? true : false}
         />
       </form>
     </div>

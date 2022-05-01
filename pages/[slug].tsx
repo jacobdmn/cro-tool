@@ -21,11 +21,7 @@ const styles = {
   header_title: 'w-[60%] text-center text-3xl font-semibold text-white mb-0',
 }
 
-const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
-  data,quiz
-}) => {
-  console.log(quiz)
-  console.log(data)
+const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({quiz}) => {
   const router = useRouter()
   if (router.isFallback) {
     return <Loader />
@@ -115,12 +111,9 @@ export default QuizPage
 
 // Fetch guide at build time
 export const getStaticProps: GetStaticProps = async ({ params }: any) => {
-  const data: QuizType[] = CroData.filter(
-    (pageData) => params.slug === pageData.id
-  )
   const quiz = await getQuizDetails(params.slug)
   return {
-    props: { data,quiz },
+    props: { quiz },
     revalidate: 10,
   }
 }

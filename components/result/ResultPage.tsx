@@ -1,7 +1,97 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import ResultForm from './ResultForm'
 import Example from '../Example'
 import ShareResultCards from './ShareResultCards'
+import { submitAnswer } from '../../services/quiz'
+
+interface ResultPageProps {
+  score: number
+  answers: {
+    options: { answer: string; option: string }[]
+    questionTitle: string
+  }[]
+}
+
+const styles = {
+  pageContainer:
+    'flex w-[90%] 2xl:w-[100%] flex-col items-center justify-center gap-20 pt-10 mx-auto max-w-[1000px]',
+}
+
+const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
+  const [showResultPage, setShowResultPage] = useState<boolean>(false)
+  const [userEmail, setUserEmail] = useState<string>('')
+
+  useEffect(()=>{
+
+  },[])
+  
+  return showResultPage ? (
+    <div className={styles.pageContainer}>
+      <ShareResultCards score={score} userEmail={userEmail} />
+      <div className="flex w-full flex-col gap-4">
+        {answers.map((answer, i) => (
+          <div key={i} className=" w-full">
+            <h1 className="mx-auto mb-4 w-[70%] text-center text-xl font-semibold text-black">
+              {answer.questionTitle}
+            </h1>
+            <div className="flex w-full justify-between gap-6">
+              {answer.options.filter((option) => option.answer === 'yes')
+                .length > 0 && (
+                <div className="flex-1">
+                  <AnswerTypeHeader answerType="yes" />
+                  <div className="flex flex-col items-center gap-4">
+                    {answer.options
+                      .filter((option) => option.answer === 'yes')
+                      .map((answer, index) => (
+                        <Example
+                          key={index}
+                          title={answer.option}
+                          content={answer.option}
+                          isResult={true}
+                          type="yes"
+                        />
+                      ))}
+                  </div>
+                </div>
+              )}
+              {answer.options.filter((option) => option.answer === 'no')
+                .length > 0 && (
+                <div className="flex-1">
+                  <AnswerTypeHeader answerType="no" />
+                  <div className="flex flex-col items-center gap-4">
+                    {answer.options
+                      .filter((option) => option.answer === 'no')
+                      .map((answer, index) => (
+                        <Example
+                          key={index}
+                          title={answer.option}
+                          content={answer.option}
+                          isResult={true}
+                          type="no"
+                        />
+                      ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <span className="my-16 block h-2 w-full bg-gray-300 "></span>
+          </div>
+        ))}
+      </div>
+      <h1 className="text-3xl font-semibold text-black">
+        Thanks for using the Rocket CRO tool
+      </h1>
+      <ShareResultCards score={score} userEmail={userEmail} />
+    </div>
+  ) : (
+    <ResultForm
+      setShowResultPage={setShowResultPage}
+      setUserEmail={setUserEmail}
+    />
+  )
+}
+export default ResultPage
+
 
 const AnswerTypeHeader: React.FC<{ answerType: string }> = ({ answerType }) => {
   return (
@@ -58,81 +148,3 @@ const AnswerTypeHeader: React.FC<{ answerType: string }> = ({ answerType }) => {
     </div>
   )
 }
-
-interface ResultPageProps {
-  score: number
-  answers: {
-    options: { answer: string; option: string }[]
-    questionTitle: string
-  }[]
-}
-
-const styles = {
-  pageContainer:
-    'flex w-[90%] 2xl:w-[100%] flex-col items-center justify-center gap-20 pt-10 mx-auto max-w-[1000px]',
-}
-
-const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
-  const [showResultPage, setShowResultPage] = useState<boolean>(false)
-
-  return showResultPage ? (
-    <div className={styles.pageContainer}>
-      <ShareResultCards score={score} />
-      <div className="flex w-full flex-col gap-4">
-        {answers.map((answer, i) => (
-          <div key={i} className=" w-full">
-            <h1 className="mx-auto mb-4 w-[70%] text-center text-xl font-semibold text-black">
-              {answer.questionTitle}
-            </h1>
-            <div className="flex w-full justify-between gap-6">
-              {answer.options.filter((option) => option.answer === 'yes')
-                .length > 0 && (
-                <div>
-                  <AnswerTypeHeader answerType="yes" />
-                  <div className="flex flex-col items-center gap-4">
-                    {answer.options
-                      .filter((option) => option.answer === 'yes')
-                      .map((answer, index) => (
-                        <Example
-                          title={answer.option}
-                          content={answer.option}
-                          isResult={true}
-                          type="yes"
-                        />
-                      ))}
-                  </div>
-                </div>
-              )}
-              {answer.options.filter((option) => option.answer === 'no')
-                .length > 0 && (
-                <div className="flex-grow">
-                  <AnswerTypeHeader answerType="no" />
-                  <div className="flex flex-col items-center gap-4">
-                    {answer.options
-                      .filter((option) => option.answer === 'no')
-                      .map((answer, index) => (
-                        <Example
-                          title={answer.option}
-                          content={answer.option}
-                          isResult={true}
-                          type="no"
-                        />
-                      ))}
-                  </div>
-                </div>
-              )}
-            </div>
-            <span className="my-16 block h-2 w-full bg-gray-300 "></span>
-          </div>
-        ))}
-      </div>
-      <h1 className="text-3xl font-semibold text-black">
-        Thanks for using the Rocket CRO tool
-      </h1>
-      <ShareResultCards score={score} />
-    </div>
-  ) : (
-    <ResultForm setShowResultPage={setShowResultPage} />
-  )
-}
-export default ResultPage

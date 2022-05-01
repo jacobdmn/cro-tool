@@ -31,3 +31,15 @@ export const getQuizzes = async () => {
   const result = await request(GraphCMS_API, query)
   return result.quizzes
 }
+
+export const submitAnswer = async (object:any) => {
+  const result = await fetch('/api/answers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(object),
+  })
+
+  return result.json()
+}
