@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 interface ShareResultCardsProps {
   score: number
-  userEmail:string
+  slug:string
 }
 const styles = {
   resultCardsContainer: 'grid grid-cols-2 gap-6 w-full mb-6 mt-4',
@@ -16,7 +16,7 @@ const styles = {
 
 const ShareResultCards: React.FC<ShareResultCardsProps> = ({
   score,
-  userEmail,
+  slug,
 }) => {
   const router = useRouter()
   return (
@@ -42,7 +42,7 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
           <div>
             <h2 className={styles.cardTitle}>Share Your Results</h2>
             <a href="">
-              https://cro-tool.netlify.app/{router.query.slug}/{userEmail}
+              https://cro-tool.netlify.app/{router.query.slug}/{slug}
             </a>
           </div>
           <Button text="Copy Link" />

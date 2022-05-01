@@ -18,16 +18,29 @@ const styles = {
 }
 
 const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
-  const [showResultPage, setShowResultPage] = useState<boolean>(false)
+  const [showResultPage, setShowResultPage] = useState<boolean>(true)
   const [userEmail, setUserEmail] = useState<string>('')
 
-  useEffect(()=>{
+  // var slug = userEmail.split('@').shift() + Math.random().toString(36).slice(2)
+  const slug ='hqlhdlqskndms'
+  const email ="islam@gmail.com"
+  const answersJson=JSON.stringify(answers)
 
-  },[])
+  const answerObj = { answers: answersJson, email, slug }
+  useEffect(() => {
+    if (showResultPage===true){
+      submitAnswer(answerObj).then((res) => {
+        if (res.createAnswer) {
+          answerObj.answers = ''
+          answerObj.email = ''
+          answerObj.slug = ''
+        }
+      })}
+  }, [showResultPage])
   
   return showResultPage ? (
     <div className={styles.pageContainer}>
-      <ShareResultCards score={score} userEmail={userEmail} />
+      <ShareResultCards score={score} slug={slug} />
       <div className="flex w-full flex-col gap-4">
         {answers.map((answer, i) => (
           <div key={i} className=" w-full">
@@ -81,7 +94,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
       <h1 className="text-3xl font-semibold text-black">
         Thanks for using the Rocket CRO tool
       </h1>
-      <ShareResultCards score={score} userEmail={userEmail} />
+      <ShareResultCards score={score} slug={slug} />
     </div>
   ) : (
     <ResultForm
