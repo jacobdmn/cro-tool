@@ -18,25 +18,9 @@ const styles = {
 }
 
 const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
-  const [showResultPage, setShowResultPage] = useState<boolean>(true)
-  const [userEmail, setUserEmail] = useState<string>('')
+  const [showResultPage, setShowResultPage] = useState<boolean>(false)
 
-  // var slug = userEmail.split('@').shift() + Math.random().toString(36).slice(2)
-  const slug ='hqlhdlqskndms'
-  const email ="islam@gmail.com"
-  const answersJson=JSON.stringify(answers)
-
-  const answerObj = { answers: answersJson, email, slug }
-  useEffect(() => {
-    if (showResultPage===true){
-      submitAnswer(answerObj).then((res) => {
-        if (res.createAnswer) {
-          answerObj.answers = ''
-          answerObj.email = ''
-          answerObj.slug = ''
-        }
-      })}
-  }, [showResultPage])
+  var slug = Math.random().toString(36).slice(2)
   
   return showResultPage ? (
     <div className={styles.pageContainer}>
@@ -99,7 +83,8 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
   ) : (
     <ResultForm
       setShowResultPage={setShowResultPage}
-      setUserEmail={setUserEmail}
+      answers={answers}
+      slug={slug}
     />
   )
 }

@@ -1,11 +1,13 @@
-import { useState,useRef } from 'react'
+import { useState, useRef } from 'react'
 import Button from '../button/Button'
 import { Setter } from '../../types/Setter'
 import emailjs from '@emailjs/browser'
+import { submitAnswer } from './../../services/quiz'
 
 interface ResultFormProps {
   setShowResultPage: Setter<boolean>
-  setUserEmail: Setter<string>
+  answers: any
+  slug: string
 }
 
 const styles = {
@@ -14,15 +16,22 @@ const styles = {
   form_input: 'bg-quizpage_bg px-2 py-2 rounded w-80',
 }
 
-const ResultForm: React.FC<ResultFormProps> = ({ setShowResultPage,  setUserEmail }) => {
+const ResultForm: React.FC<ResultFormProps> = ({
+  setShowResultPage,
+  answers,
+  slug,
+}) => {
   const form: any = useRef()
   const [load, setLoad] = useState(false)
   const [email, setEmail] = useState('')
-  setUserEmail(email)
+
+  const answersJson = JSON.stringify(answers)
+  const answerObj = { answers: answersJson, email, slug }
 
   const sendEmail = (e: any) => {
     e.preventDefault()
     setLoad(true)
+
     emailjs
       .sendForm(
         'gmail_service',
@@ -39,6 +48,14 @@ const ResultForm: React.FC<ResultFormProps> = ({ setShowResultPage,  setUserEmai
         }
       )
       .then(() => setShowResultPage(true))
+
+    submitAnswer(answerObj).then((res) => {
+      if (res.createAnswer) {
+        answerObj.answers = ''
+        answerObj.email = ''
+        answerObj.slug = ''
+      }
+    })
   }
   return (
     <div className={styles.formContainer}>
@@ -78,7 +95,9 @@ const ResultForm: React.FC<ResultFormProps> = ({ setShowResultPage,  setUserEmai
           name="email"
           className={styles.form_input}
           value={email}
-          onChange={(e)=>{setEmail(e.target.value)}}
+          onChange={(e) => {
+            setEmail(e.target.value)
+          }}
           required
         />
         <Button
