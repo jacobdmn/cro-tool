@@ -21,8 +21,8 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
   const router=useRouter()
 
   const [showResultPage, setShowResultPage] = useState<boolean>(router.pathname.includes("result")?true:false)
-  const [slug, setSlug] = useState('')
-  
+  const [slug, setSlug] = useState(router.pathname.includes("result")?router.query.slug as string:'')
+
   return showResultPage ? (
     <div className={styles.pageContainer}>
       <ShareResultCards score={score} slug={slug} />

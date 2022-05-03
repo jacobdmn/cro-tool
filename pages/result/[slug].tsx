@@ -1,14 +1,22 @@
 import React from 'react'
+import { useRouter } from 'next/router'
+import ResultPage from '../../components/result/ResultPage'
+import Loader from './../../components/Loader';
+
 import { getResult, getAllAnswers } from './../../services/result'
 import { GetStaticPaths } from 'next'
 import { GetStaticProps } from 'next'
-import ResultPage from '../../components/result/ResultPage'
 
 interface AnswersResultPageProps {
 
 }
 
 const AnswersResultPage: React.FC<AnswersResultPageProps> = ({result}:any) => {
+   const router = useRouter()
+   if (router.isFallback) {
+     return <Loader />
+   }
+
     const answersArr = JSON.parse(result[0].answers)
         return <ResultPage answers={answersArr} score={result[0].score} />
 }

@@ -26,14 +26,16 @@ const ResultForm: React.FC<ResultFormProps> = ({
   const form: any = useRef()
   const [load, setLoad] = useState(false)
   const [email, setEmail] = useState('')
+  const [tempSlug, setTempSlug] = useState('')
 
   const slug = Math.random().toString(36).slice(2)
   useEffect(()=>{
     setSlug(slug)
+    setTempSlug(slug)
   },[])
 
   const answersJson = JSON.stringify(answers)
-  const answerObj = { answers: answersJson, email, slug,score }
+  const answerObj = { answers: answersJson, email, slug:tempSlug,score }
 
   const sendEmail = (e: any) => {
     e.preventDefault()

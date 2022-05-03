@@ -1,4 +1,4 @@
-import React from 'react'
+import {useState} from 'react'
 import ProgressCircle from '../progress circle/ProgressCircle';
 import Button from './../button/Button';
 
@@ -17,6 +17,14 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
   score,
   slug,
 }) => {
+  const [tooltip, setTooltip] = useState(false)
+  const handleCopyLinkButton =()=>{
+    setTooltip(true) 
+    navigator.clipboard.writeText(`https://cro-tool.netlify.app/result/${slug}`)
+    setTimeout(() => {
+      setTooltip(false) 
+    }, 4000)
+  }
   return (
     <div className={styles.resultCardsContainer}>
       <div className={styles.cardContainer}>
@@ -37,13 +45,25 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
       </div>
       <div className={styles.cardContainer}>
         <div className="flex w-full flex-col justify-between">
-          <div>
+          <div className="relative">
             <h2 className={styles.cardTitle}>Share Your Results</h2>
-            <a href={`/result/${slug}`}>
+            <a
+              className="text-blue-600 hover:text-blue-400"
+              href={`/result/${slug}`}
+            >
               https://cro-tool.netlify.app/result/{slug}
             </a>
+            <div
+              role="tooltip"
+              className={`tooltip ease-in-out duration-700 absolute top-14 left-32 z-10 inline-block whitespace-nowrap rounded-lg bg-gray-900 py-2 px-3 text-sm font-medium text-white shadow-sm transition dark:bg-gray-700 ${
+                tooltip ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              Link copied to clipboard
+              <div className="tooltip-arrow"></div>
+            </div>
           </div>
-          <Button text="Copy Link" />
+          <Button text="Copy Link" onClick={handleCopyLinkButton} />
         </div>
       </div>
     </div>

@@ -145,8 +145,6 @@ const QuizForm: React.FC<QuizFormProps> = ({
   }
 
   const classes = useStyles()
-
-  console.log(checkedState)
   return (
     <div className={classes.container}>
       <div className={classes.questionWrapper}>

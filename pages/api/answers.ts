@@ -11,7 +11,7 @@ export default async function quizAnswers(req:any, res:any) {
   })
 
   const query = gql`
-    mutation createAnswer($answers: Json, $email: String!, $slug: String!,$score:Number!) {
+    mutation createAnswer($answers: Json, $email: String!, $slug: String!,$score:Float!) {
       createAnswer(data: { answers: $answers, email: $email, slug: $slug,score:$score }) {
         id
       }
