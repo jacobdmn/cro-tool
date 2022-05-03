@@ -102,7 +102,7 @@ const ResultForm: React.FC<ResultFormProps> = ({
       >
         <input
           type="email"
-          name="email"
+          name="to_email"
           className={styles.form_input}
           value={email}
           onChange={(e) => {
