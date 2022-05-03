@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react'
 import ResultForm from './ResultForm'
 import Example from '../Example'
 import ShareResultCards from './ShareResultCards'
-import { submitAnswer } from '../../services/quiz'
+import { useRouter } from 'next/router';
 
 interface ResultPageProps {
   score: number
@@ -18,9 +18,10 @@ const styles = {
 }
 
 const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
-  const [showResultPage, setShowResultPage] = useState<boolean>(false)
+  const router=useRouter()
 
-  var slug = Math.random().toString(36).slice(2)
+  const [showResultPage, setShowResultPage] = useState<boolean>(router.pathname.includes("result")?true:false)
+  const [slug, setSlug] = useState('')
   
   return showResultPage ? (
     <div className={styles.pageContainer}>
@@ -84,7 +85,8 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
     <ResultForm
       setShowResultPage={setShowResultPage}
       answers={answers}
-      slug={slug}
+      setSlug={setSlug}
+      score={score}
     />
   )
 }

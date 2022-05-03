@@ -2,17 +2,17 @@ import React from 'react'
 import { getResult, getAllAnswers } from './../../services/result'
 import { GetStaticPaths } from 'next'
 import { GetStaticProps } from 'next'
+import ResultPage from '../../components/result/ResultPage'
 
-interface ResultPageProps {
+interface AnswersResultPageProps {
 
 }
 
-const ResultPage: React.FC<ResultPageProps> = ({result}:any) => {
-    const obj = JSON.parse(result[0].answers)
-    console.log(obj)
-        return (<div>salaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam</div>);
+const AnswersResultPage: React.FC<AnswersResultPageProps> = ({result}:any) => {
+    const answersArr = JSON.parse(result[0].answers)
+        return <ResultPage answers={answersArr} score={result[0].score} />
 }
-export default ResultPage
+export default AnswersResultPage
 
 // Fetch guide at build time
 export const getStaticProps: GetStaticProps = async ({ params }: any) => {

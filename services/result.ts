@@ -8,6 +8,7 @@ export const getResult = async (slug: string) => {
       answers(where: { slug: $slug }, stage: DRAFT) {
         id
         answers
+        score
       }
     }
   `

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef,useEffect } from 'react'
 import Button from '../button/Button'
 import { Setter } from '../../types/Setter'
 import emailjs from '@emailjs/browser'
@@ -6,8 +6,9 @@ import { submitAnswer } from './../../services/quiz'
 
 interface ResultFormProps {
   setShowResultPage: Setter<boolean>
+  setSlug: Setter<string>
   answers: any
-  slug: string
+  score: number
 }
 
 const styles = {
@@ -19,14 +20,20 @@ const styles = {
 const ResultForm: React.FC<ResultFormProps> = ({
   setShowResultPage,
   answers,
-  slug,
+  setSlug,
+  score,
 }) => {
   const form: any = useRef()
   const [load, setLoad] = useState(false)
   const [email, setEmail] = useState('')
 
+  const slug = Math.random().toString(36).slice(2)
+  useEffect(()=>{
+    setSlug(slug)
+  },[])
+
   const answersJson = JSON.stringify(answers)
-  const answerObj = { answers: answersJson, email, slug }
+  const answerObj = { answers: answersJson, email, slug,score }
 
   const sendEmail = (e: any) => {
     e.preventDefault()
@@ -54,6 +61,7 @@ const ResultForm: React.FC<ResultFormProps> = ({
         answerObj.answers = ''
         answerObj.email = ''
         answerObj.slug = ''
+        answerObj.score = 0
       }
     })
   }

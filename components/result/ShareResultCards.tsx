@@ -1,7 +1,6 @@
 import React from 'react'
 import ProgressCircle from '../progress circle/ProgressCircle';
 import Button from './../button/Button';
-import { useRouter } from 'next/router';
 
 interface ShareResultCardsProps {
   score: number
@@ -18,7 +17,6 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
   score,
   slug,
 }) => {
-  const router = useRouter()
   return (
     <div className={styles.resultCardsContainer}>
       <div className={styles.cardContainer}>
@@ -41,8 +39,8 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
         <div className="flex w-full flex-col justify-between">
           <div>
             <h2 className={styles.cardTitle}>Share Your Results</h2>
-            <a href="">
-              https://cro-tool.netlify.app/{router.query.slug}/{slug}
+            <a href={`/result/${slug}`}>
+              https://cro-tool.netlify.app/result/{slug}
             </a>
           </div>
           <Button text="Copy Link" />
