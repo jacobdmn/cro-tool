@@ -1,10 +1,12 @@
 import {useState} from 'react'
 import ProgressCircle from '../progress circle/ProgressCircle';
+import { useReactToPrint } from 'react-to-print'
 import Button from './../button/Button';
 
 interface ShareResultCardsProps {
   score: number
   slug:string
+  reff:any
 }
 const styles = {
   resultCardsContainer: 'grid grid-cols-2 gap-6 w-full mb-6 mt-4',
@@ -16,8 +18,11 @@ const styles = {
 const ShareResultCards: React.FC<ShareResultCardsProps> = ({
   score,
   slug,
+  reff
 }) => {
   const [tooltip, setTooltip] = useState(false)
+    
+
   const handleCopyLinkButton =()=>{
     setTooltip(true) 
     navigator.clipboard.writeText(`https://cro-tool.netlify.app/result/${slug}`)
@@ -25,6 +30,11 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
       setTooltip(false) 
     }, 4000)
   }
+
+  const handlePrint = useReactToPrint({
+    content: () => reff.current,
+  })
+
   return (
     <div className={styles.resultCardsContainer}>
       <div className={styles.cardContainer}>
@@ -33,7 +43,7 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
             Download Your <br />
             Results as PDF
           </h2>
-          <Button text="Download PDF" />
+          <Button text="Download PDF" onClick={handlePrint} />
         </div>
         <div className="flex items-center justify-center">
           <ProgressCircle
@@ -55,7 +65,7 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
             </a>
             <div
               role="tooltip"
-              className={`tooltip ease-in-out duration-700 absolute top-14 left-32 z-10 inline-block whitespace-nowrap rounded-lg bg-gray-900 py-2 px-3 text-sm font-medium text-white shadow-sm transition dark:bg-gray-700 ${
+              className={`tooltip absolute top-14 left-32 z-10 inline-block whitespace-nowrap rounded-lg bg-gray-900 py-2 px-3 text-sm font-medium text-white shadow-sm transition duration-700 ease-in-out dark:bg-gray-700 ${
                 tooltip ? 'opacity-100' : 'opacity-0'
               }`}
             >

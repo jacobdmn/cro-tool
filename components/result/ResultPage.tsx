@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import React,{ useState,useRef } from 'react'
 import ResultForm from './ResultForm'
 import Example from '../Example'
 import ShareResultCards from './ShareResultCards'
@@ -17,15 +17,17 @@ const styles = {
     'flex w-[90%] 2xl:w-[100%] flex-col items-center justify-center gap-20 pt-10 mx-auto max-w-[1000px]',
 }
 
-const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
+const ResultPage: React.FC<ResultPageProps> = React.forwardRef(({ score, answers },ref:any) => {
   const router=useRouter()
+  const componentRef:any = useRef()
+  console.log(componentRef)
 
   const [showResultPage, setShowResultPage] = useState<boolean>(router.pathname.includes("result")?true:false)
   const [slug, setSlug] = useState(router.pathname.includes("result")?router.query.slug as string:'')
 
   return showResultPage ? (
-    <div className={styles.pageContainer}>
-      <ShareResultCards score={score} slug={slug} />
+    <div className={styles.pageContainer} ref={componentRef}>
+      <ShareResultCards score={score} slug={slug} reff={componentRef} />
       <div className="flex w-full flex-col gap-4">
         {answers.map((answer, i) => (
           <div key={i} className=" w-full">
@@ -79,7 +81,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
       <h1 className="text-3xl font-semibold text-black">
         Thanks for using the Rocket CRO tool
       </h1>
-      <ShareResultCards score={score} slug={slug} />
+      <ShareResultCards score={score} slug={slug} reff={componentRef} />
     </div>
   ) : (
     <ResultForm
@@ -89,7 +91,7 @@ const ResultPage: React.FC<ResultPageProps> = ({ score, answers }) => {
       score={score}
     />
   )
-}
+})
 export default ResultPage
 
 
