@@ -1,11 +1,12 @@
-import React,{ useState,useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import ResultForm from './ResultForm'
 import Example from '../Example'
 import ShareResultCards from './ShareResultCards'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
+import ProgressCircle from './../progress circle/ProgressCircle';
 
 interface ResultPageProps {
-  title:string
+  title: string
   score: number
   answers: {
     options: { answer: string; option: string }[]
@@ -18,96 +19,113 @@ const styles = {
     'flex w-[90%] 2xl:w-[100%] flex-col items-center justify-center gap-20 pt-10 mx-auto max-w-[1000px]',
 }
 
-const ResultPage: React.FC<ResultPageProps> = React.forwardRef(({ score, answers,title },ref:any) => {
-  const router=useRouter()
-  const componentRef:any = useRef()
+const ResultPage: React.FC<ResultPageProps> = React.forwardRef(
+  ({ score, answers, title }, ref: any) => {
+    const router = useRouter()
+    const componentRef: any = useRef()
 
-  const [showResultPage, setShowResultPage] = useState<boolean>(router.pathname.includes("result")?true:false)
-  const [slug, setSlug] = useState(router.pathname.includes("result")?router.query.slug as string:'')
-  const [isExpanded, setIsExpanded] = useState<boolean>(false)
-  console.log(title)
-  return showResultPage ? (
-    <div className={styles.pageContainer} ref={componentRef}>
-      <ShareResultCards
-        score={score}
-        slug={slug}
-        reff={componentRef}
-        setIsExpanded={setIsExpanded}
-      />
-      <div className="flex w-full flex-col gap-4">
-        {answers.map((answer, i) => (
-          <div key={i} className=" w-full">
-            <h1 className="mx-auto mb-4 w-[70%] text-center text-xl font-semibold text-black">
-              {answer.questionTitle}
-            </h1>
-            <div className="flex w-full justify-between gap-6">
-              {answer.options.filter((option) => option.answer === 'yes')
-                .length > 0 && (
-                <div className="flex-1">
-                  <AnswerTypeHeader answerType="yes" />
-                  <div className="flex flex-col items-center gap-4">
-                    {answer.options
-                      .filter((option) => option.answer === 'yes')
-                      .map((answer, index) => (
-                        <Example
-                          key={index}
-                          title={answer.option}
-                          content={answer.option}
-                          isResult={true}
-                          type="yes"
-                          isExpanded={isExpanded}
-                        />
-                      ))}
+    const [showResultPage, setShowResultPage] = useState<boolean>(
+      router.pathname.includes('result') ? true : false
+    )
+    const [slug, setSlug] = useState(
+      router.pathname.includes('result') ? (router.query.slug as string) : ''
+    )
+    const [isExpanded, setIsExpanded] = useState<boolean>(false)
+
+    return (
+      <div className="relative flex flex-col items-center justify-center pb-20">
+        <ProgressCircle
+          className="absolute -top-24 bg-quizpage_bg p-2 text-black"
+          percent={Math.floor(score)}
+          score={score}
+        />
+        <div className="mx-auto py-10">
+          {showResultPage ? (
+            <div className={styles.pageContainer} ref={componentRef}>
+              <ShareResultCards
+                score={score}
+                slug={slug}
+                reff={componentRef}
+                setIsExpanded={setIsExpanded}
+              />
+              <div className="flex w-full flex-col gap-4">
+                {answers.map((answer, i) => (
+                  <div key={i} className=" w-full">
+                    <h1 className="mx-auto mb-4 w-[70%] text-center text-xl font-semibold text-black">
+                      {answer.questionTitle}
+                    </h1>
+                    <div className="flex w-full justify-between gap-6">
+                      {answer.options.filter(
+                        (option) => option.answer === 'yes'
+                      ).length > 0 && (
+                        <div className="flex-1">
+                          <AnswerTypeHeader answerType="yes" />
+                          <div className="flex flex-col items-center gap-4">
+                            {answer.options
+                              .filter((option) => option.answer === 'yes')
+                              .map((answer, index) => (
+                                <Example
+                                  key={index}
+                                  title={answer.option}
+                                  content={answer.option}
+                                  isResult={true}
+                                  type="yes"
+                                  isExpanded={isExpanded}
+                                />
+                              ))}
+                          </div>
+                        </div>
+                      )}
+                      {answer.options.filter((option) => option.answer === 'no')
+                        .length > 0 && (
+                        <div className="flex-1">
+                          <AnswerTypeHeader answerType="no" />
+                          <div className="flex flex-col items-center gap-4">
+                            {answer.options
+                              .filter((option) => option.answer === 'no')
+                              .map((answer, index) => (
+                                <Example
+                                  key={index}
+                                  title={answer.option}
+                                  content={answer.option}
+                                  isResult={true}
+                                  type="no"
+                                  isExpanded={isExpanded}
+                                />
+                              ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                    <span className="my-16 block h-2 w-full bg-gray-300 "></span>
                   </div>
-                </div>
-              )}
-              {answer.options.filter((option) => option.answer === 'no')
-                .length > 0 && (
-                <div className="flex-1">
-                  <AnswerTypeHeader answerType="no" />
-                  <div className="flex flex-col items-center gap-4">
-                    {answer.options
-                      .filter((option) => option.answer === 'no')
-                      .map((answer, index) => (
-                        <Example
-                          key={index}
-                          title={answer.option}
-                          content={answer.option}
-                          isResult={true}
-                          type="no"
-                          isExpanded={isExpanded}
-                        />
-                      ))}
-                  </div>
-                </div>
-              )}
+                ))}
+              </div>
+              <h1 className="text-3xl font-semibold text-black">
+                Thanks for using the Rocket CRO tool
+              </h1>
+              <ShareResultCards
+                score={score}
+                slug={slug}
+                reff={componentRef}
+                setIsExpanded={setIsExpanded}
+              />
             </div>
-            <span className="my-16 block h-2 w-full bg-gray-300 "></span>
-          </div>
-        ))}
+          ) : (
+            <ResultForm
+              setShowResultPage={setShowResultPage}
+              answers={answers}
+              setSlug={setSlug}
+              score={score}
+              title={title}
+            />
+          )}
+        </div>
       </div>
-      <h1 className="text-3xl font-semibold text-black">
-        Thanks for using the Rocket CRO tool
-      </h1>
-      <ShareResultCards
-        score={score}
-        slug={slug}
-        reff={componentRef}
-        setIsExpanded={setIsExpanded}
-      />
-    </div>
-  ) : (
-    <ResultForm
-      setShowResultPage={setShowResultPage}
-      answers={answers}
-      setSlug={setSlug}
-      score={score}
-      title={title}
-    />
-  )
-})
+    )
+  }
+)
 export default ResultPage
-
 
 const AnswerTypeHeader: React.FC<{ answerType: string }> = ({ answerType }) => {
   return (

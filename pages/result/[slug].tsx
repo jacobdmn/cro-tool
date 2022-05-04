@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import ResultPage from '../../components/result/ResultPage'
 import Loader from './../../components/Loader';
 import Header from '../../components/header/Header';
+import Footer from '../../components/footer/Footer';
 
 import { getResult, getAllAnswers } from './../../services/result'
 import { GetStaticPaths } from 'next'
@@ -20,14 +21,15 @@ const AnswersResultPage: React.FC<AnswersResultPageProps> = ({result}:any) => {
 
     const answersArr = JSON.parse(result[0].answers)
         return (
-          <>
+          <div className="bg-quizpage_bg">
             <Header showResult={true} title={result[0].title} />
             <ResultPage
               answers={answersArr}
               score={result[0].score}
               title={result[0].title}
             />
-          </>
+            <Footer showResult={true} />
+          </div>
         ) 
 }
 export default AnswersResultPage

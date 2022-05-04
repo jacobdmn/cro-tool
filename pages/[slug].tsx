@@ -74,20 +74,11 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
     <div className="min-h-screen bg-quizpage_bg text-white">
       <Header showResult={showResult} title={quiz?.title} />
       {showResult ? (
-        <div className="relative flex flex-col items-center justify-center pb-20">
-          <ProgressCircle
-            className="absolute -top-24 bg-quizpage_bg p-2 text-black"
-            percent={Math.floor(calculateScore())}
-            score={calculateScore()}
-          />
-          <div className="mx-auto py-10">
-            <ResultPage
-              score={calculateScore()}
-              answers={answers}
-              title={quiz?.title}
-            />
-          </div>
-        </div>
+        <ResultPage
+          score={calculateScore()}
+          answers={answers}
+          title={quiz?.title}
+        />
       ) : (
         <Quiz
           questionsLength={questionsLength}

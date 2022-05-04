@@ -65,7 +65,7 @@ const Footer: React.FC<FooterProps> = ({ showResult }) => {
             fill="#CD1C6C"
           />
         </svg>
-        <p className="text-center font-semibold mb-3">
+        <p className="text-center text-white font-semibold mb-3">
           Know someone who could do with a free CRO audit? <br /> Enter their
           email below to share this tool with them
         </p>
