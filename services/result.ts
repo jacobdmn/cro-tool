@@ -9,6 +9,7 @@ export const getResult = async (slug: string) => {
         id
         answers
         score
+        title
       }
     }
   `

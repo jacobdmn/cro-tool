@@ -9,6 +9,7 @@ interface ResultFormProps {
   setSlug: Setter<string>
   answers: any
   score: number
+  title:string
 }
 
 const styles = {
@@ -22,6 +23,7 @@ const ResultForm: React.FC<ResultFormProps> = ({
   answers,
   setSlug,
   score,
+  title
 }) => {
   const form: any = useRef()
   const [load, setLoad] = useState(false)
@@ -35,7 +37,7 @@ const ResultForm: React.FC<ResultFormProps> = ({
   },[])
 
   const answersJson = JSON.stringify(answers)
-  const answerObj = { answers: answersJson, email, slug:tempSlug,score }
+  const answerObj = { answers: answersJson, email, slug:tempSlug,score ,title}
 
   const sendEmail = (e: any) => {
     e.preventDefault()
@@ -64,6 +66,7 @@ const ResultForm: React.FC<ResultFormProps> = ({
         answerObj.email = ''
         answerObj.slug = ''
         answerObj.score = 0
+        answerObj.title = ''
       }
     })
   }

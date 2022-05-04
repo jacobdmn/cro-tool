@@ -5,6 +5,7 @@ import ShareResultCards from './ShareResultCards'
 import { useRouter } from 'next/router';
 
 interface ResultPageProps {
+  title:string
   score: number
   answers: {
     options: { answer: string; option: string }[]
@@ -17,16 +18,22 @@ const styles = {
     'flex w-[90%] 2xl:w-[100%] flex-col items-center justify-center gap-20 pt-10 mx-auto max-w-[1000px]',
 }
 
-const ResultPage: React.FC<ResultPageProps> = React.forwardRef(({ score, answers },ref:any) => {
+const ResultPage: React.FC<ResultPageProps> = React.forwardRef(({ score, answers,title },ref:any) => {
   const router=useRouter()
   const componentRef:any = useRef()
 
   const [showResultPage, setShowResultPage] = useState<boolean>(router.pathname.includes("result")?true:false)
   const [slug, setSlug] = useState(router.pathname.includes("result")?router.query.slug as string:'')
-
+  const [isExpanded, setIsExpanded] = useState<boolean>(false)
+  console.log(title)
   return showResultPage ? (
     <div className={styles.pageContainer} ref={componentRef}>
-      <ShareResultCards score={score} slug={slug} reff={componentRef} />
+      <ShareResultCards
+        score={score}
+        slug={slug}
+        reff={componentRef}
+        setIsExpanded={setIsExpanded}
+      />
       <div className="flex w-full flex-col gap-4">
         {answers.map((answer, i) => (
           <div key={i} className=" w-full">
@@ -48,6 +55,7 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(({ score, answers
                           content={answer.option}
                           isResult={true}
                           type="yes"
+                          isExpanded={isExpanded}
                         />
                       ))}
                   </div>
@@ -67,6 +75,7 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(({ score, answers
                           content={answer.option}
                           isResult={true}
                           type="no"
+                          isExpanded={isExpanded}
                         />
                       ))}
                   </div>
@@ -80,7 +89,12 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(({ score, answers
       <h1 className="text-3xl font-semibold text-black">
         Thanks for using the Rocket CRO tool
       </h1>
-      <ShareResultCards score={score} slug={slug} reff={componentRef} />
+      <ShareResultCards
+        score={score}
+        slug={slug}
+        reff={componentRef}
+        setIsExpanded={setIsExpanded}
+      />
     </div>
   ) : (
     <ResultForm
@@ -88,6 +102,7 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(({ score, answers
       answers={answers}
       setSlug={setSlug}
       score={score}
+      title={title}
     />
   )
 })

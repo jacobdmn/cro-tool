@@ -1,12 +1,14 @@
-import {useState} from 'react'
-import ProgressCircle from '../progress circle/ProgressCircle';
+import { useState } from 'react'
+import ProgressCircle from '../progress circle/ProgressCircle'
 import { useReactToPrint } from 'react-to-print'
-import Button from './../button/Button';
+import Button from './../button/Button'
+import {Setter} from "./../../types/Setter"
 
 interface ShareResultCardsProps {
   score: number
-  slug:string
-  reff:any
+  slug: string
+  reff: any
+  setIsExpanded: Setter<boolean>
 }
 const styles = {
   resultCardsContainer: 'grid grid-cols-2 gap-6 w-full mb-6 mt-4',
@@ -18,22 +20,22 @@ const styles = {
 const ShareResultCards: React.FC<ShareResultCardsProps> = ({
   score,
   slug,
-  reff
+  reff,
+  setIsExpanded,
 }) => {
   const [tooltip, setTooltip] = useState(false)
-    
 
-  const handleCopyLinkButton =()=>{
-    setTooltip(true) 
+  const handleCopyLinkButton = () => {
+    setTooltip(true)
     navigator.clipboard.writeText(`https://cro-tool.netlify.app/result/${slug}`)
     setTimeout(() => {
-      setTooltip(false) 
+      setTooltip(false)
     }, 4000)
   }
 
-  const handlePrint = useReactToPrint({
-    content: () => reff.current,
-  })
+  const handlePrint =  useReactToPrint({
+      content: () => reff.current,
+    })
 
   return (
     <div className={styles.resultCardsContainer}>

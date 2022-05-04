@@ -9,12 +9,14 @@ import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
 import Box from '@mui/material/Box'
 import AddIcon from '@mui/icons-material/Add'
 import CloseIcon from '@mui/icons-material/Close'
+import { Setter } from '../types/Setter'
 
 interface ExampleProps {
   title: string
   content?: string
   isResult: boolean
   type?: 'yes' | 'no'
+  isExpanded:boolean
 }
 const useStyles:any = makeStyles({
   index: {
@@ -107,6 +109,7 @@ const Example: React.FC<ExampleProps> = ({
   content,
   isResult,
   type,
+  isExpanded,
 }) => {
   const [showExample, setShowExample] = useState(false)
   const classes = useStyles()
@@ -121,6 +124,7 @@ const Example: React.FC<ExampleProps> = ({
               background: 'none',
               width: '100%',
             }}
+            defaultExpanded={isExpanded?true:false}
           >
             <AccordionSummary
               expandIcon={<CustomExpandIcon className={classes.addIcon} />}

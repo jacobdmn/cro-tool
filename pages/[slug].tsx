@@ -13,7 +13,7 @@ import Loader from '../components/Loader'
 import { getQuizDetails, getQuizzes } from './../services/quiz'
 
 import rc_logo from '../assets/images/rc_logo.png'
-import CroData from '../utils/croData'
+import Header from '../components/header/Header'
 
 const styles = {
   quizpage_header:
@@ -72,14 +72,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
 
   return (
     <div className="min-h-screen bg-quizpage_bg text-white">
-      <header className={styles.quizpage_header}>
-        <Image height={50} width={172} src={rc_logo} className="object-cover" />
-        <h1 className={styles.header_title}>
-          {showResult
-            ? 'Your ' + quiz?.title + ' Audit Results '
-            : 'Audit your ' + quiz?.title}
-        </h1>
-      </header>
+      <Header showResult={showResult} title={quiz?.title} />
       {showResult ? (
         <div className="relative flex flex-col items-center justify-center pb-20">
           <ProgressCircle
@@ -88,7 +81,11 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
             score={calculateScore()}
           />
           <div className="mx-auto py-10">
-            <ResultPage score={calculateScore()} answers={answers} />
+            <ResultPage
+              score={calculateScore()}
+              answers={answers}
+              title={quiz?.title}
+            />
           </div>
         </div>
       ) : (
