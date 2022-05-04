@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import ResultForm from './ResultForm'
 import Example from '../Example'
 import ShareResultCards from './ShareResultCards'
@@ -12,6 +12,7 @@ interface ResultPageProps {
     options: { answer: string; option: string }[]
     questionTitle: string
   }[]
+  reff:any
 }
 
 const styles = {
@@ -20,10 +21,9 @@ const styles = {
 }
 
 const ResultPage: React.FC<ResultPageProps> = React.forwardRef(
-  ({ score, answers, title }, ref: any) => {
+  ({ score, answers, title,reff }, ref: any) => {
     const router = useRouter()
-    const componentRef: any = useRef()
-
+    
     const [showResultPage, setShowResultPage] = useState<boolean>(
       router.pathname.includes('result') ? true : false
     )
@@ -41,11 +41,11 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(
         />
         <div className="mx-auto py-10">
           {showResultPage ? (
-            <div className={styles.pageContainer} ref={componentRef}>
+            <div className={styles.pageContainer} >
               <ShareResultCards
                 score={score}
                 slug={slug}
-                reff={componentRef}
+                reff={reff}
                 setIsExpanded={setIsExpanded}
               />
               <div className="flex w-full flex-col gap-4">
@@ -107,7 +107,7 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(
               <ShareResultCards
                 score={score}
                 slug={slug}
-                reff={componentRef}
+                reff={reff}
                 setIsExpanded={setIsExpanded}
               />
             </div>

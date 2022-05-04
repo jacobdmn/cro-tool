@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState,useRef } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import ProgressCircle from '../components/progress circle/ProgressCircle'
@@ -28,6 +28,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   if (router.isFallback) {
     return <Loader />
   }
+  const componentRef: any = useRef()
   const questionsLength = quiz?.questions.length
 
   const [questionIndex, setQuestionIndex] = useState<number>(1)
@@ -71,13 +72,14 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   }
 
   return (
-    <div className="min-h-screen bg-quizpage_bg text-white">
+    <div className="min-h-screen bg-quizpage_bg text-white" ref={componentRef}>
       <Header showResult={showResult} title={quiz?.title} />
       {showResult ? (
         <ResultPage
           score={calculateScore()}
           answers={answers}
           title={quiz?.title}
+          reff={componentRef}
         />
       ) : (
         <Quiz
