@@ -67,6 +67,8 @@ const ResultForm: React.FC<ResultFormProps> = ({
       }
     })
   }
+
+  console.log(answers)
   return (
     <div className={styles.formContainer}>
       <h1 className="mb-3 text-2xl font-semibold">

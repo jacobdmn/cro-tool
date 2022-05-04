@@ -20,7 +20,6 @@ const styles = {
 const ResultPage: React.FC<ResultPageProps> = React.forwardRef(({ score, answers },ref:any) => {
   const router=useRouter()
   const componentRef:any = useRef()
-  console.log(componentRef)
 
   const [showResultPage, setShowResultPage] = useState<boolean>(router.pathname.includes("result")?true:false)
   const [slug, setSlug] = useState(router.pathname.includes("result")?router.query.slug as string:'')

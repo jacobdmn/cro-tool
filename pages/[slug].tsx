@@ -10,18 +10,20 @@ import { GetStaticProps } from 'next'
 import { InferGetStaticPropsType } from 'next'
 import { QuizType } from '../types/QuizType'
 import Loader from '../components/Loader'
-import { getQuizDetails, getQuizzes } from './../services/quiz';
+import { getQuizDetails, getQuizzes } from './../services/quiz'
 
 import rc_logo from '../assets/images/rc_logo.png'
 import CroData from '../utils/croData'
 
 const styles = {
   quizpage_header:
-    'quizpage_header pb-20 pt-8 flex flex-col gap-4 items-center h-96',
-  header_title: 'w-[60%] text-center text-3xl font-semibold text-white mb-0',
+    'quizpage_header pb-20 pt-8 flex flex-col gap-10 items-center justify-center h-96',
+  header_title: ' text-center text-3xl font-semibold text-white mb-0',
 }
 
-const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({quiz}) => {
+const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
+  quiz,
+}) => {
   const router = useRouter()
   if (router.isFallback) {
     return <Loader />
@@ -72,13 +74,10 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({qui
     <div className="min-h-screen bg-quizpage_bg text-white">
       <header className={styles.quizpage_header}>
         <Image height={50} width={172} src={rc_logo} className="object-cover" />
-        <p className="mb-2 mt-6 text-xl font-medium">
-          Audit your {quiz?.title}
-        </p>
         <h1 className={styles.header_title}>
           {showResult
             ? 'Your ' + quiz?.title + ' Audit Results '
-            : eachPageQuestions.questionTitle}
+            : 'Audit your ' + quiz?.title}
         </h1>
       </header>
       {showResult ? (
@@ -119,13 +118,13 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const quizzes: any = await getQuizzes() || [] 
+  const quizzes: any = (await getQuizzes()) || []
   return {
-    paths: quizzes.map((quiz:any) => ({
+    paths: quizzes.map((quiz: any) => ({
       params: {
         slug: quiz.quizId,
       },
     })),
     fallback: true,
-  };
+  }
 }
