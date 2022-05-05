@@ -2,7 +2,7 @@ import { useState } from 'react'
 import ProgressCircle from '../progress circle/ProgressCircle'
 import { useReactToPrint } from 'react-to-print'
 import Button from './../button/Button'
-import {Setter} from "./../../types/Setter"
+import { Setter } from './../../types/Setter'
 
 interface ShareResultCardsProps {
   score: number
@@ -33,9 +33,17 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
     }, 4000)
   }
 
-  const handlePrint =  useReactToPrint({
-      content: () => reff.current,
-    })
+  const handlePrint = useReactToPrint({
+    content: () => reff.current,
+  })
+
+  const handleOnClick =()=>{
+    setIsExpanded(true)
+    // setTimeout(() => {
+    //   setIsExpanded(false)
+    // }, 3000);
+    handlePrint()
+  }
 
   return (
     <div className={styles.resultCardsContainer}>
@@ -45,7 +53,7 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
             Download Your <br />
             Results as PDF
           </h2>
-          <Button text="Download PDF" onClick={handlePrint} />
+          <Button text="Download PDF" onClick={handleOnClick} />
         </div>
         <div className="flex items-center justify-center">
           <ProgressCircle
