@@ -108,8 +108,8 @@ const Footer: React.FC<FooterProps> = ({ showResult }) => {
         )}
         <div className="text-center">
           <Image
-            height={30}
-            width={102}
+            height={50}
+            width={172}
             src={rc_logo}
             className="object-cover"
           />
