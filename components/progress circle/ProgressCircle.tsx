@@ -33,14 +33,14 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
       >
         {score && <p className="mb-0 text-xs"> YOUR SCORE </p>}
         <span className="text-4xl font-semibold">{percent}%</span>
-        {questionsLength && (
+        {/* {questionsLength && (
           <>
             <span className="mb-1 mt-0.5 h-1 w-[50%] bg-gray-800" />
             <span className="text-gray-600 ">
               {questionIndex}/{questionsLength}
             </span>
           </>
-        )}
+        )} */}
       </CircularProgressbarWithChildren>
     </div>
   )

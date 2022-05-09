@@ -14,7 +14,7 @@ const styles = {
   resultCardsContainer: 'grid grid-cols-2 gap-6 w-full mb-6 mt-4',
   cardContainer:
     'cardContainer py-8 px-6 flex justify-between rounded-xl bg-main_color h-56',
-  cardTitle: 'text-xl font-semibold text-white mb-0',
+  cardTitle: 'text-xl font-semibold text-white mb-1.5',
 }
 
 const ShareResultCards: React.FC<ShareResultCardsProps> = ({
@@ -68,7 +68,7 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
           <div className="relative">
             <h2 className={styles.cardTitle}>Share Your Results</h2>
             <a
-              className="text-blue-600 hover:text-blue-400"
+              className="text-gray-100 hover:text-white"
               href={`/result/${slug}`}
             >
               https://cro-tool.netlify.app/result/{slug}

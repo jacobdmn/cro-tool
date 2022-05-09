@@ -5,6 +5,8 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import Typography from '@mui/material/Typography'
 import Accordion from '@mui/material/Accordion'
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
 
 import Box from '@mui/material/Box'
 import AddIcon from '@mui/icons-material/Add'
@@ -126,7 +128,13 @@ const Example: React.FC<ExampleProps> = ({
             // expanded={isExpanded}
           >
             <AccordionSummary
-              expandIcon={<CustomExpandIcon className={classes.addIcon} />}
+              expandIcon={
+                <Tooltip title="Click here to see an example">
+                  <IconButton>
+                    <CustomExpandIcon className={classes.addIcon} />
+                  </IconButton>
+                </Tooltip>
+              }
               aria-controls="panel1a-content"
               id="panel1a-header"
             >
