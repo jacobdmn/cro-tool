@@ -1,4 +1,4 @@
-import { useEffect, useState,useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import ProgressCircle from '../components/progress circle/ProgressCircle'
@@ -35,15 +35,24 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   const [eachPageQuestions, setEachPageQuestions] = useState<any>({
     questionTitle: quiz.questions[0].questionTitle,
     options: quiz.questions[0].options,
+    exampleText: quiz.questions[0].exampleText,
+    exampleImage: quiz.questions[0].exampleImage,
   })
   const [showResult, setShowResult] = useState<boolean>(false)
   const [answers, setAnswers] = useState<
-    { options: { answer: string; option: string }[]; questionTitle: string }[]
+    {
+      options: { answer: string; option: string }[]
+      questionTitle: string
+      exampleText?: string
+      exampleImage?: string
+    }[]
   >([])
 
   useEffect(() => {
     setAnswers(
       quiz.questions.map((question: any, index: number) => ({
+        exampleText: question.exampleText,
+        exampleImage: question.exampleImage,
         questionTitle: question.questionTitle,
         options: question.options.map((option: any) => ({
           option: option,

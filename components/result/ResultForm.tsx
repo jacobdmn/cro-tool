@@ -4,7 +4,7 @@ import { Setter } from '../../types/Setter'
 import emailjs from '@emailjs/browser'
 import { submitAnswer } from './../../services/quiz'
 
-import { EMAILJS_PUBLIC_KEY } from './../../env'
+import { HOME_DIR, EMAILJS_PUBLIC_KEY } from './../../env'
 
 interface ResultFormProps {
   setShowResultPage: Setter<boolean>
@@ -34,15 +34,10 @@ const ResultForm: React.FC<ResultFormProps> = ({
   const [email, setEmail] = useState('')
   const [tempSlug, setTempSlug] = useState('')
 
-  const slug = Math.random().toString(36).slice(2)
   useEffect(() => {
+    const slug = Math.random().toString(36).slice(2)
     setSlug(slug)
     setTempSlug(slug)
-    form.current.resultLink.value = slug
-
-    // it's showing that it's replacing the resultLink value correctly,
-    // but it seems like the Emailjs is taking the initial value, which is not what we want
-    console.log(form.current.resultLink.value)
   }, [])
 
   const answersJson = JSON.stringify(answers)
@@ -122,7 +117,11 @@ const ResultForm: React.FC<ResultFormProps> = ({
         ref={form}
         onSubmit={sendEmail}
       >
-        <input type="hidden" value="here we send the link" name="resultLink" />
+        <input
+          type="hidden"
+          value={`${HOME_DIR}/result/${tempSlug}`}
+          name="resultLink"
+        />
         <input
           type="email"
           name="email"

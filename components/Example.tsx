@@ -192,6 +192,7 @@ const Example: React.FC<ExampleProps> = ({
                   💬 {exampleText}
                 </div>
               )}
+
               {exampleImage && (
                 <img
                   src={exampleImage.url}
