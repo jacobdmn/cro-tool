@@ -3,8 +3,9 @@ import Button from '../button/Button'
 import { Setter } from '../../types/Setter'
 import emailjs from '@emailjs/browser'
 import { submitAnswer } from './../../services/quiz'
+import Autopilot from 'autopilot-api'
 
-import { HOME_DIR, EMAILJS_PUBLIC_KEY } from './../../env'
+import { AUTOPILOT_KEY, HOME_DIR, EMAILJS_PUBLIC_KEY } from './../../env'
 
 interface ResultFormProps {
   setShowResultPage: Setter<boolean>
@@ -64,6 +65,17 @@ const ResultForm: React.FC<ResultFormProps> = ({
       )
       .then(
         (result) => {
+          let autopilot = new Autopilot(AUTOPILOT_KEY)
+          let contact = {
+            FirstName: email.split('@')[0],
+            LastName: '',
+            Email: email,
+          }
+          autopilot.contacts
+            .upsert(contact)
+            .then(console.log)
+            .catch(console.error)
+
           console.log(result.text)
         },
         (error) => {

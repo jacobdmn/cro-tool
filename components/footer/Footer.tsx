@@ -6,11 +6,13 @@ import emailjs from '@emailjs/browser'
 import rc_logo from '../../assets/images/rc_logo.png'
 import { auditButtons } from './../../pages/index'
 
+import Autopilot from 'autopilot-api'
+
 interface FooterProps {
   showResult: boolean
 }
 
-import { EMAILJS_PUBLIC_KEY } from './../../env'
+import { AUTOPILOT_KEY, EMAILJS_PUBLIC_KEY } from './../../env'
 
 const Footer: React.FC<FooterProps> = ({ showResult }) => {
   const form: any = useRef()
@@ -21,6 +23,8 @@ const Footer: React.FC<FooterProps> = ({ showResult }) => {
     if (load || form.current.email.value === '') return
     setLoad(true)
 
+    const email_ = form.current.email.value
+
     emailjs
       .sendForm(
         'gmail_service',
@@ -30,6 +34,16 @@ const Footer: React.FC<FooterProps> = ({ showResult }) => {
       )
       .then(
         (result) => {
+          let autopilot = new Autopilot(AUTOPILOT_KEY)
+          let contact = {
+            FirstName: email_.split('@')[0],
+            LastName: '',
+            Email: email_,
+          }
+          autopilot.contacts
+            .upsert(contact)
+            .then(console.log)
+            .catch(console.error)
           console.log(result.text)
           alert('Thank you for sharing!')
           setLoad(false)
