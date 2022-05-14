@@ -43,8 +43,8 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
     {
       options: { answer: string; option: string }[]
       questionTitle: string
-      exampleText?: string
-      exampleImage?: string
+      exampleText: string
+      exampleImage: string
     }[]
   >([])
 
@@ -61,7 +61,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
       }))
     )
   }, [])
-
+  console.log(answers)
   //for setting each page question
   useEffect(() => {
     const singlePageData = quiz?.questions.filter(

@@ -12,10 +12,10 @@ interface ResultPageProps {
     options: {
       answer: string
       option: string
-      exampleText?: string
-      exampleImage?: any
     }[]
     questionTitle: string
+    exampleText: string
+    exampleImage: any
   }[]
   reff: any
 }
@@ -68,11 +68,11 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(
                           <div className="flex flex-col items-center gap-4">
                             {answer.options
                               .filter((option) => option.answer === 'yes')
-                              .map((answer, index) => (
+                              .map((option, index) => (
                                 <Example
                                   key={index}
                                   isResult={true}
-                                  title={answer.option}
+                                  title={option.option}
                                   exampleText={answer.exampleText}
                                   exampleImage={answer.exampleImage}
                                   type="yes"
@@ -90,10 +90,10 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(
                           <div className="flex flex-col items-center gap-4">
                             {answer.options
                               .filter((option) => option.answer === 'no')
-                              .map((answer, index) => (
+                              .map((option, index) => (
                                 <Example
                                   key={index}
-                                  title={answer.option}
+                                  title={option.option}
                                   exampleText={answer.exampleText}
                                   exampleImage={answer.exampleImage}
                                   isResult={true}
