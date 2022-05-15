@@ -8,6 +8,7 @@ import Footer from '../../components/footer/Footer'
 import { getResult, getAllAnswers } from './../../services/result'
 import { GetStaticPaths } from 'next'
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 
 interface AnswersResultPageProps {}
 
@@ -23,6 +24,9 @@ const AnswersResultPage: React.FC<AnswersResultPageProps> = ({
   const answersArr = JSON.parse(result[0].answers)
   return (
     <div className="bg-quizpage_bg" ref={componentRef}>
+      <Head>
+        <title>CRO Result</title>
+      </Head>
       <Header showResult={true} title={result[0].title} />
       <ResultPage
         answers={answersArr}

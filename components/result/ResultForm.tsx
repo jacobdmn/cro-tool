@@ -50,40 +50,38 @@ const ResultForm: React.FC<ResultFormProps> = ({
     title,
   }
 
-  const sendEmail = (e: any) => {
+  const sendEmail = async (e: any) => {
     e.preventDefault()
+    if (load || form.current.email.value === '') return
     setLoad(true)
 
-    if (!email) return
+    const autopilot = new Autopilot(AUTOPILOT_KEY)
+    const email = form.current.email.value
+    const fullName = email
+      .split('@')[0]
+      .replace(/[0-9]/g, '')
+      .replace('.', ' ')
+      .split(' ')
+      .map((word: string) => word[0].toUpperCase() + word.slice(1))
 
-    emailjs
-      .sendForm(
-        'gmail_service',
-        'cro_result_template',
-        form.current,
-        EMAILJS_PUBLIC_KEY
-      )
-      .then(
-        (result) => {
-          let autopilot = new Autopilot(AUTOPILOT_KEY)
-          let contact = {
-            FirstName: email.split('@')[0],
-            LastName: '',
-            Email: email,
-          }
-          autopilot.contacts
-            .upsert(contact)
-            .then(console.log)
-            .catch(console.error)
+    const contact = {
+      FirstName: fullName[0],
+      LastName: fullName[1],
+      Email: email,
+      Status: `${HOME_DIR}/result/${tempSlug}`,
+    }
 
-          console.log(result.text)
-        },
-        (error) => {
-          console.log(error.text)
-        }
-      )
-      .then(() => setShowResultPage(true))
-
+    // execute the autopilot journey
+    try {
+      await autopilot.contacts.upsert(contact)
+      await autopilot.journeys.add('0002', email)
+      setShowResultPage(true)
+      setLoad(false)
+      console.log('success')
+    } catch (error) {
+      console.error(error)
+      alert(error)
+    }
     submitAnswer(answerObj).then((res) => {
       if (res.createAnswer) {
         answerObj.answers = ''
@@ -129,11 +127,6 @@ const ResultForm: React.FC<ResultFormProps> = ({
         ref={form}
         onSubmit={sendEmail}
       >
-        <input
-          type="hidden"
-          value={`${HOME_DIR}/result/${tempSlug}`}
-          name="resultLink"
-        />
         <input
           type="email"
           name="email"

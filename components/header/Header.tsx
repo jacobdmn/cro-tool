@@ -2,6 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 
 import rc_logo from '../../assets/images/rc_logo.png'
+import { HOME_DIR } from '../../env'
 
 interface HeaderProps {
   showResult: boolean
@@ -17,7 +18,14 @@ const styles = {
 const Header: React.FC<HeaderProps> = ({ showResult, title }) => {
   return (
     <header className={styles.quizpage_header}>
-      <Image height={50} width={172} src={rc_logo} className="object-cover" />
+      <a href={HOME_DIR} className="cursor-pointer">
+        <Image
+          height={50}
+          width={172}
+          src={rc_logo}
+          className="cursor-pointer object-cover"
+        />
+      </a>
       <h1 className={styles.header_title}>
         {showResult
           ? 'Your ' + title + ' Audit Results '

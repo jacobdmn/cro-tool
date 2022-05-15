@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import Button from '../components/button/Button'
-
+import Script from 'next/script'
 
 const styles = {
   auditWrapper:
@@ -20,6 +20,7 @@ const Home: NextPage = () => {
       <Head>
         <title>CRO Tool | Rocket Conversions</title>
         <link rel="icon" href="/favicon.ico" />
+        <Script src="./autopilotMetadata.js" />
       </Head>
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center text-white">
@@ -34,7 +35,6 @@ const Home: NextPage = () => {
           ))}
         </div>
       </main>
-      
     </div>
   )
 }

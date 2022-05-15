@@ -12,49 +12,48 @@ interface FooterProps {
   showResult: boolean
 }
 
-import { AUTOPILOT_KEY, EMAILJS_PUBLIC_KEY } from './../../env'
+import {
+  CRO_TOOL_LINK,
+  AUTOPILOT_KEY,
+  EMAILJS_PUBLIC_KEY,
+  HOME_DIR,
+} from './../../env'
 
 const Footer: React.FC<FooterProps> = ({ showResult }) => {
   const form: any = useRef()
   const [load, setLoad] = useState(false)
 
-  const sendEmail = (e: any) => {
+  const sendEmail = async (e: any) => {
     e.preventDefault()
     if (load || form.current.email.value === '') return
     setLoad(true)
 
-    const email_ = form.current.email.value
+    const autopilot = new Autopilot(AUTOPILOT_KEY)
+    const email = form.current.email.value
+    const fullName = email
+      .split('@')[0]
+      .replace(/[0-9]/g, '')
+      .replace('.', ' ')
+      .split(' ')
+      .map((word: string) => word[0].toUpperCase() + word.slice(1))
 
-    emailjs
-      .sendForm(
-        'gmail_service',
-        'cro_sharelink_template',
-        form.current,
-        EMAILJS_PUBLIC_KEY
-      )
-      .then(
-        (result) => {
-          let autopilot = new Autopilot(AUTOPILOT_KEY)
-          let contact = {
-            FirstName: email_.split('@')[0],
-            LastName: '',
-            Email: email_,
-          }
-          autopilot.contacts
-            .upsert(contact)
-            .then(console.log)
-            .catch(console.error)
-          console.log(result.text)
-          alert('Thank you for sharing!')
-          setLoad(false)
-          form.current.email.value = ''
-        },
-        (error) => {
-          console.log(error.text)
-          alert('Error: ' + error.text)
-          setLoad(false)
-        }
-      )
+    const contact = {
+      FirstName: fullName[0],
+      LastName: fullName[1],
+      Email: email,
+    }
+
+    // execute the autopilot journey
+    try {
+      await autopilot.contacts.upsert(contact)
+      await autopilot.journeys.add('0001', email)
+      alert('Thank you for sharing!')
+      setLoad(false)
+      form.current.email.value = ''
+    } catch (error) {
+      console.error(error)
+      alert(error)
+    }
   }
 
   const styles = {
@@ -126,12 +125,14 @@ const Footer: React.FC<FooterProps> = ({ showResult }) => {
           </div>
         )}
         <div className="text-center">
-          <Image
-            height={50}
-            width={172}
-            src={rc_logo}
-            className="object-cover"
-          />
+          <a href={HOME_DIR} className="cursor-pointer">
+            <Image
+              height={50}
+              width={172}
+              src={rc_logo}
+              className="cursor-pointer object-cover"
+            />
+          </a>
         </div>
       </div>
     </footer>
