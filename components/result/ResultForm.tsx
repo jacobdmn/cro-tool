@@ -5,7 +5,7 @@ import emailjs from '@emailjs/browser'
 import { submitAnswer } from './../../services/quiz'
 import Autopilot from 'autopilot-api'
 
-import { AUTOPILOT_KEY, HOME_DIR, EMAILJS_PUBLIC_KEY } from './../../env'
+import { AUTOPILOT_KEY, HOME_DIR } from './../../env'
 
 interface ResultFormProps {
   setShowResultPage: Setter<boolean>
