@@ -12,12 +12,7 @@ interface FooterProps {
   showResult: boolean
 }
 
-import {
-  CRO_TOOL_LINK,
-  AUTOPILOT_KEY,
-  EMAILJS_PUBLIC_KEY,
-  HOME_DIR,
-} from './../../env'
+import { AUTOPILOT_KEY, HOME_DIR } from './../../env'
 
 const Footer: React.FC<FooterProps> = ({ showResult }) => {
   const form: any = useRef()
