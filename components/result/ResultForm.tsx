@@ -1,23 +1,22 @@
 import { useState, useRef, useEffect } from 'react'
 import Button from '../button/Button'
 import { Setter } from '../../types/Setter'
-import emailjs from '@emailjs/browser'
 import { submitAnswer } from './../../services/quiz'
 import Autopilot from 'autopilot-api'
 
 import { AUTOPILOT_KEY, HOME_DIR } from './../../env'
-
 interface ResultFormProps {
   setShowResultPage: Setter<boolean>
   setSlug: Setter<string>
   answers: any
   score: number
   title: string
+  setEnteringEmailStage: Setter<boolean>
 }
 
 const styles = {
   formContainer:
-    'bg-white rounded-lg shadow-lg shadow-black/10 w-full flex flex-col items-center py-10 px-16 mt-8 text-black justify-between',
+    'bg-white rounded-lg shadow-lg shadow-black/10 w-full flex flex-col items-center py-10 mt-8 text-black justify-between',
   form_input: 'bg-quizpage_bg px-2 py-2 rounded w-80',
 }
 
@@ -27,6 +26,7 @@ const ResultForm: React.FC<ResultFormProps> = ({
   setSlug,
   score,
   title,
+  setEnteringEmailStage,
 }) => {
   const form: any = useRef()
   const slugInputHidden: any = useRef()
@@ -39,6 +39,7 @@ const ResultForm: React.FC<ResultFormProps> = ({
     const slug = Math.random().toString(36).slice(2)
     setSlug(slug)
     setTempSlug(slug)
+    setEnteringEmailStage(true)
   }, [])
 
   const answersJson = JSON.stringify(answers)
@@ -76,6 +77,7 @@ const ResultForm: React.FC<ResultFormProps> = ({
       await autopilot.contacts.upsert(contact)
       await autopilot.journeys.add('0002', email)
       setShowResultPage(true)
+      setEnteringEmailStage(false)
       setLoad(false)
       console.log('success')
     } catch (error) {
@@ -95,11 +97,11 @@ const ResultForm: React.FC<ResultFormProps> = ({
 
   console.log(answers)
   return (
-    <div className={styles.formContainer}>
-      <h1 className="mb-3 text-2xl font-semibold">
+    <div className={styles.formContainer + ` mx-auto w-full md:w-fit md:px-16`}>
+      <h1 className=" md mb-4 px-2 px-2 text-center text-2xl font-semibold">
         Enter Your Email Below To Get
       </h1>
-      <div className="flex items-center justify-center gap-12">
+      <div className="flex flex-col items-center justify-center gap-6 md:flex-row md:gap-12">
         {['Your Audit', 'List Of Action Items', 'Breakdown Of Results'].map(
           (item, index) => (
             <div key={index} className="flex items-center gap-2">
@@ -123,7 +125,7 @@ const ResultForm: React.FC<ResultFormProps> = ({
         )}
       </div>
       <form
-        className="mt-8 flex items-center gap-4"
+        className="mt-8 flex flex-col items-center gap-4 md:flex-row"
         ref={form}
         onSubmit={sendEmail}
       >

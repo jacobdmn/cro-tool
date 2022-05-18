@@ -18,6 +18,7 @@ interface ResultPageProps {
     exampleImage: any
   }[]
   reff: any
+  setEnteringEmailStage: any
 }
 
 const styles = {
@@ -26,7 +27,7 @@ const styles = {
 }
 
 const ResultPage: React.FC<ResultPageProps> = React.forwardRef(
-  ({ score, answers, title, reff }, ref: any) => {
+  ({ score, answers, title, reff, setEnteringEmailStage }, ref: any) => {
     const router = useRouter()
 
     const [showResultPage, setShowResultPage] = useState<boolean>(
@@ -44,7 +45,7 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(
           percent={Math.floor(score)}
           score={score}
         />
-        <div className="mx-auto py-10">
+        <div className="mx-auto w-full py-10 ">
           {showResultPage ? (
             <div className={styles.pageContainer}>
               <ShareResultCards
@@ -59,11 +60,11 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(
                     <h1 className="mx-auto mb-4 w-[70%] text-center text-xl font-semibold text-black">
                       {answer.questionTitle}
                     </h1>
-                    <div className="flex w-full justify-between gap-6">
+                    <div className="flex w-full flex-col justify-between gap-6 md:flex-row">
                       {answer.options.filter(
                         (option) => option.answer === 'yes'
                       ).length > 0 && (
-                        <div className="flex-1">
+                        <div className="w-[90vw] flex-1 md:w-[50%]">
                           <AnswerTypeHeader answerType="yes" />
                           <div className="flex flex-col items-center gap-4">
                             {answer.options
@@ -85,7 +86,7 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(
                       )}
                       {answer.options.filter((option) => option.answer === 'no')
                         .length > 0 && (
-                        <div className="flex-1">
+                        <div className="w-[90vw] flex-1 md:w-[50%]">
                           <AnswerTypeHeader answerType="no" />
                           <div className="flex flex-col items-center gap-4">
                             {answer.options
@@ -123,6 +124,7 @@ const ResultPage: React.FC<ResultPageProps> = React.forwardRef(
           ) : (
             <ResultForm
               setShowResultPage={setShowResultPage}
+              setEnteringEmailStage={setEnteringEmailStage}
               answers={answers}
               setSlug={setSlug}
               score={score}

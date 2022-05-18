@@ -13,9 +13,9 @@ interface ShareResultCardsProps {
   setIsExpanded: Setter<boolean>
 }
 const styles = {
-  resultCardsContainer: 'grid grid-cols-2 gap-6 w-full mb-6 mt-4',
+  resultCardsContainer: 'grid md:grid-cols-2 gap-6 w-full mb-6 mt-4',
   cardContainer:
-    'cardContainer py-8 px-6 flex justify-between rounded-xl bg-main_color h-56',
+    'cardContainer gap-4 py-8 px-4 md:px-6 flex justify-between rounded-xl bg-main_color h-56',
   cardTitle: 'text-xl font-semibold text-white mb-1.5',
 }
 
@@ -25,8 +25,6 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
   reff,
   setIsExpanded,
 }) => {
-  const HOME_DIR = process.env.REACT_APP_HOME_DIR as string
-
   const [tooltip, setTooltip] = useState(false)
 
   const handleCopyLinkButton = () => {
@@ -57,7 +55,11 @@ const ShareResultCards: React.FC<ShareResultCardsProps> = ({
             Download Your <br />
             Results as PDF
           </h2>
-          <Button text="Download PDF" onClick={handleOnClick} />
+          <Button
+            className="md:h-unset h-auto"
+            text="Download PDF"
+            onClick={handleOnClick}
+          />
         </div>
         <div className="flex items-center justify-center">
           <ProgressCircle

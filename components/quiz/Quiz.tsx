@@ -70,10 +70,10 @@ const Quiz: React.FC<QuizProps> = ({
         questionIndex={questionIndex}
         questionsLength={questionsLength}
       />
-      <h1 className="mb-12 mt-20 w-[60%] text-center text-3xl font-semibold text-black">
+      <h1 className="mb-12 mt-20 w-[90%] text-center text-3xl font-semibold text-black md:w-[60%]">
         {eachPageQuestions.questionTitle}
       </h1>
-      <div className="flex w-[880px] flex-col items-center justify-center gap-4 pb-16">
+      <div className="flex flex-col items-center justify-center gap-4 pb-16 md:px-8 lg:w-[880px]">
         {eachPageQuestions.options.map((option: string, index: number) => (
           <QuizForm
             key={index}

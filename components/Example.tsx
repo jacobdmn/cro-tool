@@ -7,11 +7,25 @@ import Accordion from '@mui/material/Accordion'
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
-
+import { createTheme } from '@mui/material/styles'
+import { BsArrowsFullscreen } from 'react-icons/bs'
+import { AiOutlineClose } from 'react-icons/ai'
 import Box from '@mui/material/Box'
 import AddIcon from '@mui/icons-material/Add'
 import CloseIcon from '@mui/icons-material/Close'
+import Button from '@mui/material/Button'
+import Modal from '@mui/material/Modal'
 
+const theme = createTheme()
+
+const modelBoxStyle = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'background.paper',
+  boxShadow: '24',
+}
 const useStyles: any = makeStyles({
   index: {
     width: '15px !important',
@@ -63,6 +77,9 @@ const useStyles: any = makeStyles({
     fontSize: '16px',
     fontWeight: 'bold',
     lineHeight: '3em !important',
+  },
+  exampleImgButton: {
+    width: '100%',
   },
   exampleImg: {
     width: '100%',
@@ -120,6 +137,10 @@ const Example: React.FC<ExampleProps> = ({
   const [showExample, setShowExample] = useState(false)
   const classes = useStyles()
 
+  const [openExample, setOpenExample] = useState(false)
+  const handleOpenExample = () => setOpenExample(true)
+  const handleCloseExample = () => setOpenExample(false)
+
   return (
     <div className={classes.exampleWrapper}>
       <div className={classes.example} style={{ boxShadow }}>
@@ -133,6 +154,7 @@ const Example: React.FC<ExampleProps> = ({
             // expanded={isExpanded}
           >
             <AccordionSummary
+              className="flex-col pb-2 md:flex-row md:pb-0"
               expandIcon={
                 <Tooltip title="Click here to see an example">
                   <IconButton
@@ -194,11 +216,43 @@ const Example: React.FC<ExampleProps> = ({
               )}
 
               {exampleImage && (
-                <img
-                  src={exampleImage.url}
-                  className={classes.exampleImg}
-                  alt="example"
-                />
+                <>
+                  <button
+                    onClick={handleOpenExample}
+                    className="relative flex w-full transition duration-200 ease-in-out hover:scale-[0.99]"
+                  >
+                    <span className="absolute top-4 left-4 hover:scale-95">
+                      <BsArrowsFullscreen />
+                    </span>
+                    <img
+                      src={exampleImage.url}
+                      className={classes.exampleImgButton}
+                      alt="example"
+                    />
+                  </button>
+                  <div className={`relative min-w-[90vw]`}>
+                    <Modal
+                      open={openExample}
+                      onClose={handleCloseExample}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Box sx={modelBoxStyle} onClick={handleCloseExample}>
+                        <span
+                          className="absolute top-6 right-8 hover:scale-95"
+                          onClick={handleCloseExample}
+                        >
+                          <AiOutlineClose className=" text-4xl" />
+                        </span>
+                        <img
+                          src={exampleImage.url}
+                          className={classes.exampleImg + ` min-w-[90vw]`}
+                          alt="example"
+                        />
+                      </Box>
+                    </Modal>
+                  </div>
+                </>
               )}
             </AccordionDetails>
           </Accordion>

@@ -80,6 +80,10 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
     return result
   }
 
+  // stage where the user enters email to see results
+  // we need this var to hide some sections from the footer at that stage
+  const [enteringEmailStage, setEnteringEmailStage] = useState(false)
+
   return (
     <div className="min-h-screen bg-quizpage_bg text-white" ref={componentRef}>
       <Header showResult={showResult} title={quiz?.title} />
@@ -89,6 +93,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
           answers={answers}
           title={quiz?.title}
           reff={componentRef}
+          setEnteringEmailStage={setEnteringEmailStage}
         />
       ) : (
         <Quiz
@@ -101,7 +106,7 @@ const QuizPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
           eachPageQuestions={eachPageQuestions}
         />
       )}
-      <Footer showResult={showResult} />
+      <Footer showResult={showResult} enteringEmailStage={enteringEmailStage} />
     </div>
   )
 }

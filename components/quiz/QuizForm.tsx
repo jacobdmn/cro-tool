@@ -11,7 +11,7 @@ import RadioGroup from '@mui/material/RadioGroup'
 
 import { Button } from '@mui/material'
 
-const useStyles:any = makeStyles({
+const useStyles: any = makeStyles({
   container: {
     width: '100%',
   },
@@ -32,8 +32,7 @@ const useStyles:any = makeStyles({
   },
   formControl: {
     width: '100%',
-    display: 'flex !important',
-    flexDirection: 'row',
+    display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
@@ -52,22 +51,20 @@ const useStyles:any = makeStyles({
     textAlign: 'center',
     marginInlineEnd: '30px',
     lineHeight: '1em !important',
-    display: 'grid',
     placeContent: 'center',
   },
   labelText: {
     display: 'inline-block',
     width: 'fit-content',
-    textAlign: 'left',
     color: '#333',
     fontSize: '1.1rem',
     lineHeight: '1.8',
+    fontWeight: 400,
   },
   radioGroup: {
     display: 'flex !important',
     flexDirection: 'row',
     flexWrap: 'nowrap',
-    width: 'fit-content',
   },
   controlWrapper: {
     display: 'inline-block',
@@ -149,12 +146,25 @@ const QuizForm: React.FC<QuizFormProps> = ({
     <div className={classes.container}>
       <div className={classes.questionWrapper}>
         <div className={classes.questionBody}>
-          <FormControl className={classes.formControl}>
+          <FormControl
+            className={
+              classes.formControl + ' flex-col gap-8 md:flex-row md:gap-0'
+            }
+          >
             <FormLabel className={classes.formLabel}>
-              <span className={classes.index}>{index}</span>
-              <p className={classes.labelText} style={{fontWeight:"400"}}>{option}</p>
+              <span className={classes.index + ' hidden md:grid '}>
+                {index}
+              </span>
+              <p className={classes.labelText + ' text-center md:text-left'}>
+                {option}
+              </p>
             </FormLabel>
-            <RadioGroup className={classes.radioGroup}>
+            <RadioGroup
+              className={
+                classes.radioGroup +
+                ' w-[80vw] place-content-center p-4 shadow-md md:w-fit md:p-0 md:shadow-none'
+              }
+            >
               <div className={classes.controlWrapper}>
                 <p className={classes.label}>Yes</p>
                 <Radio

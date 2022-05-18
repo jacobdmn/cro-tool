@@ -6,7 +6,7 @@ import Script from 'next/script'
 
 const styles = {
   auditWrapper:
-    'bg-main_color px-7 py-10 flex flex-col gap-4 rounded w-[28rem]',
+    'bg-main_color px-7 py-10 flex flex-col gap-4 rounded md:w-[28rem]',
 }
 export const auditButtons: { id: number; text: string; slug: string }[] = [
   { id: 1, text: 'Home Page Audit', slug: 'home-page-audit' },
@@ -23,7 +23,7 @@ const Home: NextPage = () => {
         {/* <Script src="./autopilotMetadata.js" /> */}
       </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center text-white">
+      <main className="flex w-full flex-1 flex-col items-center justify-center text-center text-white md:px-20">
         <div className={styles.auditWrapper}>
           <h1 className="mb-8 text-xl">Choose What You Want To Audit</h1>
           {auditButtons.map((btn) => (
