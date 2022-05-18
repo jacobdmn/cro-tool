@@ -1,6 +1,5 @@
 import { gql, request } from 'graphql-request'
-
-const GraphCMS_API = process.env.REACT_APP_GRAPHCMS_CONTENT_API as string
+import { GRAPHCMS_CONTENT_API } from '../env'
 
 export const getQuizDetails = async (slug: string) => {
   const query = gql`
@@ -20,7 +19,7 @@ export const getQuizDetails = async (slug: string) => {
       }
     }
   `
-  const result = await request(GraphCMS_API, query, { slug })
+  const result = await request(GRAPHCMS_CONTENT_API, query, { slug })
   return result.quiz
 }
 
@@ -32,7 +31,7 @@ export const getQuizzes = async () => {
       }
     }
   `
-  const result = await request(GraphCMS_API, query)
+  const result = await request(GRAPHCMS_CONTENT_API, query)
   return result.quizzes
 }
 
