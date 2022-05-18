@@ -10,7 +10,7 @@ import Autopilot from 'autopilot-api'
 
 interface FooterProps {
   showResult: boolean
-  enteringEmailStage: boolean
+  enteringEmailStage?: boolean
 }
 
 import { AUTOPILOT_KEY, HOME_DIR } from './../../env'

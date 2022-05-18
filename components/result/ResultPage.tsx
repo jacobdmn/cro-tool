@@ -18,7 +18,7 @@ interface ResultPageProps {
     exampleImage: any
   }[]
   reff: any
-  setEnteringEmailStage: any
+  setEnteringEmailStage?: any
 }
 
 const styles = {
