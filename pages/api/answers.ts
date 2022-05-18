@@ -1,12 +1,10 @@
 import { GraphQLClient, gql } from 'graphql-request'
-
-const graphqlAPI = process.env.REACT_APP_GRAPHCMS_CONTENT_API as string
-const graphcmsToken = process.env.REACT_APP_GRAPHCMS_PUBLIC_TOKEN as string
+import { GRAPHCMS_PUBLIC_TOKEN, GRAPHCMS_CONTENT_API } from '../../env'
 
 export default async function quizAnswers(req: any, res: any) {
-  const graphQLClient = new GraphQLClient(graphqlAPI, {
+  const graphQLClient = new GraphQLClient(GRAPHCMS_CONTENT_API, {
     headers: {
-      authorization: `Bearer ${graphcmsToken}`,
+      authorization: `Bearer ${GRAPHCMS_PUBLIC_TOKEN}`,
     },
   })
 
